@@ -14,19 +14,20 @@ public class TestUtils {
 
     public static void JHoldingRegistersTest2() {
         try {
-            String hexString = "01 03 8A 00 E5 00 35 03 79 01 F4 00 09 02 1D 00 00 00 00 00 00 00 00 00 11 01 30 00 00 00 15 01 30 00 3B 00 0F 01 19 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 28 4F";
+            String hexString = "01 03 8A 00 E5 00 35 03 79 01 F4 00 09 02 1D 00 00 00 00 00 00 00 00 00 11 01 30 00 00 00 15 01 30 00 3B 00 0F 01 19 00 00 00 00 00 00 00 00 00 01 00 00 00 00 00 00 00 01 00 00 00 00 01 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 AC 63 ";
 
 
             Map<String, Object> param = new HashMap<>();
             param.put("device_addr", 1);
-            param.put("reg_addr", "04 1F");
-            param.put("reg_cnt", 7);
+            param.put("reg_addr", 1070);
+            param.put("reg_cnt", 69);
             param.put("modbus_mode", "RTU");
             param.put("operate_name", "Read Holding Register");
             param.put("template_name", "Read System Measures Table");
             param.put("table_name", "101.CETUPS_Read System Measures Table.csv");
             Map<String, Object> value = new HashMap<>();
-          value = ModBusProtocolReadRegisters.unpackReadHoldingRegister(hexString, param);
+            value = ModBusProtocolReadRegisters.unpackReadHoldingRegister(hexString, param);
+            value = ModBusProtocolReadRegisters.unpackReadHoldingRegister(hexString, param);
        //     value = ModBusProtocolReadHoldingRegisters.unpackReadHoldingRegister(hexString, param);
 
             String data = ModBusProtocolWriteRegisters.packWriteHoldingRegister(param);

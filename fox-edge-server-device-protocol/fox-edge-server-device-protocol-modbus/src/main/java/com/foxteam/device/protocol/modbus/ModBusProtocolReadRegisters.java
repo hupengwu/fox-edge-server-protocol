@@ -7,9 +7,10 @@ import com.foxteam.device.protocol.core.protocol.modbus.ModBusConstants;
 import com.foxteam.device.protocol.core.protocol.modbus.ModBusProtocol;
 import com.foxteam.device.protocol.core.protocol.modbus.ModBusProtocolFactory;
 import com.foxteam.device.protocol.core.protocol.modbus.ModBusReadRegistersRespond;
+import com.foxteam.device.protocol.core.template.TemplateFactory;
 import com.foxteam.device.protocol.core.utils.HexUtils;
+import com.foxteam.device.protocol.core.utils.MethodUtils;
 import com.foxteam.device.protocol.modbus.template.JReadRegistersTemplate;
-import com.foxteam.device.protocol.modbus.template.ModBusTemplate;
 
 import java.util.Map;
 
@@ -82,12 +83,12 @@ public class ModBusProtocolReadRegisters {
         String operateName = (String) param.get("operate_name");
         String tableName = (String) param.get("table_name");
 
-        // 参数缺失检查
-        if (devAddr == null || regAddr == null || regCnd == null || modbusMode == null || operateName == null || tableName == null || templateName == null) {
-            throw new ProtocolException("输入参数异常");
+        // 检查输入参数
+        if (MethodUtils.hasEmpty(devAddr, regAddr, regCnd, modbusMode, templateName, operateName, tableName)) {
+            throw new ProtocolException("输入参数不能为空:devAddr, regAddr, regCnd, modbusMode, templateName, operateName, tableName");
         }
 
-        JReadRegistersTemplate template = ModBusTemplate.newInstance().getTemplate(operateName, templateName, tableName, JReadRegistersTemplate.class);
+        JReadRegistersTemplate template = TemplateFactory.getTemplate("fox-edge-server-device-protocol-modbus").getTemplate(templateName, tableName, JReadRegistersTemplate.class);
 
         // 确定命令字
         Byte func = 0;

@@ -6,6 +6,7 @@ import cn.hutool.core.text.csv.CsvUtil;
 import cn.hutool.core.util.CharsetUtil;
 import com.foxteam.device.protocol.core.exception.ProtocolException;
 import com.foxteam.device.protocol.core.protocol.modbus.ModBusWriteRegistersRequest;
+import com.foxteam.device.protocol.core.template.ITemplate;
 import lombok.Data;
 
 import java.io.File;
@@ -18,13 +19,22 @@ import java.util.Map;
  * HoldingRegisters数据实体的数据模板
  */
 @Data
-public class JReadRegistersTemplate {
+public class JReadRegistersTemplate implements ITemplate {
     public static final String READ_HOLDING_REGISTER = "Read Holding Register";
     public static final String READ_INPUT_REGISTER = "Read Input Register";
     public static final String WRITE_SINGLE_REGISTER = "Write Single Register";
 
     private String template_name = "";
     private JOperate operate = new JOperate();
+
+    /**
+     * 缺省的寄存器格式
+     *
+     * @return
+     */
+    public String getSysTemplateName() {
+        return "register default";
+    }
 
     /**
      * 从CSV文件中装载映射表

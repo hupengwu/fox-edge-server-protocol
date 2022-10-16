@@ -6,6 +6,7 @@ import cn.hutool.core.text.csv.CsvUtil;
 import cn.hutool.core.util.CharsetUtil;
 import com.foxteam.device.protocol.core.exception.ProtocolException;
 import com.foxteam.device.protocol.core.protocol.modbus.ModBusWriteStatusRequest;
+import com.foxteam.device.protocol.core.template.ITemplate;
 import lombok.Data;
 
 import java.io.File;
@@ -18,13 +19,22 @@ import java.util.Map;
  * CoilStatus数据实体的数据模板
  */
 @Data
-public class JReadStatusTemplate {
+public class JReadStatusTemplate implements ITemplate {
     public static final String READ_COIL_STATUS = "Read Coil Status";
     public static final String READ_INPUT_STATUS = "Read Input Status";
     public static final String WRITE_SINGLE_STATUS = "Write Single Status";
 
     private String template_name = "";
     private JOperate operate = new JOperate();
+
+    /**
+     * 缺省的状态格式
+     *
+     * @return
+     */
+    public String getSysTemplateName() {
+        return "status default";
+    }
 
     /**
      * 从CSV文件中装载映射表

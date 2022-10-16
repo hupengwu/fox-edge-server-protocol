@@ -6,6 +6,8 @@ import cn.hutool.core.text.csv.CsvUtil;
 import cn.hutool.core.util.CharsetUtil;
 import com.foxteam.device.protocol.core.exception.ProtocolException;
 import com.foxteam.device.protocol.core.protocol.modbus.ModBusWriteRegistersRequest;
+import com.foxteam.device.protocol.core.template.ITemplate;
+import com.foxteam.device.protocol.mitsubishi.plc.fx.entity.MitsubishiPlcFxDeviceReadEntity;
 import lombok.Data;
 
 import java.io.File;
@@ -15,16 +17,22 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * HoldingRegisters数据实体的数据模板
+ * 默认格式的模板
+ * 列名称格式：value_name	value_target	value_index	bit_index	bit_length	value_type	magnification	determine	remark
  */
 @Data
-public class JReadRegistersTemplate {
-    public static final String READ_HOLDING_REGISTER = "Read Holding Register";
-    public static final String READ_INPUT_REGISTER = "Read Input Register";
-    public static final String WRITE_SINGLE_REGISTER = "Write Single Register";
+public class JDefaultTemplate implements ITemplate {
+    public static final String FORMAT_NAME = "default";
 
-    private String template_name = "";
     private JOperate operate = new JOperate();
+
+    public String getSysTemplateName() {
+        return FORMAT_NAME;
+    }
+
+    public void setUserTemplateInfo(String userTemplateName, String tableName) {
+
+    }
 
     /**
      * 从CSV文件中装载映射表
@@ -34,7 +42,7 @@ public class JReadRegistersTemplate {
     public void loadCsvFile(String table) {
         File dir = new File("");
 
-        File file = new File(dir.getAbsolutePath() + "/template/mitsubishi.plc.fx/template/" + table);
+        File file = new File(dir.getAbsolutePath() + "/template/mitsubishi.plc.fx/" + table);
         CsvReader csvReader = CsvUtil.getReader();
         List<JDecoderValueParam> rows = csvReader.read(ResourceUtil.getReader(file.getPath(), CharsetUtil.CHARSET_GBK), JDecoderValueParam.class);
 
@@ -51,12 +59,12 @@ public class JReadRegistersTemplate {
     /**
      * 对保持寄存器的数据进行处理
      *
-     * @param statusList HoldingRegister状态
+     * @param entity HoldingRegister状态
      * @return 数据表
      * @throws ProtocolException 异常信息
      */
-    public Map<String, Object> decode(int address, int count, int[] statusList) throws ProtocolException {
-        return this.decodeValue(address, count, statusList);
+    public Map<String, Object> decode(int address, int count, MitsubishiPlcFxDeviceReadEntity entity) throws ProtocolException {
+        return this.decodeValue(address, count, entity);
     }
 
 
@@ -85,13 +93,18 @@ public class JReadRegistersTemplate {
         return request;
     }
 
-    private Map<String, Object> decodeValue(int address, int count, int[] statusList) {
+    private Map<String, Object> decodeValue(int address, int count, MitsubishiPlcFxDeviceReadEntity entity) {
         int offsetStart = address;
         int offsetEnd = address + count - 1;
         Map<String, Object> result = new HashMap<>();
         for (Map.Entry<String, JDecoderValueParam> entry : this.operate.decoder_param.valueMap.entrySet()) {
             String name = entry.getKey();
             JDecoderValueParam jDecoderValueParam = entry.getValue();
+
+            // 检查:target
+            if (!entity.getTarget().equals(jDecoderValueParam.value_target)) {
+                continue;
+            }
 
             // 检查：csv的下标是否越界
             if (jDecoderValueParam.value_index < offsetStart) {
@@ -102,11 +115,10 @@ public class JReadRegistersTemplate {
             }
 
             int index = jDecoderValueParam.value_index - offsetStart;
-            if (index >= statusList.length) {
-                continue;
-            }
 
-            int status = statusList[index];
+            //  entity.getData().
+
+            int status = 0;//statusList[index];
 
 
             if (jDecoderValueParam.value_type.equals("int")) {
@@ -114,6 +126,9 @@ public class JReadRegistersTemplate {
             }
             if (jDecoderValueParam.value_type.equals("float")) {
                 result.put(name, status * jDecoderValueParam.magnification);
+            }
+            if (jDecoderValueParam.value_type.equals("string")) {
+                result.put(name, status);
             }
             if (jDecoderValueParam.value_type.equals("bool")) {
                 int value = 0;
@@ -152,7 +167,6 @@ public class JReadRegistersTemplate {
     static public class JOperate implements Serializable {
         private String name = "";
         private String operate_name = "";
-        private String modbus_mode = "";
         private JEncoderParam encoder_param = new JEncoderParam();
         private JDecoderParam decoder_param = new JDecoderParam();
     }
@@ -177,6 +191,10 @@ public class JReadRegistersTemplate {
          */
         private String value_name;
         /**
+         * target的名称
+         */
+        private String value_target;
+        /**
          * 寄存器状态的偏移量位置
          */
         private Integer value_index;
@@ -193,6 +211,7 @@ public class JReadRegistersTemplate {
          * int：对数据进行int类型处理，结合magnification放大倍数处理
          * float：对数据进行float类型处理，结合magnification放大倍数处理
          * bool：
+         * string：字符串格式
          */
         private String value_type;
         /**

@@ -26,6 +26,7 @@
         <module>fox-edge-server-device-protocol-shmeter</module>
         <module>fox-edge-server-device-protocol-bass260zj</module>
         <module>fox-edge-server-device-protocol-mitsubishi-plc-fx-core</module>
+        <module>fox-edge-server-device-protocol-mitsubishi-plc-fx</module>
     </modules>
 
 

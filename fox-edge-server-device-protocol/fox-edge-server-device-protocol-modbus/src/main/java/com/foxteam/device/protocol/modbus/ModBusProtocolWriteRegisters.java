@@ -6,7 +6,7 @@ import com.foxteam.device.protocol.core.exception.ProtocolException;
 import com.foxteam.device.protocol.core.protocol.modbus.*;
 import com.foxteam.device.protocol.core.utils.HexUtils;
 import com.foxteam.device.protocol.modbus.template.JReadRegistersTemplate;
-import com.foxteam.device.protocol.modbus.template.ModBusTemplate;
+import com.foxteam.device.protocol.core.template.TemplateFactory;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -61,7 +61,7 @@ public class ModBusProtocolWriteRegisters {
             throw new ProtocolException("输入参数异常");
         }
 
-        JReadRegistersTemplate template = ModBusTemplate.newInstance().getTemplate(operateName, templateName, tableName, JReadRegistersTemplate.class);
+        JReadRegistersTemplate template = TemplateFactory.getTemplate("fox-edge-server-device-protocol-modbus").getTemplate(templateName, tableName, JReadRegistersTemplate.class);
         if (template == null) {
             throw new ProtocolException("找不到对应的模板");
         }

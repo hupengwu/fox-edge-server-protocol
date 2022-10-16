@@ -10,7 +10,7 @@ import com.foxteam.device.protocol.core.protocol.modbus.ModBusProtocolFactory;
 import com.foxteam.device.protocol.core.protocol.modbus.ModBusReadStatusRespond;
 import com.foxteam.device.protocol.core.utils.HexUtils;
 import com.foxteam.device.protocol.modbus.template.JReadStatusTemplate;
-import com.foxteam.device.protocol.modbus.template.ModBusTemplate;
+import com.foxteam.device.protocol.core.template.TemplateFactory;
 
 import java.util.Map;
 
@@ -88,7 +88,7 @@ public class ModBusProtocolReadStatus {
             throw new ProtocolException("输入参数异常");
         }
 
-        JReadStatusTemplate template = ModBusTemplate.newInstance().getTemplate(operateName, templateName, tableName, JReadStatusTemplate.class);
+        JReadStatusTemplate template = TemplateFactory.getTemplate("fox-edge-server-device-protocol-modbus").getTemplate(templateName, tableName, JReadStatusTemplate.class);
 
         // 确定命令字
         Byte func = 0;
