@@ -1,4 +1,4 @@
-package com.foxteam.device.protocol.mitsubishi.plc.fx;
+package com.foxteam.device.protocol.mitsubishi.plc.fx.demo;
 
 import com.foxteam.device.protocol.core.utils.HexUtils;
 import com.foxteam.device.protocol.mitsubishi.plc.fx.entity.MitsubishiPlcFxDeviceReadEntity;

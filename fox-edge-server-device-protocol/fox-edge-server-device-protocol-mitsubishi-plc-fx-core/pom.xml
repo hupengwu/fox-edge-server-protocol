@@ -9,9 +9,9 @@
         <version>1.0.0</version>
     </parent>
 
-    <artifactId>fox-edge-server-device-protocol-mitsubishi-plc-fx</artifactId>
-    <name>fox-edge-server-device-protocol-mitsubishi-plc-fx</name>
-    <description>fox-edge-server-device-protocol-mitsubishi-plc-fx</description>
+    <artifactId>fox-edge-server-device-protocol-mitsubishi-plc-fx-core</artifactId>
+    <name>fox-edge-server-device-protocol-mitsubishi-plc-fx-core</name>
+    <description>fox-edge-server-device-protocol-mitsubishi-plc-fx-core</description>
 
     <dependencies>
         <dependency>
