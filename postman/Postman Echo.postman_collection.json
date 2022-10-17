@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "f695cab7-6878-eb55-7943-ad88e1ccfd65",
+		"_postman_id": "4c643274-e915-463d-9c15-d43ccff93024",
 		"name": "Postman Echo",
 		"description": "Postman Echo is service you can use to test your REST clients and make sample API calls. It provides endpoints for `GET`, `POST`, `PUT`, various auth mechanisms and other utility endpoints.\n\nThe documentation for the endpoints as well as example responses can be found at [https://postman-echo.com](https://postman-echo.com/?source=echo-collection-app-onboarding)",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
@@ -1166,7 +1166,7 @@
 							],
 							"cookie": [
 								{
-									"expires": "Fri Apr 15 2016 18:54:28 GMT+0800 (中国标准时间)",
+									"expires": "Invalid Date",
 									"hostOnly": false,
 									"httpOnly": false,
 									"domain": ".getpostman.com",
@@ -1177,7 +1177,7 @@
 									"key": "getpostmanlogin"
 								},
 								{
-									"expires": "Fri Apr 15 2016 18:54:28 GMT+0800 (中国标准时间)",
+									"expires": "Invalid Date",
 									"hostOnly": false,
 									"httpOnly": false,
 									"domain": ".getpostman.com",
@@ -3798,13 +3798,13 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://192.168.1.10:9000/user/login?username=admin&password=12345678",
+							"raw": "http://192.168.1.7:9000/user/login?username=admin&password=12345678",
 							"protocol": "http",
 							"host": [
 								"192",
 								"168",
 								"1",
-								"10"
+								"7"
 							],
 							"port": "9000",
 							"path": [
@@ -3831,13 +3831,13 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://192.168.1.5:9000/user/login?username=admin&password=12345678",
+							"raw": "http://192.168.1.2:9000/user/login?username=admin&password=12345678",
 							"protocol": "http",
 							"host": [
 								"192",
 								"168",
 								"1",
-								"5"
+								"2"
 							],
 							"port": "9000",
 							"path": [
@@ -3939,11 +3939,8 @@
 				},
 				{
 					"name": "logout",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
 					"request": {
-						"method": "GET",
+						"method": "DELETE",
 						"header": [],
 						"body": {
 							"mode": "raw",
@@ -3955,116 +3952,18 @@
 							}
 						},
 						"url": {
-							"raw": "http://192.168.1.4:9000/user/logout",
+							"raw": "http://192.168.1.2:9000/user/logout",
 							"protocol": "http",
 							"host": [
 								"192",
 								"168",
 								"1",
-								"4"
+								"2"
 							],
 							"port": "9000",
 							"path": [
 								"user",
 								"logout"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "RedisTopic（public）-query_name",
-					"protocolProfileBehavior": {
-						"disabledSystemHeaders": {}
-					},
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/x-www-form-urlencoded; charset=UTF-8",
-								"type": "text"
-							},
-							{
-								"key": "Accpet",
-								"value": "text/plain;charset=UTF-8",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n\t\"cmd\": \"query_name\",\r\n    \"uuid\": \"hupengwu\",\r\n\t\"timeout\": 3000\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://192.168.1.4:9003/proxy/redis/topic/channel/topic_channel_request_public",
-							"protocol": "http",
-							"host": [
-								"192",
-								"168",
-								"1",
-								"4"
-							],
-							"port": "9003",
-							"path": [
-								"proxy",
-								"redis",
-								"topic",
-								"channel",
-								"topic_channel_request_public"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "RedisTopic（public） query_active",
-					"protocolProfileBehavior": {
-						"disabledSystemHeaders": {}
-					},
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"value": "application/x-www-form-urlencoded; charset=UTF-8",
-								"type": "text"
-							},
-							{
-								"key": "Accpet",
-								"value": "text/plain;charset=UTF-8",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n\t\"cmd\": \"query_active\",\r\n    \"uuid\": \"hupengwu\",\r\n\t\"timeout\": 3000\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://192.168.1.4:9003/proxy/redis/topic/channel/topic_channel_request_public",
-							"protocol": "http",
-							"host": [
-								"192",
-								"168",
-								"1",
-								"4"
-							],
-							"port": "9003",
-							"path": [
-								"proxy",
-								"redis",
-								"topic",
-								"channel",
-								"topic_channel_request_public"
 							]
 						}
 					},
@@ -4091,7 +3990,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n\t\"name\": \"channel-simulator\",\r\n    \"mode\": \"exchange\",\r\n    \"uuid\": \"hupengwu\",\r\n\t\"send\": \"7e 32 30 30 31 34 31 34 31 30 30 30 30 46 44 42 33 0d   \",    \r\n\t\"timeout\": 3000\r\n}",
+							"raw": "{\r\n\t\"name\": \"channel-simulator\",\r\n    \"mode\": \"exchange\",\r\n    \"uuid\": \"hupengwu\",\r\n\t\"send\": \"46 49 4E 53 00 00 00 1A 00 00 00 02 00 00 00 00 80 00 02 00 0A 00 00 71 00 FF 01 01 B1 00 0A 00 00 01   \",    \r\n\t\"timeout\": 3000\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -4099,13 +3998,13 @@
 							}
 						},
 						"url": {
-							"raw": "http://192.168.1.5:9000/proxy/redis/topic/channel/topic_channel_request_simulator",
+							"raw": "http://192.168.1.2:9000/proxy/redis/topic/channel/topic_channel_request_simulator",
 							"protocol": "http",
 							"host": [
 								"192",
 								"168",
 								"1",
-								"5"
+								"2"
 							],
 							"port": "9000",
 							"path": [
@@ -4189,7 +4088,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n\t\"name\": \"COM3\",\r\n    \"mode\": \"exchange\",\r\n\t\"send\": \"fe 68 11 11 11 53 12 35 68 01 02 43 c3 a6 16\",\r\n\t\"timeout\": 5000\r\n}",
+							"raw": "{\r\n\t\"name\": \"COM3\",\r\n    \"mode\": \"exchange\",\r\n\t\"send\": \"68 00 00 00 00 00 00 68 01 02 4A F4 11 16 \",\r\n\t\"timeout\": 2000\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -4197,13 +4096,13 @@
 							}
 						},
 						"url": {
-							"raw": "http://192.168.241.128:9000/proxy/redis/topic/channel/topic_channel_request_serialport",
+							"raw": "http://192.168.1.2:9000/proxy/redis/topic/channel/topic_channel_request_serialport",
 							"protocol": "http",
 							"host": [
 								"192",
 								"168",
-								"241",
-								"128"
+								"1",
+								"2"
 							],
 							"port": "9000",
 							"path": [
@@ -4212,6 +4111,55 @@
 								"topic",
 								"channel",
 								"topic_channel_request_serialport"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "RedisTopic（gdana-digester）",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Accpet",
+								"value": "text/plain;charset=UTF-8",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"name\": \"COM9\",\r\n    \"mode\": \"exchange\",\r\n\t\"send\": \"ff ff ff ff ff ff 00 00 51 0b\",\r\n\t\"timeout\": 10000\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://192.168.1.2:9000/proxy/redis/topic/channel/topic_channel_request_gdana-digester",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"1",
+								"2"
+							],
+							"port": "9000",
+							"path": [
+								"proxy",
+								"redis",
+								"topic",
+								"channel",
+								"topic_channel_request_gdana-digester"
 							]
 						}
 					},
@@ -4238,7 +4186,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n\t\"name\": \"192.168.1.3:502\",\r\n\t\"send\": \"19 b2 00 00 00 06 01 06 00 01 01 0A\",\r\n\t\"timeout\": 3000\r\n}",
+							"raw": "{\r\n\t\"name\": \"127.0.0.1:502\",\r\n\t\"send\": \"00 00 00 00 00 06 01 03 9c 41 00 20 \",\r\n\t\"timeout\": 3000\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -4246,15 +4194,15 @@
 							}
 						},
 						"url": {
-							"raw": "http://192.168.1.4:9003/proxy/redis/topic/channel/topic_channel_request_tcpsocket",
+							"raw": "http://192.168.1.5:9000/proxy/redis/topic/channel/topic_channel_request_tcpsocket",
 							"protocol": "http",
 							"host": [
 								"192",
 								"168",
 								"1",
-								"4"
+								"5"
 							],
-							"port": "9003",
+							"port": "9000",
 							"path": [
 								"proxy",
 								"redis",
@@ -4393,15 +4341,15 @@
 							}
 						},
 						"url": {
-							"raw": "http://192.168.241.128:9003/proxy/redis/topic/channel/topic_channel_request_mqtt_client",
+							"raw": "http://192.168.1.3:9000/proxy/redis/topic/channel/topic_channel_request_mqtt_client",
 							"protocol": "http",
 							"host": [
 								"192",
 								"168",
-								"241",
-								"128"
+								"1",
+								"3"
 							],
-							"port": "9003",
+							"port": "9000",
 							"path": [
 								"proxy",
 								"redis",
@@ -4581,7 +4529,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n\t\"operate\": \"smpl_exchange\",\r\n\t\"deviceName\": \"浙江移动-丽水移动-丹霞山5号基站-4号电源设备\",\r\n\t\"operateName\": \"获取交流系统模拟量量化数据\",\r\n    \"uuid\": \"1b1df78266b9449c9d5705f821a2b4c1\",\r\n\t\"timeout\": 2000\r\n}",
+							"raw": "{\r\n\t\"uuid\": \"1b1df78266b9449c9d5705f821a2b4c1\",\r\n\t\"timeout\": 8000,\r\n\t\"requestVOS\": [{\r\n\t\t\"operateMode\": \"exchange\",\r\n\t\t\"deviceName\": \"浙江移动-丽水移动-丹霞山5号基站-4号电源设备\",\r\n\t\t\"operateName\": \"获取交流系统模拟量量化数据\",\r\n\t\t\"uuid\": \"1b1df78266b9449c9d5705f821a2b4c1\",\r\n\t\t\"param\": {\r\n\t\t\t\"template_name\": \"Read System Measures Table\",\r\n\t\t\t\"device_addr\": 1,\r\n\t\t\t\"reg_addr\": 1070,\r\n\t\t\t\"reg_cnt\": 69,\r\n\t\t\t\"modbus_mode\": \"RTU\",\r\n\t\t\t\"operate_name\": \"Read Holding Register\",\r\n\t\t\t\"table_name\": \"101.CETUPS_Read System Measures Table.csv\"\r\n\t\t},\r\n\t\t\"timeout\": 2000\r\n\t}]\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -4589,13 +4537,13 @@
 							}
 						},
 						"url": {
-							"raw": "http://192.168.241.128:9000/proxy/redis/topic/device/topic_device_request_public",
+							"raw": "http://192.168.1.2:9000/proxy/redis/topic/device/topic_device_request_public",
 							"protocol": "http",
 							"host": [
 								"192",
 								"168",
-								"241",
-								"128"
+								"1",
+								"2"
 							],
 							"port": "9000",
 							"path": [
@@ -4610,7 +4558,7 @@
 					"response": []
 				},
 				{
-					"name": "RedisTopic（ModBus Device）状态",
+					"name": "RedisTopic（Device）状态 Copy",
 					"protocolProfileBehavior": {
 						"disabledSystemHeaders": {}
 					},
@@ -4630,7 +4578,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n\t\"operate\": \"smpl_exchange\",\r\n\t\"deviceName\": \"ModBus11\",\r\n\t\"operateName\": \"Read Holding Register\",\r\n\t\"uuid\": \"1b1df78266b9449c9d5705f821a2b4c1\",\r\n\t\"param\": {\r\n\t\t\"template_name\": \"Read System Measures Table\",\r\n\t\t\"device_addr\": 1,\r\n\t\t\"reg_addr\": \"04 2E\",\r\n\t\t\"reg_cnt\": 69,\r\n\t\t\"modbus_mode\": \"RTU\",\r\n\t\t\"operate_name\": \"Read Holding Register\",\r\n\t\t\"table_name\": \"101.CETUPS_Read System Measures Table.csv\"\r\n\t},\r\n\t\"timeout\": 2000\r\n}",
+							"raw": "{\r\n\t\"requestVOS\": [{\r\n\t\t\"uuid\": \"1ad49757-90b3-4c94-a9bb-f767a574e9bf\",\r\n\t\t\"deviceName\": \"www\",\r\n\t\t\"deviceType\": \"ModBus Device\",\r\n\t\t\"operateName\": \"Read Holding Register\",\r\n\t\t\"param\": {\r\n\t\t\t\"reg_cnt\": 69,\r\n\t\t\t\"reg_addr\": 1070,\r\n\t\t\t\"table_name\": \"101.CETUPS_Read System Measures Table.csv\",\r\n\t\t\t\"device_addr\": 1,\r\n\t\t\t\"modbus_mode\": \"RTU\",\r\n\t\t\t\"operate_name\": \"Read Holding Register\",\r\n\t\t\t\"template_name\": \"Read System Measures Table\"\r\n\t\t},\r\n\t\t\"timeout\": 2000\r\n\t}],\r\n\t\"uuid\": \"c555e9e8-b1a1-4866-9f99-a759f48bb866\",\r\n\t\"timeout\": 2000\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -4638,13 +4586,258 @@
 							}
 						},
 						"url": {
-							"raw": "http://192.168.1.5:9000/proxy/redis/topic/device/topic_device_request_public",
+							"raw": "http://192.168.1.2:9000/proxy/redis/topic/device/topic_device_request_public",
 							"protocol": "http",
 							"host": [
 								"192",
 								"168",
 								"1",
-								"5"
+								"2"
+							],
+							"port": "9000",
+							"path": [
+								"proxy",
+								"redis",
+								"topic",
+								"device",
+								"topic_device_request_public"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "RedisTopic（ModBus Device）状态1",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Accpet",
+								"value": "text/plain;charset=UTF-8",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"uuid\": \"07db0c1610db410ba2183ca55d85665e\",\r\n\t\"clientName\": \"proxy4http2topic\",\r\n\t\"timeout\": 2000,\r\n\t\"requestVOS\": [{\r\n\t\t\"operateMode\": \"smpl_exchange\",\r\n\t\t\"deviceName\": \"ModBus11\",\r\n\t\t\"operateName\": \"Read Holding Register\",\r\n\t\t\"uuid\": \"1b1df78266b9449c9d5705f821a2b4c1\",\r\n\t\t\"param\": {\r\n\t\t\t\"template_name\": \"Read System Measures Table\",\r\n\t\t\t\"device_addr\": 1,\r\n\t\t\t\"reg_addr\": 1070,\r\n\t\t\t\"reg_cnt\": 69,\r\n\t\t\t\"modbus_mode\": \"RTU\",\r\n\t\t\t\"operate_name\": \"Read Holding Register\",\r\n\t\t\t\"table_name\": \"101.CETUPS_Read System Measures Table.csv\"\r\n\t\t},\r\n\t\t\"timeout\": 2000\r\n\t}]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://192.168.1.2:9000/proxy/redis/topic/device/topic_device_request_public",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"1",
+								"2"
+							],
+							"port": "9000",
+							"path": [
+								"proxy",
+								"redis",
+								"topic",
+								"device",
+								"topic_device_request_public"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "RedisTopic（ModBus Device）状态1 Copy",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Accpet",
+								"value": "text/plain;charset=UTF-8",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"uuid\": \"1b1df78266b9449c9d5705f821a2b4c1\",\r\n    \"timeout\": 8000,\r\n\t\"requestVOS\": [{\r\n\t\t\"operateMode\": \"smpl_exchange\",\r\n\t\t\"deviceName\": \"ModBus11\",\r\n\t\t\"operateName\": \"Read Holding Register\",\r\n\t\t\"uuid\": \"1b1df78266b9449c9d5705f821a2b4c1\",\r\n\t\t\"param\": {\r\n\t\t\t\"template_name\": \"Read System Measures Table\",\r\n\t\t\t\"device_addr\": 1,\r\n\t\t\t\"reg_addr\": 1070,\r\n\t\t\t\"reg_cnt\": 69,\r\n\t\t\t\"modbus_mode\": \"RTU\",\r\n\t\t\t\"operate_name\": \"Read Holding Register\",\r\n\t\t\t\"table_name\": \"101.CETUPS_Read System Measures Table.csv\"\r\n\t\t},\r\n\t\t\"timeout\": 2000\r\n\t}]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://192.168.1.2:9000/proxy/redis/topic/device/topic_device_request_public",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"1",
+								"2"
+							],
+							"port": "9000",
+							"path": [
+								"proxy",
+								"redis",
+								"topic",
+								"device",
+								"topic_device_request_public"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "RedisTopic（ModBus Device）状态2",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Accpet",
+								"value": "text/plain;charset=UTF-8",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"uuid\": \"07db0c1610db410ba2183ca55d85665e\",\r\n\t\"clientName\": \"proxy4http2topic\",\r\n\t\"timeout\": 2000,\r\n\t\"requestVOS\": [{\r\n\t\t\"operateMode\": \"smpl_exchange\",\r\n\t\t\"deviceName\": \"ModSim32\",\r\n\t\t\"operateName\": \"Write Single Status\",\r\n\t\t\"uuid\": \"1b1df78266b9449c9d5705f821a2b4c1\",\r\n\t\t\"param\": {\r\n\t\t\t\"template_name\": \"Write Single Status Table\",\r\n\t\t\t\"device_addr\": 1,\r\n\t\t\t\"reg_cnt\": 69,\r\n\t\t\t\"modbus_mode\": \"TCP\",\r\n\t\t\t\"operate_name\": \"Write Single Status\",\r\n\t\t\t\"object_name\": \"线圈状态5\",\r\n\t\t\t\"object_value\": true,\r\n\t\t\t\"table_name\": \"102.CETUPS_Coil Status Table.csv\"\r\n\t\t},\r\n\t\t\"timeout\": 2000\r\n\t}]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://192.168.1.2:9000/proxy/redis/topic/device/topic_device_request_public",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"1",
+								"2"
+							],
+							"port": "9000",
+							"path": [
+								"proxy",
+								"redis",
+								"topic",
+								"device",
+								"topic_device_request_public"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "RedisTopic（omron Device）单步操作",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Accpet",
+								"value": "text/plain;charset=UTF-8",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"uuid\": \"07db0c1610db410ba2183ca55d85665e\",\r\n\t\"clientName\": \"proxy4http2topic\",\r\n\t\"timeout\": 2000,\r\n\t\"requestVOS\": [{\r\n\t\t\"operateMode\": \"smpl_exchange\",\r\n\t\t\"deviceName\": \"欧姆龙FINS设备\",\r\n\t\t\"operateName\": \"Read Data\",\r\n\t\t\"uuid\": \"1b1df78266b9449c9d5705f821a2b4c1\",\r\n\t\t\"param\": {\r\n\t\t\t\"ICF\": \"80\",\r\n\t\t\t\"GCT\": 2,\r\n\t\t\t\"DA1\": 10,\r\n\t\t\t\"SA1\": 113,\r\n\t\t\t\"SID\": 255,\r\n\t\t\t\"AREA\": \"B1\",\r\n\t\t\t\"WADR\": 10,\r\n\t\t\t\"BADR\": 0,\r\n\t\t\t\"CNT\": 1,\r\n\t\t\t\"FMT\": \"Short\",\r\n\t\t\t\"NAME\": \"数值\"\r\n\t\t},\r\n\t\t\"timeout\": 2000\r\n\t}]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://192.168.1.2:9000/proxy/redis/topic/device/topic_device_request_public",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"1",
+								"2"
+							],
+							"port": "9000",
+							"path": [
+								"proxy",
+								"redis",
+								"topic",
+								"device",
+								"topic_device_request_public"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "RedisTopic（omron Device）批量操作",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Accpet",
+								"value": "text/plain;charset=UTF-8",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"operate\": \"bulk_exchange\",\r\n\t\"deviceName\": \"欧姆龙FINS设备\",\r\n    \"operateName\": \"默认的批量读取数据操作\",\r\n    \"uuid\": \"1b1df78266b9449c9d5705f821a2b4c1\",\r\n    \"timeout\": 8000\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://192.168.1.7:9000/proxy/redis/topic/device/topic_device_request_public",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"1",
+								"7"
 							],
 							"port": "9000",
 							"path": [
@@ -4736,13 +4929,13 @@
 							}
 						},
 						"url": {
-							"raw": "http://192.168.241.128:9000/proxy/redis/topic/device/topic_device_request_public",
+							"raw": "http://192.168.1.2:9000/proxy/redis/topic/device/topic_device_request_public",
 							"protocol": "http",
 							"host": [
 								"192",
 								"168",
-								"241",
-								"128"
+								"1",
+								"2"
 							],
 							"port": "9000",
 							"path": [
@@ -4785,13 +4978,13 @@
 							}
 						},
 						"url": {
-							"raw": "http://192.168.241.128:9000/proxy/redis/topic/device/topic_device_request_public",
+							"raw": "http://192.168.1.7:9000/proxy/redis/topic/device/topic_device_request_public",
 							"protocol": "http",
 							"host": [
 								"192",
 								"168",
-								"241",
-								"128"
+								"1",
+								"7"
 							],
 							"port": "9000",
 							"path": [
@@ -4980,20 +5173,20 @@
 							}
 						},
 						"url": {
-							"raw": "http://192.168.1.3:9000/manager/system/channel/entity",
+							"raw": "http://192.168.1.2:9000/manager/system/channel/entities",
 							"protocol": "http",
 							"host": [
 								"192",
 								"168",
 								"1",
-								"3"
+								"2"
 							],
 							"port": "9000",
 							"path": [
 								"manager",
 								"system",
 								"channel",
-								"entity"
+								"entities"
 							]
 						}
 					},
@@ -5049,7 +5242,44 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n\t\"channelName\": \"my1\",\r\n\t\"channelType\": \"admin2\"\r\n}",
+							"raw": "{\r\n\t\"channelName\": \"COM4\",\r\n\t\"channelType\": \"gdana-digester\",\r\n\t\"channelParam\": {\r\n\t\t\"serial_name\": \"COM3\",\r\n\t\t\"baud_rate\": 9600,\r\n\t\t\"databits\": 8,\r\n\t\t\"parity\": \"N\",\r\n\t\t\"stopbits\": 1\r\n\t}\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://192.168.1.3:9000/manager/system/channel/entity",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"1",
+								"3"
+							],
+							"port": "9000",
+							"path": [
+								"manager",
+								"system",
+								"channel",
+								"entity"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "channel-update",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"channelName\": \"COM4\",\r\n\t\"channelType\": \"serialport\",\r\n\t\"channelParam\": {\r\n\t\t\"serial_name\": \"COM3\",\r\n\t\t\"baud_rate\": 2440,\r\n\t\t\"databits\": 8,\r\n\t\t\"parity\": \"E\",\r\n\t\t\"stopbits\": 1\r\n\t}\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -5140,20 +5370,20 @@
 							}
 						},
 						"url": {
-							"raw": "http://192.168.1.4:9000/manager/system/config/entity",
+							"raw": "http://192.168.1.2:9000/manager/system/config/entities",
 							"protocol": "http",
 							"host": [
 								"192",
 								"168",
 								"1",
-								"4"
+								"2"
 							],
 							"port": "9000",
 							"path": [
 								"manager",
 								"system",
 								"config",
-								"entity"
+								"entities"
 							]
 						}
 					},
@@ -5169,7 +5399,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n\t\"configName\": \"my1\",\r\n    \"serviceName\": \"my12\",\r\n\t\"configParam\": \"admin2\"\r\n}",
+							"raw": "{\r\n\t\"configName\": \"my1\",\r\n\t\"serviceName\": \"my12\",\r\n\t\"configParam\": {\r\n\t\t\"period\": 3600,\r\n\t\t\"maxCount\": 1000000\r\n\t}\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -5177,13 +5407,13 @@
 							}
 						},
 						"url": {
-							"raw": "http://192.168.1.4:9401/manager/system/config/entity",
+							"raw": "http://192.168.1.3:9401/manager/system/config/entity",
 							"protocol": "http",
 							"host": [
 								"192",
 								"168",
 								"1",
-								"4"
+								"3"
 							],
 							"port": "9401",
 							"path": [
@@ -5206,7 +5436,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n\t\"configName\": \"my12\",\r\n    \"serviceName\": \"my1\",\r\n\t\"configParam\": \"admin21\"\r\n}",
+							"raw": "{\r\n\t\"configName\": \"my1\",\r\n\t\"serviceName\": \"my12\",\r\n\t\"configParam\": {\r\n\t\t\"period\": 3600,\r\n\t\t\"maxCount\": 1000000\r\n\t}\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -5214,13 +5444,13 @@
 							}
 						},
 						"url": {
-							"raw": "http://192.168.1.4:9401/manager/system/config/entity",
+							"raw": "http://192.168.1.3:9401/manager/system/config/entity",
 							"protocol": "http",
 							"host": [
 								"192",
 								"168",
 								"1",
-								"4"
+								"3"
 							],
 							"port": "9401",
 							"path": [
@@ -5251,15 +5481,15 @@
 							}
 						},
 						"url": {
-							"raw": "http://192.168.1.4:9401/manager/system/config/entity?serviceName=my1&&configName=my12",
+							"raw": "http://192.168.1.3:9000/manager/system/config/entity?id=13",
 							"protocol": "http",
 							"host": [
 								"192",
 								"168",
 								"1",
-								"4"
+								"3"
 							],
-							"port": "9401",
+							"port": "9000",
 							"path": [
 								"manager",
 								"system",
@@ -5268,16 +5498,8 @@
 							],
 							"query": [
 								{
-									"key": "serviceName",
-									"value": "my1"
-								},
-								{
-									"key": null,
-									"value": null
-								},
-								{
-									"key": "configName",
-									"value": "my12"
+									"key": "id",
+									"value": "13"
 								}
 							]
 						}
@@ -5302,13 +5524,13 @@
 							}
 						},
 						"url": {
-							"raw": "http://192.168.1.3:9000/manager/system/device/value/entity",
+							"raw": "http://192.168.1.2:9000/manager/system/device/value/entities",
 							"protocol": "http",
 							"host": [
 								"192",
 								"168",
 								"1",
-								"3"
+								"2"
 							],
 							"port": "9000",
 							"path": [
@@ -5316,7 +5538,45 @@
 								"system",
 								"device",
 								"value",
-								"entity"
+								"entities"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "devicestatus-查询实体",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"deviceType\": \"ModBus Device\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://192.168.1.7:9000/manager/system/device/status/entities",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"1",
+								"7"
+							],
+							"port": "9000",
+							"path": [
+								"manager",
+								"system",
+								"device",
+								"status",
+								"entities"
 							]
 						}
 					},
@@ -5340,13 +5600,13 @@
 							}
 						},
 						"url": {
-							"raw": "http://192.168.1.3:9000/manager/system/trigger/value/entity",
+							"raw": "http://192.168.1.2:9000/manager/system/trigger/value/entities",
 							"protocol": "http",
 							"host": [
 								"192",
 								"168",
 								"1",
-								"3"
+								"2"
 							],
 							"port": "9000",
 							"path": [
@@ -5354,7 +5614,7 @@
 								"system",
 								"trigger",
 								"value",
-								"entity"
+								"entities"
 							]
 						}
 					},
@@ -5381,13 +5641,13 @@
 							}
 						},
 						"url": {
-							"raw": "http://192.168.1.3:9000/manager/system/device/config/entity",
+							"raw": "http://192.168.1.2:9000/manager/system/device/config/entities",
 							"protocol": "http",
 							"host": [
 								"192",
 								"168",
 								"1",
-								"3"
+								"2"
 							],
 							"port": "9000",
 							"path": [
@@ -5395,7 +5655,7 @@
 								"system",
 								"device",
 								"config",
-								"entity"
+								"entities"
 							]
 						}
 					},
@@ -5419,15 +5679,15 @@
 							}
 						},
 						"url": {
-							"raw": "http://192.168.1.4:9401/manager/system/device/config/page",
+							"raw": "http://192.168.241.129:9000/manager/system/device/config/page",
 							"protocol": "http",
 							"host": [
 								"192",
 								"168",
-								"1",
-								"4"
+								"241",
+								"129"
 							],
-							"port": "9401",
+							"port": "9000",
 							"path": [
 								"manager",
 								"system",
@@ -5449,7 +5709,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n            \"deviceType\": \"ModBus Device\",\r\n            \"configType\": \"\",\r\n            \"params\": {\r\n                \"device_addr\": 1,\r\n                \"device_ref_template\": \"CE+T UPS:模板\"\r\n            },\r\n            \"deviceName\": \"hupengwu\"\r\n        }",
+							"raw": "{\"deviceName\":\"www\",\"deviceType\":\"BASS260ZJ\",\"configType\":\"\",\"params\":{}}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -5457,15 +5717,15 @@
 							}
 						},
 						"url": {
-							"raw": "http://192.168.1.4:9401/manager/system/device/config/entity",
+							"raw": "http://192.168.1.2:9000/manager/system/device/config/entity",
 							"protocol": "http",
 							"host": [
 								"192",
 								"168",
 								"1",
-								"4"
+								"2"
 							],
-							"port": "9401",
+							"port": "9000",
 							"path": [
 								"manager",
 								"system",
@@ -5556,12 +5816,50 @@
 								},
 								{
 									"key": null,
-									"value": null
+									"value": ""
 								},
 								{
 									"key": "deviceType",
 									"value": "ModBus Device"
 								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deviceobject-分页查询实体",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"pageId\": 0,\r\n\t\"pageSize\": 10\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://192.168.1.3:9000/manager/system/device/object/page",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"1",
+								"3"
+							],
+							"port": "9000",
+							"path": [
+								"manager",
+								"system",
+								"device",
+								"object",
+								"page"
 							]
 						}
 					},
@@ -5588,20 +5886,20 @@
 							}
 						},
 						"url": {
-							"raw": "http://192.168.1.4:9000/manager/system/probe/entity",
+							"raw": "http://192.168.1.2:9000/manager/system/probe/entities",
 							"protocol": "http",
 							"host": [
 								"192",
 								"168",
 								"1",
-								"4"
+								"2"
 							],
 							"port": "9000",
 							"path": [
 								"manager",
 								"system",
 								"probe",
-								"entity"
+								"entities"
 							]
 						}
 					},
@@ -5725,6 +6023,80 @@
 					"response": []
 				},
 				{
+					"name": "option-查询option",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"entityType\": \"DeviceEntity\",\r\n\t\"field1\": \"deviceType\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://192.168.1.3:9000/manager/system/option/data",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"1",
+								"3"
+							],
+							"port": "9000",
+							"path": [
+								"manager",
+								"system",
+								"option",
+								"data"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "option-查询option",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"entityType\": \"DeviceObjectEntity\",\r\n\t\"field1\": \"deviceName\",\r\n\t\"value1\": \"浙江移动-丽水移动-丹霞山5号基站-4号电源设备:6\",\r\n\t\"field2\": \"paramName\",\r\n\t\"value\": \"id\",\r\n\t\"label\": \"paramName\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://192.168.1.2:9000/manager/system/option/data",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"1",
+								"2"
+							],
+							"port": "9000",
+							"path": [
+								"manager",
+								"system",
+								"option",
+								"data"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "device-查询实体",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
@@ -5738,6 +6110,80 @@
 						"body": {
 							"mode": "raw",
 							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://192.168.1.3:9000/manager/system/device/entities",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"1",
+								"3"
+							],
+							"port": "9000",
+							"path": [
+								"manager",
+								"system",
+								"device",
+								"entities"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "device-分页查询实体",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"pageNum\": 1,\r\n\t\"pageSize\": 10\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://192.168.1.3:9000/manager/system/device/page",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"1",
+								"3"
+							],
+							"port": "9000",
+							"path": [
+								"manager",
+								"system",
+								"device",
+								"page"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "device-insert",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n            \"deviceType\": \"ModBus Device\",\r\n            \"configType\": \"\",\r\n            \"params\": {\r\n                \"device_addr\": 1,\r\n                \"device_ref_template\": \"CE+T UPS:模板\"\r\n            },\r\n            \"deviceName\": \"hupengwu\"\r\n        }",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -5765,16 +6211,16 @@
 					"response": []
 				},
 				{
-					"name": "device-分页查询实体",
+					"name": "device-delete",
 					"request": {
 						"auth": {
 							"type": "noauth"
 						},
-						"method": "POST",
+						"method": "DELETE",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n\t\"pageId\": 0,\r\n\t\"pageSize\": 1000,\r\n    \"deviceType\": \"ModBus Device\"\r\n}",
+							"raw": "{\r\n            \"deviceType\": \"ModBus Device\",\r\n            \"configType\": \"\",\r\n            \"params\": {\r\n                \"device_addr\": 1,\r\n                \"device_ref_template\": \"CE+T UPS:模板\"\r\n            },\r\n            \"deviceName\": \"hupengwu\"\r\n        }",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -5782,20 +6228,26 @@
 							}
 						},
 						"url": {
-							"raw": "http://192.168.1.4:9401/manager/system/device/page",
+							"raw": "http://192.168.1.2:9000/manager/system/device/entities?ids=1127,1128",
 							"protocol": "http",
 							"host": [
 								"192",
 								"168",
 								"1",
-								"4"
+								"2"
 							],
-							"port": "9401",
+							"port": "9000",
 							"path": [
 								"manager",
 								"system",
 								"device",
-								"page"
+								"entities"
+							],
+							"query": [
+								{
+									"key": "ids",
+									"value": "1127,1128"
+								}
 							]
 						}
 					},
@@ -5811,7 +6263,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n\t\"page_id\": 0,\r\n\t\"page_size\": 1000,\r\n    \"device_type\": \"BASS260ZJ\"\r\n}",
+							"raw": "{\r\n\t\"pageNum\": 1,\r\n\t\"pageSize\": 5,\r\n\t\"deviceType\": \"BASS260ZJ\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -5819,19 +6271,57 @@
 							}
 						},
 						"url": {
-							"raw": "http://192.168.1.4:9401/manager/system/device/record/page",
+							"raw": "http://192.168.1.3:9000/manager/system/device/record/page",
 							"protocol": "http",
 							"host": [
 								"192",
 								"168",
 								"1",
-								"4"
+								"3"
 							],
-							"port": "9401",
+							"port": "9000",
 							"path": [
 								"manager",
 								"system",
 								"device",
+								"record",
+								"page"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "operate.record-分页查询",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"pageId\": 0,\r\n\t\"pageSize\": 1000,\r\n    \"deviceName\": \"广州格丹纳全自动消解控制器\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://192.168.1.3:9000/manager/system/operate/record/page",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"1",
+								"3"
+							],
+							"port": "9000",
+							"path": [
+								"manager",
+								"system",
+								"operate",
 								"record",
 								"page"
 							]
@@ -5860,20 +6350,21 @@
 							}
 						},
 						"url": {
-							"raw": "http://192.168.1.4:9401/manager/system/operate/entity",
+							"raw": "http://192.168.1.3:9000/manager/system/device/operate/entities",
 							"protocol": "http",
 							"host": [
 								"192",
 								"168",
 								"1",
-								"4"
+								"3"
 							],
-							"port": "9401",
+							"port": "9000",
 							"path": [
 								"manager",
 								"system",
+								"device",
 								"operate",
-								"entity"
+								"entities"
 							]
 						}
 					},
@@ -5889,7 +6380,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n\t\"operate\": \"默认的批量读取数据操作\",\r\n\t\"deviceType\": \"ZXDU58\",\r\n\t\"dataType\": \"status\",\r\n\t\"updateTime\": 1659070403828,\r\n\t\"polling\": false,\r\n\t\"timeout\": 8001,\r\n\t\"operateMode\": \"bulk_exchange\",\r\n\t\"createTime\": 1659070403828,\r\n\t\"id\": 235,\r\n\t\"operateName\": \"默认的批量读取数据操作\"\r\n}",
+							"raw": "{\r\n\t\"id\": 464,\r\n\t\"deviceType\": \"ModBus Device\",\r\n\t\"operateName\": \"Read Input Register\",\r\n\t\"operateMode\": \"smpl_exchange\",\r\n\t\"manufacturer\": \"Fox Edge\",\r\n\t\"dataType\": \"status\",\r\n\t\"polling\": false,\r\n\t\"timeout\": 2001\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -5897,18 +6388,19 @@
 							}
 						},
 						"url": {
-							"raw": "http://192.168.1.4:9401/manager/system/operate/entity",
+							"raw": "http://192.168.1.3:9000/manager/system/device/operate/entity",
 							"protocol": "http",
 							"host": [
 								"192",
 								"168",
 								"1",
-								"4"
+								"3"
 							],
-							"port": "9401",
+							"port": "9000",
 							"path": [
 								"manager",
 								"system",
+								"device",
 								"operate",
 								"entity"
 							]
@@ -5917,7 +6409,127 @@
 					"response": []
 				},
 				{
-					"name": "history-条件分页查询",
+					"name": "monitortask-创建实体",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"templateName\": \"ModBus13\",\r\n\t\"deviceType\": \"ModBus Device\",\r\n\t\"templateParam\": [{\r\n\t\t\"param\": {\r\n\t\t\t\"reg_cnt\": 69,\r\n\t\t\t\"reg_addr\": 1070,\r\n\t\t\t\"table_name\": \"101.CETUPS_Read System Measures Table.csv\",\r\n\t\t\t\"device_addr\": 1,\r\n\t\t\t\"modbus_mode\": \"RTU\",\r\n\t\t\t\"operate_name\": \"Read Holding Register\",\r\n\t\t\t\"template_name\": \"Read System Measures Table\"\r\n\t\t},\r\n\t\t\"timeout\": 2000,\r\n\t\t\"operateMode\": \"smpl_exchange\",\r\n\t\t\"operateName\": \"Read Holding Register1\"\r\n\t}, {\r\n\t\t\"param\": {\r\n\t\t\t\"reg_cnt\": 69,\r\n\t\t\t\"reg_addr\": 1070,\r\n\t\t\t\"table_name\": \"101.CETUPS_Read System Measures Table.csv\",\r\n\t\t\t\"device_addr\": 1,\r\n\t\t\t\"modbus_mode\": \"RTU\",\r\n\t\t\t\"operate_name\": \"Read Holding Register\",\r\n\t\t\t\"template_name\": \"Read System Measures Table\"\r\n\t\t},\r\n\t\t\"timeout\": 2000,\r\n\t\t\"operateMode\": \"smpl_exchange\",\r\n\t\t\"operateName\": \"Read Holding Register\"\r\n\t}]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://192.168.1.2:9000/manager/system/device/operate/task/monitor/entity",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"1",
+								"2"
+							],
+							"port": "9000",
+							"path": [
+								"manager",
+								"system",
+								"device",
+								"operate",
+								"task",
+								"monitor",
+								"entity"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "monitortask-修改实体",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"id\": 1,\r\n\t\"deviceType\": \"ModBus Device\",\r\n\t\"templateName\": \"ModBus11\",\r\n\t\"templateParam\": [{\r\n\t\t\"param\": {\r\n\t\t\t\"reg_cnt\": 69,\r\n\t\t\t\"reg_addr\": 1070,\r\n\t\t\t\"table_name\": \"101.CETUPS_Read System Measures Table.csv\",\r\n\t\t\t\"device_addr\": 1,\r\n\t\t\t\"modbus_mode\": \"RTU\",\r\n\t\t\t\"operate_name\": \"Read Holding Register\",\r\n\t\t\t\"template_name\": \"Read System Measures Table\"\r\n\t\t},\r\n\t\t\"timeout\": 2000,\r\n\t\t\"operateMode\": \"exchange\",\r\n\t\t\"operateName\": \"Read Holding Register1\"\r\n\t}, {\r\n\t\t\"param\": {\r\n\t\t\t\"reg_cnt\": 69,\r\n\t\t\t\"reg_addr\": 1070,\r\n\t\t\t\"table_name\": \"101.CETUPS_Read System Measures Table.csv\",\r\n\t\t\t\"device_addr\": 1,\r\n\t\t\t\"modbus_mode\": \"RTU\",\r\n\t\t\t\"operate_name\": \"Read Holding Register\",\r\n\t\t\t\"template_name\": \"Read System Measures Table\"\r\n\t\t},\r\n\t\t\"timeout\": 2000,\r\n\t\t\"operateMode\": \"exchange\",\r\n\t\t\"operateName\": \"Read Holding Register\"\r\n\t}]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://192.168.1.2:9000/manager/system/device/operate/task/monitor/entity",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"1",
+								"2"
+							],
+							"port": "9000",
+							"path": [
+								"manager",
+								"system",
+								"device",
+								"operate",
+								"task",
+								"monitor",
+								"entity"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "monitortask-查询实体",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"templateName\":\"ModBus13\"}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://192.168.1.2:9000/manager/system/device/operate/task/monitor/entities",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"1",
+								"2"
+							],
+							"port": "9000",
+							"path": [
+								"manager",
+								"system",
+								"device",
+								"operate",
+								"task",
+								"monitor",
+								"entities"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "trigger-查询实体",
 					"protocolProfileBehavior": {
 						"disableBodyPruning": true
 					},
@@ -5937,34 +6549,181 @@
 							}
 						},
 						"url": {
-							"raw": "http://192.168.1.10:9401/manager/system/history/page?startId=1&&pageSize=10",
+							"raw": "http://192.168.1.6:9000/manager/system/device/trigger/entities",
 							"protocol": "http",
 							"host": [
 								"192",
 								"168",
 								"1",
-								"10"
+								"6"
 							],
-							"port": "9401",
+							"port": "9000",
 							"path": [
 								"manager",
 								"system",
+								"device",
+								"trigger",
+								"entities"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "triggerconfig-查询实体",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://192.168.1.3:9000/manager/system/device/trigger/config/entities",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"1",
+								"3"
+							],
+							"port": "9000",
+							"path": [
+								"manager",
+								"system",
+								"device",
+								"trigger",
+								"config",
+								"entities"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "triggerconfig-修改实体",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"id\":436374,\"deviceType\":\"BASS260ZJ\",\"triggerMethodName\":\"对象.相同.原生触发器\",\"triggerModelName\":\"原生值触发器\",\"objectRange\":\"Global\",\"queueDeep\":2,\"triggerConfigName\":\"as\",\"deviceName\":\"ww\",\"objectList\":[],\"params\":{}}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://192.168.1.2:9000/manager/system/device/trigger/config/entity",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"1",
+								"2"
+							],
+							"port": "9000",
+							"path": [
+								"manager",
+								"system",
+								"device",
+								"trigger",
+								"config",
+								"entity"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "service-查询实体",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://192.168.1.2:9000/manager/system/service/status/entities",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"1",
+								"2"
+							],
+							"port": "9000",
+							"path": [
+								"manager",
+								"system",
+								"service",
+								"status",
+								"entities"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "history-条件分页查询",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"pageNum\":1,\"pageSize\":5}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://192.168.1.3:9000/manager/system/device/history/page",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"1",
+								"3"
+							],
+							"port": "9000",
+							"path": [
+								"manager",
+								"system",
+								"device",
 								"history",
 								"page"
-							],
-							"query": [
-								{
-									"key": "startId",
-									"value": "1"
-								},
-								{
-									"key": null,
-									"value": null
-								},
-								{
-									"key": "pageSize",
-									"value": "10"
-								}
 							]
 						}
 					},
@@ -5991,36 +6750,39 @@
 							}
 						},
 						"url": {
-							"raw": "http://192.168.1.4:9401/manager/system/user/entity",
+							"raw": "http://192.168.1.2:9000/manager/system/user/entities",
 							"protocol": "http",
 							"host": [
 								"192",
 								"168",
 								"1",
-								"4"
+								"2"
 							],
-							"port": "9401",
+							"port": "9000",
 							"path": [
 								"manager",
 								"system",
 								"user",
-								"entity"
+								"entities"
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "user-注册用户",
+					"name": "user-查询实体信息",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
 					"request": {
 						"auth": {
 							"type": "noauth"
 						},
-						"method": "POST",
+						"method": "GET",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n\t\"username\": \"admin\",\r\n    \"oldpword\": \"1234567890\",\r\n    \"password\": \"1234567890\"\r\n}",
+							"raw": "",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -6028,20 +6790,245 @@
 							}
 						},
 						"url": {
-							"raw": "http://192.168.1.5:12000/manager/system/user/password",
+							"raw": "http://192.168.1.2:9000/manager/system/user/entity?username=admin",
 							"protocol": "http",
 							"host": [
 								"192",
 								"168",
 								"1",
-								"5"
+								"2"
 							],
-							"port": "12000",
+							"port": "9000",
+							"path": [
+								"manager",
+								"system",
+								"user",
+								"entity"
+							],
+							"query": [
+								{
+									"key": "username",
+									"value": "admin"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "user-修改密码",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"username\":\"wwww\",\"oldPassword\":\"\",\"newPassword\":\"12345678\"}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://192.168.1.3:9000/manager/system/user/password",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"1",
+								"3"
+							],
+							"port": "9000",
 							"path": [
 								"manager",
 								"system",
 								"user",
 								"password"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "usermenu-查询实体",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://192.168.1.2:9000/manager/system/user/menu/entities",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"1",
+								"2"
+							],
+							"port": "9000",
+							"path": [
+								"manager",
+								"system",
+								"user",
+								"menu",
+								"entities"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "usermenu-查询实体",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://192.168.1.3:9000/manager/system/user/menu/entity?name=ADMIN",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"1",
+								"3"
+							],
+							"port": "9000",
+							"path": [
+								"manager",
+								"system",
+								"user",
+								"menu",
+								"entity"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "ADMIN"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "userrole-查询实体",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://192.168.1.2:9000/manager/system/user/role/entity?name=ADMIN",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"1",
+								"2"
+							],
+							"port": "9000",
+							"path": [
+								"manager",
+								"system",
+								"user",
+								"role",
+								"entity"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "ADMIN"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "userpermission-查询实体",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://192.168.1.2:9000/manager/system/user/permission/entity?name=ADMIN",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"1",
+								"2"
+							],
+							"port": "9000",
+							"path": [
+								"manager",
+								"system",
+								"user",
+								"permission",
+								"entity"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "ADMIN"
+								}
 							]
 						}
 					},
@@ -6647,6 +7634,289 @@
 								"manager",
 								"edge",
 								"unregister"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "格丹纳消解仪",
+			"item": [
+				{
+					"name": "登录 本地",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://192.168.1.3:9000/user/login?username=admin&password=12345678",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"1",
+								"3"
+							],
+							"port": "9000",
+							"path": [
+								"user",
+								"login"
+							],
+							"query": [
+								{
+									"key": "username",
+									"value": "admin"
+								},
+								{
+									"key": "password",
+									"value": "12345678"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Device-广播读地址",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Accpet",
+								"value": "text/plain;charset=UTF-8",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"operate\": \"smpl_exchange\",\r\n\t\"deviceName\": \"广州格丹纳全自动消解控制器\",\r\n\t\"operateName\": \"广播读地址\",\r\n\t\"uuid\": \"1b1df78266b9449c9d5705f821a2b4c1\",\r\n\t\"timeout\": 2000\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://192.168.1.3:9000/proxy/redis/topic/device/topic_device_request_public",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"1",
+								"3"
+							],
+							"port": "9000",
+							"path": [
+								"proxy",
+								"redis",
+								"topic",
+								"device",
+								"topic_device_request_public"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Device-检查设备状态",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Accpet",
+								"value": "text/plain;charset=UTF-8",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"operate\": \"smpl_exchange\",\r\n\t\"deviceName\": \"广州格丹纳全自动消解控制器\",\r\n\t\"operateName\": \"检查设备状态\",\r\n\t\"uuid\": \"1b1df78266b9449c9d5705f821a2b4c1\",\r\n\t\"param\": {\r\n\t\t\"设备地址\": 227204,\r\n\t\t\"子设备地址\": 3\r\n\t},\r\n\t\"timeout\": 2000\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://192.168.1.7:9000/proxy/redis/topic/device/topic_device_request_public",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"1",
+								"7"
+							],
+							"port": "9000",
+							"path": [
+								"proxy",
+								"redis",
+								"topic",
+								"device",
+								"topic_device_request_public"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Device-复位电机",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Accpet",
+								"value": "text/plain;charset=UTF-8",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"uuid\": \"07db0c1610db410ba2183ca55d85665e\",\r\n\t\"clientName\": \"proxy4http2topic\",\r\n\t\"timeout\": 2000,\r\n\t\"requestVOS\": [{\r\n\t\t\"uuid\": \"1b1df78266b9449c9d5705f821a2b4c1\",\r\n\t\t\"operateMode\": \"smpl_exchange\",\r\n\t\t\"deviceName\": \"广州格丹纳全自动消解控制器\",\r\n\t\t\"operateName\": \"复位电机\",\r\n\t\t\"param\": {\r\n\t\t\t\"设备地址\": 227204,\r\n\t\t\t\"子设备地址\": 3,\r\n\t\t\t\"电机类型\": \"Y轴电机\"\r\n\t\t},\r\n\t\t\"timeout\": 2000\r\n\t}]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://192.168.1.2:9000/proxy/redis/topic/device/topic_device_request_public",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"1",
+								"2"
+							],
+							"port": "9000",
+							"path": [
+								"proxy",
+								"redis",
+								"topic",
+								"device",
+								"topic_device_request_public"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Device-操作支架",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Accpet",
+								"value": "text/plain;charset=UTF-8",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"operate\": \"smpl_exchange\",\r\n\t\"deviceName\": \"广州格丹纳全自动消解控制器\",\r\n\t\"operateName\": \"操作支架\",\r\n\t\"uuid\": \"1b1df78266b9449c9d5705f821a2b4c1\",\r\n\t\"param\": {\r\n\t\t\"设备地址\": 227204,\r\n\t\t\"子设备地址\": 3,\r\n        \"支架编号\": 1,\r\n        \"标记\": \"抬升\"\r\n\t},\r\n\t\"timeout\": 2000\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://192.168.1.3:9000/proxy/redis/topic/device/topic_device_request_public",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"1",
+								"3"
+							],
+							"port": "9000",
+							"path": [
+								"proxy",
+								"redis",
+								"topic",
+								"device",
+								"topic_device_request_public"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Device-添加样本",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Accpet",
+								"value": "text/plain;charset=UTF-8",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"operate\": \"smpl_exchange\",\r\n\t\"deviceName\": \"广州格丹纳全自动消解控制器\",\r\n\t\"operateName\": \"添加样本\",\r\n\t\"uuid\": \"1b1df78266b9449c9d5705f821a2b4c1\",\r\n\t\"param\": {\r\n\t\t\"设备地址\": 227204,\r\n\t\t\"子设备地址\": 3,\r\n\t\t\"速度档位\": 5,\r\n\t\t\"孔位参数\": [{\r\n\t\t\t\"孔位\": 1,\r\n\t\t\t\"试剂通道\": 1,\r\n\t\t\t\"体积\": 100\r\n\t\t}]\r\n\t},\r\n\t\"timeout\": 2000\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://192.168.1.3:9000/proxy/redis/topic/device/topic_device_request_public",
+							"protocol": "http",
+							"host": [
+								"192",
+								"168",
+								"1",
+								"3"
+							],
+							"port": "9000",
+							"path": [
+								"proxy",
+								"redis",
+								"topic",
+								"device",
+								"topic_device_request_public"
 							]
 						}
 					},

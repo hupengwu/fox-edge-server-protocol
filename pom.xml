@@ -59,7 +59,7 @@
     </dependencyManagement>
 
     <modules>
-        <module>fox-edge-server-device-protocol</module>
+        <module>fox-edge-server-protocol</module>
     </modules>
 
 
