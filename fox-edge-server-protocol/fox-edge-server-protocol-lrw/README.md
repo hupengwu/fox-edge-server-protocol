@@ -1,39 +1,32 @@
-# fox_edge-server
+# fox-edge-server-protocol-lrw
 
 #### 介绍
-{**以下是 Gitee 平台说明，您可以替换此简介**
-Gitee 是 OSCHINA 推出的基于 Git 的代码托管平台（同时支持 SVN）。专为开发者提供稳定、高效、安全的云端软件开发协作平台
-无论是个人、团队、或是企业，都能够用 Gitee 实现代码托管、项目管理、协作开发。企业项目请看 [https://gitee.com/enterprises](https://gitee.com/enterprises)}
+``` 
+LRW生产的设备，这是一种非常简单的设备通信协议，大量第三方设备厂商自定义的私有协议，通常都是简单的问答方式。
+那么它们的解码器开发可以参考这个模块的。
+``` 
 
-#### 软件架构
-软件架构说明
+#### 模式
+通常设备的协议的制定者，他们会将自己的设备定义为一定的协议格式，然后定义一个个操作指令。
+这样的话，从面向对象角度来说，包含三部分
+1. 设备的对象实体
+根据协议的格式，定义一个符合格式的对象实体。例如这个解码器，定义了LRWEntity作为
+2. 设备的协议框架
+根据协议的格式，将对象实体进行数据的编码/解码。例如这个解码器，定义了LRWProtocolFrame作为协议的格式编码器
+3. 设备的指令
+根据一个个具体的设备操作命令，定义该命令的数据编码/解码器。例如这个解码器，定义了LRWProtocolGetSensor和LRWProtocolGetVersion两个命令
 
+#### 运行
+```
+1. 运行方式 
+将编译出来的jar包，放到Fox-Edge智能网关的jar\decoder目录下，那么设备服务启动的时候，就会自动扫描该目录所有的jar。
+当发现jar包中的FoxEdge注解后，会判定为解码器类型的.jar，然后装载到进程中，那么在Fox-Edge的管理界面上会出现相应
+的设备类型和操作方法信息。然后，就可以在Fox-Edge智能网关添加对应的设备，进行设备管理了
 
-#### 安装教程
+2. 在智能网关中的文件位置
+Fox-Edge运行在Linux环境，那么解码器jar包放在/opt/fox-edge/jar/decoder
+``` 
+#### 发布
+将解码器打包陈tar包后，可以提交到云端的公共仓库中，那么所有的Fox-edge开发者的Fox-Edge网关，都可以直接使用该解码器，管理
+对应该解码器的设备了
 
-1.  xxxx
-2.  xxxx
-3.  xxxx
-
-#### 使用说明
-
-1.  xxxx
-2.  xxxx
-3.  xxxx
-
-#### 参与贡献
-
-1.  Fork 本仓库
-2.  新建 Feat_xxx 分支
-3.  提交代码
-4.  新建 Pull Request
-
-
-#### 特技
-
-1.  使用 Readme\_XXX.md 来支持不同的语言，例如 Readme\_en.md, Readme\_zh.md
-2.  Gitee 官方博客 [blog.gitee.com](https://blog.gitee.com)
-3.  你可以 [https://gitee.com/explore](https://gitee.com/explore) 这个地址来了解 Gitee 上的优秀开源项目
-4.  [GVP](https://gitee.com/gvp) 全称是 Gitee 最有价值开源项目，是综合评定出的优秀开源项目
-5.  Gitee 官方提供的使用手册 [https://gitee.com/help](https://gitee.com/help)
-6.  Gitee 封面人物是一档用来展示 Gitee 会员风采的栏目 [https://gitee.com/gitee-stars/](https://gitee.com/gitee-stars/)
