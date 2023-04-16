@@ -9,7 +9,7 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
-    <groupId>com.foxteam</groupId>
+    <groupId>cn.foxtech</groupId>
     <artifactId>fox-edge-server</artifactId>
     <version>1.0.0</version>
 
@@ -42,7 +42,7 @@
         <dependencies>
             <!-- 核心模块-->
             <dependency>
-                <groupId>com.foxteam</groupId>
+                <groupId>cn.foxtech</groupId>
                 <artifactId>fox-edge-server-common</artifactId>
                 <version>${fox-edge-server.version}</version>
             </dependency>

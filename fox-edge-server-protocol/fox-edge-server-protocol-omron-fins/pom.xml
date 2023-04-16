@@ -5,7 +5,7 @@
 
     <parent>
         <artifactId>fox-edge-server-protocol</artifactId>
-        <groupId>com.foxteam</groupId>
+        <groupId>cn.foxtech</groupId>
         <version>1.0.0</version>
     </parent>
 
@@ -15,13 +15,13 @@
 
     <dependencies>
         <dependency>
-            <groupId>com.foxteam</groupId>
+            <groupId>cn.foxtech</groupId>
             <artifactId>fox-edge-server-protocol-core</artifactId>
             <version>${fox-edge-server.version}</version>
         </dependency>
 
         <dependency>
-            <groupId>com.foxteam</groupId>
+            <groupId>cn.foxtech</groupId>
             <artifactId>fox-edge-server-protocol-omron-fins-core</artifactId>
             <version>${fox-edge-server.version}</version>
         </dependency>
