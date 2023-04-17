@@ -1,0 +1,213 @@
+{
+	"list": [{
+		"modelName": "anno",
+		"fileName": "anno.tar",
+		"version": "1.0.0",
+		"component": "bin",
+		"pathName": "/repository/fox-edge-server/decoder/bin/fox-edge-server-protocol-anno-1.0.0.tar",
+		"dependence": []
+	}, {
+		"modelName": "core",
+		"fileName": "core.tar",
+		"version": "1.0.0",
+		"component": "bin",
+		"pathName": "/repository/fox-edge-server/decoder/bin/fox-edge-server-protocol-core-1.0.0.tar",
+		"dependence": []
+	}, {
+		"modelName": "BASS260ZJ",
+		"fileName": "bass260.tar",
+		"version": "1.0.0",
+		"component": "bin",
+		"pathName": "/repository/fox-edge-server/decoder/bin/fox-edge-server-protocol-bass260zj-1.0.0.tar",
+		"dependence": ["fox-edge-server-protocol-core-1.0.0.jar", "fox-edge-server-protocol-anno-1.0.0.jar"]
+	}, {
+		"modelName": "CE+T UPS",
+		"fileName": "cetups.tar",
+		"version": "1.0.0",
+		"component": "bin",
+		"pathName": "/repository/fox-edge-server/decoder/bin/fox-edge-server-protocol-cetups-1.0.0.tar",
+		"dependence": ["fox-edge-server-protocol-core-1.0.0.jar", "fox-edge-server-protocol-anno-1.0.0.jar"]
+	}, {
+		"modelName": "CJT188-CORE",
+		"fileName": "cjt188-core.tar",
+		"version": "1.0.0",
+		"component": "bin",
+		"pathName": "/repository/fox-edge-server/decoder/bin/fox-edge-server-protocol-cjt188-core-1.0.0.tar",
+		"dependence": ["fox-edge-server-protocol-core-1.0.0.jar", "fox-edge-server-protocol-anno-1.0.0.jar"]
+	}, {
+		"modelName": "CJT188",
+		"fileName": "cjt188.tar",
+		"version": "1.0.0",
+		"component": "bin",
+		"pathName": "/repository/fox-edge-server/decoder/bin/fox-edge-server-protocol-cjt188-1.0.0.tar",
+		"dependence": ["fox-edge-server-protocol-core-1.0.0.jar", "fox-edge-server-protocol-anno-1.0.0.jar", "fox-edge-server-protocol-cjt188-core-1.0.0.jar"]
+	}, {
+		"modelName": "DLT645-CORE",
+		"fileName": "dlt645-core.tar",
+		"version": "1.0.0",
+		"component": "bin",
+		"pathName": "/repository/fox-edge-server/decoder/bin/fox-edge-server-protocol-dlt645-core-1.0.0.tar",
+		"dependence": ["fox-edge-server-protocol-core-1.0.0.jar", "fox-edge-server-protocol-anno-1.0.0.jar"]
+	}, {
+		"modelName": "DLT645-v1997",
+		"fileName": "dlt645-1997.tar",
+		"version": "1.0.0",
+		"component": "bin",
+		"pathName": "/repository/fox-edge-server/decoder/bin/fox-edge-server-protocol-dlt645-1997-1.0.0.tar",
+		"dependence": ["fox-edge-server-protocol-core-1.0.0.jar", "fox-edge-server-protocol-anno-1.0.0.jar", "fox-edge-server-protocol-dlt645-core-1.0.0.jar"]
+	},  {
+		"modelName": "DLT645-v1997",
+		"fileName": "dlt645-1997.tar",
+		"version": "1.0.0",
+		"component": "template",
+		"pathName": "/repository/fox-edge-server/decoder/template/dlt645_template_1.0.0.tar",
+		"dependence": []
+	}, {
+		"modelName": "CJT188-CORE",
+		"fileName": "cjt188-core.tar",
+		"version": "1.0.0",
+		"component": "bin",
+		"pathName": "/repository/fox-edge-server/decoder/bin/fox-edge-server-protocol-cjt188-core-1.0.0.tar",
+		"dependence": ["fox-edge-server-protocol-core-1.0.0.jar", "fox-edge-server-protocol-anno-1.0.0.jar"]
+	},  {
+		"modelName": "ModBus",
+		"fileName": "modbus.tar",
+		"version": "1.0.0",
+		"component": "bin",
+		"pathName": "/repository/fox-edge-server/decoder/bin/fox-edge-server-protocol-modbus-1.0.0.tar",
+		"dependence": ["fox-edge-server-protocol-core-1.0.0.jar", "fox-edge-server-protocol-anno-1.0.0.jar", "fox-edge-server-protocol-modbus-core-1.0.0.jar"]
+	}, {
+		"modelName": "ModBus",
+		"fileName": "modbus.tar",
+		"version": "1.0.0",
+		"component": "template",
+		"pathName": "/repository/fox-edge-server/decoder/template/modbus_template_1.0.0.tar",
+		"dependence": []
+	},{
+		"modelName": "ModBus-CORE",
+		"fileName": "modbus-core.tar",
+		"version": "1.0.0",
+		"component": "bin",
+		"pathName": "/repository/fox-edge-server/decoder/bin/fox-edge-server-protocol-modbus-core-1.0.0.tar",
+		"dependence": ["fox-edge-server-protocol-core-1.0.0.jar", "fox-edge-server-protocol-anno-1.0.0.jar"]
+	}, {
+		"modelName": "Telecom-CORE",
+		"fileName": "telecom-core.tar",
+		"version": "1.0.0",
+		"component": "bin",
+		"pathName": "/repository/fox-edge-server/decoder/bin/fox-edge-server-protocol-telecom-core-1.0.0.tar",
+		"dependence": ["fox-edge-server-protocol-core-1.0.0.jar", "fox-edge-server-protocol-anno-1.0.0.jar"]
+	}, {
+		"modelName": "Gdana-Digester",
+		"fileName": "gdana-digester.tar",
+		"version": "1.0.0",
+		"component": "bin",
+		"pathName": "/repository/fox-edge-server/decoder/bin/fox-edge-server-protocol-gdana-digester-1.0.0.tar",
+		"dependence": ["fox-edge-server-protocol-core-1.0.0.jar", "fox-edge-server-protocol-anno-1.0.0.jar"]
+	}, {
+		"modelName": "IEC104-CORE",
+		"fileName": "iec104-core.tar",
+		"version": "1.0.0",
+		"component": "bin",
+		"pathName": "/repository/fox-edge-server/decoder/bin/fox-edge-server-protocol-iec104-core-1.0.0.tar",
+		"dependence": ["fox-edge-server-protocol-core-1.0.0.jar", "fox-edge-server-protocol-anno-1.0.0.jar"]
+	}, {
+		"modelName": "IEC104-slaver",
+		"fileName": "iec104-slaver.tar",
+		"version": "1.0.0",
+		"component": "bin",
+		"pathName": "/repository/fox-edge-server/decoder/bin/fox-edge-server-protocol-iec104-slaver-1.0.0.tar",
+		"dependence": ["fox-edge-server-protocol-core-1.0.0.jar", "fox-edge-server-protocol-anno-1.0.0.jar", "fox-edge-server-protocol-iec104-core-1.0.0.jar"]
+	}, {
+		"modelName": "IEC104-slaver",
+		"fileName": "iec104-slaver.tar",
+		"version": "1.0.0",
+		"component": "template",
+		"pathName": "/repository/fox-edge-server/decoder/template/iec104_template_1.0.0.tar",
+		"dependence": []
+	},{
+		"modelName": "LRW",
+		"fileName": "lrw.tar",
+		"version": "1.0.0",
+		"component": "bin",
+		"pathName": "/repository/fox-edge-server/decoder/bin/fox-edge-server-protocol-lrw-1.0.0.tar",
+		"dependence": ["fox-edge-server-protocol-core-1.0.0.jar", "fox-edge-server-protocol-anno-1.0.0.jar"]
+	}, {
+		"modelName": "mitsubishi-plc-fx-core",
+		"fileName": "mitsubishi-plc-fx-core.tar",
+		"version": "1.0.0",
+		"component": "bin",
+		"pathName": "/repository/fox-edge-server/decoder/bin/fox-edge-server-protocol-mitsubishi-plc-fx-core-1.0.0.tar",
+		"dependence": ["fox-edge-server-protocol-core-1.0.0.jar", "fox-edge-server-protocol-anno-1.0.0.jar"]
+	}, {
+		"modelName": "mitsubishi-plc-fx",
+		"fileName": "mitsubishi-plc-fx.tar",
+		"version": "1.0.0",
+		"component": "bin",
+		"pathName": "/repository/fox-edge-server/decoder/bin/fox-edge-server-protocol-mitsubishi-plc-fx-1.0.0.tar",
+		"dependence": ["fox-edge-server-protocol-core-1.0.0.jar", "fox-edge-server-protocol-anno-1.0.0.jar"]
+	}, {
+		"modelName": "mitsubishi-plc-fx",
+		"fileName": "mitsubishi-plc-fx.tar",
+		"version": "1.0.0",
+		"component": "template",
+		"pathName": "/repository/fox-edge-server/decoder/template/mitsubishi.plc.fx_template_1.0.0.tar",
+		"dependence": []
+	},{
+		"modelName": "omron-fins",
+		"fileName": "omron-fins.tar",
+		"version": "1.0.0",
+		"component": "bin",
+		"pathName": "/repository/fox-edge-server/decoder/bin/fox-edge-server-protocol-omron-fins-1.0.0.tar",
+		"dependence": ["fox-edge-server-protocol-core-1.0.0.jar", "fox-edge-server-protocol-anno-1.0.0.jar"]
+	}, {
+		"modelName": "omron-fins-core",
+		"fileName": "omron-fins-core.tar",
+		"version": "1.0.0",
+		"component": "bin",
+		"pathName": "/repository/fox-edge-server/decoder/bin/fox-edge-server-protocol-omron-fins-core-1.0.0.tar",
+		"dependence": ["fox-edge-server-protocol-core-1.0.0.jar", "fox-edge-server-protocol-anno-1.0.0.jar"]
+	}, {
+		"modelName": "omron-fins",
+		"fileName": "omron-fins.tar",
+		"version": "1.0.0",
+		"component": "template",
+		"pathName": "/repository/fox-edge-server/decoder/template/omron.fins_template_1.0.0.tar",
+		"dependence": []
+	}, {
+		"modelName": "shmeter",
+		"fileName": "shmeter.tar",
+		"version": "1.0.0",
+		"component": "bin",
+		"pathName": "/repository/fox-edge-server/decoder/bin/fox-edge-server-protocol-shmeter-1.0.0.tar",
+		"dependence": ["fox-edge-server-protocol-core-1.0.0.jar", "fox-edge-server-protocol-anno-1.0.0.jar"]
+	}, {
+		"modelName": "snmp",
+		"fileName": "snmp.tar",
+		"version": "1.0.0",
+		"component": "bin",
+		"pathName": "/repository/fox-edge-server/decoder/bin/fox-edge-server-protocol-snmp-1.0.0.tar",
+		"dependence": ["fox-edge-server-protocol-core-1.0.0.jar", "fox-edge-server-protocol-anno-1.0.0.jar"]
+	}, {
+		"modelName": "snmp",
+		"fileName": "snmp.tar",
+		"version": "1.0.0",
+		"component": "template",
+		"pathName": "/repository/fox-edge-server/decoder/template/snmp_template_1.0.0.tar",
+		"dependence": []
+	}, {
+		"modelName": "ZXDU58",
+		"fileName": "zxdu.tar",
+		"version": "1.0.0",
+		"component": "bin",
+		"pathName": "/repository/fox-edge-server/decoder/bin/fox-edge-server-protocol-zxdu58-1.0.0.tar",
+		"dependence": ["fox-edge-server-protocol-core-1.0.0.jar", "fox-edge-server-protocol-anno-1.0.0.jar"]
+	}, {
+		"modelName": "hutool-core",
+		"fileName": "hutool-core.tar",
+		"version": "5.8.3",
+		"component": "bin",
+		"pathName": "/repository/fox-edge-server/decoder/bin/hutool-core-5.8.3.tar",
+		"dependence": ["fox-edge-server-protocol-core-1.0.0.jar", "fox-edge-server-protocol-anno-1.0.0.jar"]
+	}]
+}

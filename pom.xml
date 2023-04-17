@@ -14,50 +14,130 @@
     <version>1.0.0</version>
 
     <name>fox-edge-server</name>
-    <description>fox-edge-server is a rapid development kit.</description>
+    <description>fox-edge-server device protocol tools.</description>
     <packaging>pom</packaging>
 
-    <url>http://www.fox-tech.cn/</url>
-    <licenses>
-        <license>
-            <name>The Apache Software License, Version 2.0</name>
-            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
-        </license>
-    </licenses>
+    <properties>
+        <!-- java version -->
+        <java.version>1.8</java.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <!-- maven plugin version -->
+        <maven-flatten.version>1.2.2</maven-flatten.version>
+        <maven-jar-plugin.version>3.1.1</maven-jar-plugin.version>
+        <!-- fox-edge version -->
+        <fox-edge-server.version>1.0.0</fox-edge-server.version>
+        <!-- other version -->
+        <jackson.version>2.9.0</jackson.version>
+        <cn.hutool.version>5.8.3</cn.hutool.version>
+    </properties>
+
+    <modules>
+        <module>fox-edge-server-protocol</module>
+    </modules>
+
+    <!-- 依赖声明 -->
+    <dependencyManagement>
+        <dependencies>
+            <!-- 核心模块-->
+            <dependency>
+                <groupId>cn.fox-tech</groupId>
+                <artifactId>fox-edge-server-common</artifactId>
+                <version>${fox-edge-server.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
     <developers>
         <developer>
-            <name>www.fox-tech.cn</name>
-            <email>5389408@QQ.COM</email>
-            <url>https://github.com/hupengwu/fox-edge-server-protocol</url>
+            <name>hupengwu</name>
+            <email>5389408@qq.com</email>
         </developer>
     </developers>
+
     <scm>
-        <connection>scm:git:git@github.com/hupengwu/fox-edge-server-protocol.git</connection>
-        <developerConnection>scm:git:git@github.com/hupengwu/fox-edge-server-protocol.git</developerConnection>
-        <url>git@github.com/hupengwu/fox-edge-server-protocol.git</url>
+        <connection>scm:git:git@gitee.com/fierce_wolf/fox-edge-server-protocol</connection>
+        <developerConnection>scm:git:git@gitee.com/fierce_wolf/fox-edge-server-protocol.git</developerConnection>
+        <url>git@gitee.com/fierce_wolf/fox-edge-server-protocol.git</url>
     </scm>
-    <organization>
-        <name>www.fox-tech.cn</name>
-        <url>https://github.com/hupengwu</url>
-    </organization>
-    <issueManagement>
-        <system>github</system>
-        <url>https://github.com/hupengwu/fox-edge-server-protocol/issues</url>
-    </issueManagement>
 
-    <distributionManagement>
+    <repositories>
+        <!--阿里云主仓库，代理了 maven central 和 jcenter 仓库-->
         <repository>
-            <id>ossrh</id>
-            <name>Release</name>
-            <url>https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+            <id>aliyun</id>
+            <name>aliyun</name>
+            <url>https://maven.aliyun.com/repository/public</url>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
         </repository>
+        <!-- 拉取快照版本的 mica-net -->
+        <repository>
+            <id>sonatype-nexus-snapshots</id>
+            <name>Sonatype Nexus Snapshots</name>
+            <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+        </repository>
+    </repositories>
 
-        <snapshotRepository>
-            <id>ossrh</id>
-            <name>SNAPSHOTS</name>
-            <url>https://s01.oss.sonatype.org/content/repositories/snapshots</url>
-        </snapshotRepository>
-    </distributionManagement>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.8.1</version>
+                <configuration>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
+                    <encoding>${project.build.sourceEncoding}</encoding>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>flatten-maven-plugin</artifactId>
+                <version>${maven-flatten.version}</version>
+                <configuration>
+                    <updatePomFile>true</updatePomFile>
+                    <flattenMode>oss</flattenMode>
+                    <pomElements>
+                        <properties>remove</properties>
+                        <repositories>remove</repositories>
+                    </pomElements>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>flatten</id>
+                        <phase>process-resources</phase>
+                        <goals>
+                            <goal>flatten</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>flatten.clean</id>
+                        <phase>clean</phase>
+                        <goals>
+                            <goal>clean</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+    <licenses>
+        <license>
+            <name>Apache License 2.0</name>
+            <url>https://www.apache.org/licenses</url>
+        </license>
+    </licenses>
 
     <profiles>
         <profile>
@@ -68,7 +148,7 @@
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-source-plugin</artifactId>
-                        <version>2.2.1</version>
+                        <version>3.2.0</version>
                         <executions>
                             <execution>
                                 <phase>package</phase>
@@ -82,16 +162,7 @@
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-javadoc-plugin</artifactId>
-                        <version>2.9.1</version>
-                        <configuration>
-                            <show>private</show>
-                            <nohelp>true</nohelp>
-                            <charset>UTF-8</charset>
-                            <encoding>UTF-8</encoding>
-                            <docencoding>UTF-8</docencoding>
-                            <additionalparam>-Xdoclint:none
-                            </additionalparam>  <!-- TODO 临时解决不规范的javadoc生成报错,后面要规范化后把这行去掉 -->
-                        </configuration>
+                        <version>3.2.0</version>
                         <executions>
                             <execution>
                                 <phase>package</phase>
@@ -105,7 +176,7 @@
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-gpg-plugin</artifactId>
-                        <version>1.5</version>
+                        <version>1.6</version>
                         <executions>
                             <execution>
                                 <phase>verify</phase>
@@ -114,6 +185,12 @@
                                 </goals>
                             </execution>
                         </executions>
+                        <configuration>
+                            <gpgArguments>
+                                <arg>--pinentry-mode</arg>
+                                <arg>loopback</arg>
+                            </gpgArguments>
+                        </configuration>
                     </plugin>
                 </plugins>
             </build>
@@ -129,50 +206,5 @@
             </distributionManagement>
         </profile>
     </profiles>
-
-    <properties>
-        <fox-edge-server.version>1.0.0</fox-edge-server.version>
-        <fox-cloud-server.version>1.0.0</fox-cloud-server.version>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <java.version>1.8</java.version>
-        <maven-jar-plugin.version>3.1.1</maven-jar-plugin.version>
-        <jna.version>5.10.0</jna.version>
-        <jackson.version>2.9.0</jackson.version>
-        <fastjson.version>1.2.80</fastjson.version>
-        <mica-mqtt.version>2.0.4</mica-mqtt.version>
-        <californium-coap.version>3.5.0</californium-coap.version>
-        <mybatis-plus.version>3.5.0</mybatis-plus.version>
-        <cn.hutool.version>5.8.3</cn.hutool.version>
-        <spring-boot.version>2.6.8</spring-boot.version>
-        <spring-cloud.version>2021.0.2</spring-cloud.version>
-        <spring-cloud-alibaba.version>2021.1</spring-cloud-alibaba.version>
-        <log4j.version>1.3.8.RELEASE</log4j.version>
-    </properties>
-
-    <!-- 依赖声明 -->
-    <dependencyManagement>
-        <dependencies>
-            <!-- 核心模块-->
-            <dependency>
-                <groupId>cn.fox-tech</groupId>
-                <artifactId>fox-edge-server-common</artifactId>
-                <version>${fox-edge-server.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>org.springframework.cloud</groupId>
-                <artifactId>spring-cloud-dependencies</artifactId>
-                <version>${spring-cloud.version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-
-        </dependencies>
-    </dependencyManagement>
-
-    <modules>
-        <module>fox-edge-server-protocol</module>
-    </modules>
 
 </project>
