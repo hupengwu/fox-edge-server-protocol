@@ -6,13 +6,13 @@
     <parent>
         <groupId>cn.fox-tech</groupId>
         <artifactId>fox-edge-server</artifactId>
-        <version>${fox-edge-server.version}</version>
+        <version>${revision}</version>
     </parent>
 
     <artifactId>fox-edge-server-protocol</artifactId>
     <name>${project.artifactId}</name>
     <packaging>pom</packaging>
-    <description>fox-edge-server-protocol</description>
+    <description>${project.artifactId}</description>
 
     <modules>
         <module>fox-edge-server-protocol-anno</module>
