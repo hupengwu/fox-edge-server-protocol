@@ -6,7 +6,7 @@
     <parent>
         <groupId>cn.fox-tech</groupId>
         <artifactId>fox-edge-server</artifactId>
-        <version>${revision}</version>
+        <version>${fox-edge-server.version}</version>
     </parent>
 
     <artifactId>fox-edge-server-protocol</artifactId>

@@ -6,7 +6,7 @@
     <parent>
         <groupId>cn.fox-tech</groupId>
         <artifactId>fox-edge-server-protocol</artifactId>
-        <version>${revision}</version>
+        <version>${fox-edge-server.version}</version>
     </parent>
 
     <artifactId>fox-edge-server-protocol-shmeter</artifactId>
@@ -17,17 +17,17 @@
         <dependency>
             <groupId>cn.fox-tech</groupId>
             <artifactId>fox-edge-server-protocol-core</artifactId>
-            <version>${revision}</version>
+            <version>${fox-edge-server.version}</version>
         </dependency>
         <dependency>
             <groupId>cn.fox-tech</groupId>
             <artifactId>fox-edge-server-protocol-dlt645-core</artifactId>
-            <version>${revision}</version>
+            <version>${fox-edge-server.version}</version>
         </dependency>
         <dependency>
             <groupId>cn.fox-tech</groupId>
             <artifactId>fox-edge-server-protocol-telecom-core</artifactId>
-            <version>${revision}</version>
+            <version>${fox-edge-server.version}</version>
         </dependency>
     </dependencies>
 </project>

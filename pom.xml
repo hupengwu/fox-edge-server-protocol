@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>cn.fox-tech</groupId>
     <artifactId>fox-edge-server</artifactId>
-    <version>${revision}</version>
+    <version>${fox-edge-server.version}</version>
     <packaging>pom</packaging>
 
     <name>${project.artifactId}</name>
@@ -13,7 +13,8 @@
 
 
     <properties>
-        <revision>1.0.0</revision>
+        <!-- fox-edge-server version -->
+        <fox-edge-server.version>1.0.0</fox-edge-server.version>
         <!-- java version -->
         <java.version>1.8</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -39,7 +40,7 @@
             <dependency>
                 <groupId>cn.fox-tech</groupId>
                 <artifactId>fox-edge-server-common</artifactId>
-                <version>${revision}</version>
+                <version>${fox-edge-server.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
