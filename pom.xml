@@ -9,13 +9,126 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
-    <groupId>cn.foxtech</groupId>
+    <groupId>cn.fox-tech</groupId>
     <artifactId>fox-edge-server</artifactId>
     <version>1.0.0</version>
 
     <name>fox-edge-server</name>
-    <description>fox-edge-server</description>
+    <description>fox-edge-server is a rapid development kit.</description>
     <packaging>pom</packaging>
+
+    <url>http://www.fox-tech.cn/</url>
+    <licenses>
+        <license>
+            <name>The Apache Software License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+        </license>
+    </licenses>
+    <developers>
+        <developer>
+            <name>www.fox-tech.cn</name>
+            <email>5389408@QQ.COM</email>
+            <url>https://github.com/hupengwu/fox-edge-server-protocol</url>
+        </developer>
+    </developers>
+    <scm>
+        <connection>scm:git:git@github.com/hupengwu/fox-edge-server-protocol.git</connection>
+        <developerConnection>scm:git:git@github.com/hupengwu/fox-edge-server-protocol.git</developerConnection>
+        <url>git@github.com/hupengwu/fox-edge-server-protocol.git</url>
+    </scm>
+    <organization>
+        <name>www.fox-tech.cn</name>
+        <url>https://github.com/hupengwu</url>
+    </organization>
+    <issueManagement>
+        <system>github</system>
+        <url>https://github.com/hupengwu/fox-edge-server-protocol/issues</url>
+    </issueManagement>
+
+    <distributionManagement>
+        <repository>
+            <id>ossrh</id>
+            <name>Release</name>
+            <url>https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+        </repository>
+
+        <snapshotRepository>
+            <id>ossrh</id>
+            <name>SNAPSHOTS</name>
+            <url>https://s01.oss.sonatype.org/content/repositories/snapshots</url>
+        </snapshotRepository>
+    </distributionManagement>
+
+    <profiles>
+        <profile>
+            <id>release</id>
+            <build>
+                <plugins>
+                    <!-- Source -->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-source-plugin</artifactId>
+                        <version>2.2.1</version>
+                        <executions>
+                            <execution>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>jar-no-fork</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <!-- Javadoc -->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-javadoc-plugin</artifactId>
+                        <version>2.9.1</version>
+                        <configuration>
+                            <show>private</show>
+                            <nohelp>true</nohelp>
+                            <charset>UTF-8</charset>
+                            <encoding>UTF-8</encoding>
+                            <docencoding>UTF-8</docencoding>
+                            <additionalparam>-Xdoclint:none
+                            </additionalparam>  <!-- TODO 临时解决不规范的javadoc生成报错,后面要规范化后把这行去掉 -->
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>jar</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <!-- GPG -->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-gpg-plugin</artifactId>
+                        <version>1.5</version>
+                        <executions>
+                            <execution>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>sign</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+            <distributionManagement>
+                <snapshotRepository>
+                    <id>oss</id>
+                    <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
+                </snapshotRepository>
+                <repository>
+                    <id>oss</id>
+                    <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+                </repository>
+            </distributionManagement>
+        </profile>
+    </profiles>
 
     <properties>
         <fox-edge-server.version>1.0.0</fox-edge-server.version>
@@ -42,7 +155,7 @@
         <dependencies>
             <!-- 核心模块-->
             <dependency>
-                <groupId>cn.foxtech</groupId>
+                <groupId>cn.fox-tech</groupId>
                 <artifactId>fox-edge-server-common</artifactId>
                 <version>${fox-edge-server.version}</version>
             </dependency>
@@ -61,6 +174,5 @@
     <modules>
         <module>fox-edge-server-protocol</module>
     </modules>
-
 
 </project>

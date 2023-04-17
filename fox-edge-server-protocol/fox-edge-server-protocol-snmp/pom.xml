@@ -5,7 +5,7 @@
 
     <parent>
         <artifactId>fox-edge-server-protocol</artifactId>
-        <groupId>cn.foxtech</groupId>
+        <groupId>cn.fox-tech</groupId>
         <version>1.0.0</version>
     </parent>
 
@@ -16,7 +16,7 @@
 
     <dependencies>
         <dependency>
-            <groupId>cn.foxtech</groupId>
+            <groupId>cn.fox-tech</groupId>
             <artifactId>fox-edge-server-protocol-core</artifactId>
             <version>${fox-edge-server.version}</version>
         </dependency>
