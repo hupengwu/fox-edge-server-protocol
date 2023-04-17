@@ -20,10 +20,11 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <!-- maven plugin version -->
+        <maven.compiler.source>${java.version}</maven.compiler.source>
+        <maven.compiler.target>${java.version}</maven.compiler.target>
+        <maven.compiler.compilerVersion>${java.version}</maven.compiler.compilerVersion>
         <maven-flatten.version>1.2.2</maven-flatten.version>
         <maven-jar-plugin.version>3.1.1</maven-jar-plugin.version>
-        <!-- fox-edge version -->
-        <fox-edge-server.version>1.0.0</fox-edge-server.version>
         <!-- other version -->
         <jackson.version>2.9.0</jackson.version>
         <cn.hutool.version>5.8.3</cn.hutool.version>
