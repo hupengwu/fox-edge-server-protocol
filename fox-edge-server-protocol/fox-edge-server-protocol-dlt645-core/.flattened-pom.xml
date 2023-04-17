@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>cn.fox-tech</groupId>
+  <artifactId>fox-edge-server-protocol-dlt645-core</artifactId>
+  <version>1.0.0</version>
+  <name>fox-edge-server-protocol-dlt645-core</name>
+  <description>fox-edge-server-protocol-dlt645-core</description>
+  <url>https://spring.io/projects/spring-boot/fox-edge-server/fox-edge-server-protocol/fox-edge-server-protocol-dlt645-core</url>
+  <licenses>
+    <license>
+      <name>Apache License 2.0</name>
+      <url>https://www.apache.org/licenses</url>
+    </license>
+  </licenses>
+  <developers>
+    <developer>
+      <name>ChunmengLu</name>
+      <email>qq596392912@gmail.com</email>
+    </developer>
+  </developers>
+  <scm>
+    <connection>scm:git:git@gitee.com/596392912/mica-mqtt/fox-edge-server-protocol/fox-edge-server-protocol-dlt645-core</connection>
+    <developerConnection>scm:git:git@gitee.com/596392912/mica-mqtt.git/fox-edge-server-protocol/fox-edge-server-protocol-dlt645-core</developerConnection>
+    <url>git@gitee.com/596392912/mica-mqtt.git/fox-edge-server-protocol/fox-edge-server-protocol-dlt645-core</url>
+  </scm>
+  <dependencies>
+    <dependency>
+      <groupId>cn.fox-tech</groupId>
+      <artifactId>fox-edge-server-protocol-core</artifactId>
+      <version>1.0.0</version>
+      <scope>compile</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.projectlombok</groupId>
+      <artifactId>lombok</artifactId>
+      <version>RELEASE</version>
+      <scope>compile</scope>
+    </dependency>
+  </dependencies>
+</project>
