@@ -7,7 +7,7 @@
   <version>1.0.0</version>
   <packaging>pom</packaging>
   <description>fox-edge-server-protocol</description>
-  <url>https://spring.io/projects/spring-boot/fox-edge-server/fox-edge-server-protocol</url>
+  <url>https://www.fox-tech.cn/fox-edge-server-protocol</url>
   <licenses>
     <license>
       <name>Apache License 2.0</name>

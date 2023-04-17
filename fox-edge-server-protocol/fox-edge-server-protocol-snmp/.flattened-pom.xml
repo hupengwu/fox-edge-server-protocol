@@ -7,7 +7,6 @@
   <version>1.0.0</version>
   <name>fox-edge-server-protocol-snmp</name>
   <description>fox-edge-server-protocol-snmp</description>
-  <url>https://spring.io/projects/spring-boot/fox-edge-server/fox-edge-server-protocol/fox-edge-server-protocol-snmp</url>
   <licenses>
     <license>
       <name>Apache License 2.0</name>

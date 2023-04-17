@@ -2,20 +2,15 @@
 <project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <parent>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.6.8</version>
-        <relativePath/> <!-- lookup parent from repository -->
-    </parent>
-
     <groupId>cn.fox-tech</groupId>
     <artifactId>fox-edge-server</artifactId>
     <version>1.0.0</version>
 
-    <name>fox-edge-server</name>
+    <name>${project.artifactId}</name>
     <description>fox-edge-server device protocol tools.</description>
+    <url>https://www.fox-tech.cn</url>
     <packaging>pom</packaging>
+
 
     <properties>
         <!-- java version -->
