@@ -39,7 +39,7 @@
             <dependency>
                 <groupId>cn.fox-tech</groupId>
                 <artifactId>fox-edge-server-common</artifactId>
-                <version>${fox-edge-server.version}</version>
+                <version>${revision}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

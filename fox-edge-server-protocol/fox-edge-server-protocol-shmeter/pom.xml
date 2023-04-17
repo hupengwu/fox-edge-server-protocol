@@ -17,17 +17,17 @@
         <dependency>
             <groupId>cn.fox-tech</groupId>
             <artifactId>fox-edge-server-protocol-core</artifactId>
-            <version>${fox-edge-server.version}</version>
+            <version>${revision}</version>
         </dependency>
         <dependency>
             <groupId>cn.fox-tech</groupId>
             <artifactId>fox-edge-server-protocol-dlt645-core</artifactId>
-            <version>${fox-edge-server.version}</version>
+            <version>${revision}</version>
         </dependency>
         <dependency>
             <groupId>cn.fox-tech</groupId>
             <artifactId>fox-edge-server-protocol-telecom-core</artifactId>
-            <version>${fox-edge-server.version}</version>
+            <version>${revision}</version>
         </dependency>
     </dependencies>
 </project>
