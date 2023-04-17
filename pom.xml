@@ -15,6 +15,7 @@
     <properties>
         <!-- fox-edge-server version -->
         <revision>1.0.0</revision>
+        <fox-edge-server.version>1.0.0</fox-edge-server.version>
         <!-- java version -->
         <java.version>1.8</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -36,14 +37,7 @@
 
     <!-- 依赖声明 -->
     <dependencyManagement>
-        <dependencies>
-            <!-- 核心模块-->
-            <dependency>
-                <groupId>cn.fox-tech</groupId>
-                <artifactId>fox-edge-server-common</artifactId>
-                <version>${fox-edge-server.version}</version>
-            </dependency>
-        </dependencies>
+
     </dependencyManagement>
 
     <developers>

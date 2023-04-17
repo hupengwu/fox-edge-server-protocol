@@ -21,9 +21,9 @@
     </developer>
   </developers>
   <scm>
-    <connection>scm:git:git@gitee.com/fierce_wolf/fox-edge-server-protocol/fox-edge-server-protocol/fox-edge-server-protocol-omron-fins</connection>
-    <developerConnection>scm:git:git@gitee.com/fierce_wolf/fox-edge-server-protocol.git/fox-edge-server-protocol/fox-edge-server-protocol-omron-fins</developerConnection>
-    <url>git@gitee.com/fierce_wolf/fox-edge-server-protocol.git/fox-edge-server-protocol/fox-edge-server-protocol-omron-fins</url>
+    <connection>scm:git:git@gitee.com/fierce_wolf/fox-edge-server/fox-edge-server-protocol/fox-edge-server-protocol-omron-fins</connection>
+    <developerConnection>scm:git:git@gitee.com/fierce_wolf/fox-edge-server.git/fox-edge-server-protocol/fox-edge-server-protocol-omron-fins</developerConnection>
+    <url>git@gitee.com/fierce_wolf/fox-edge-server.git/fox-edge-server-protocol/fox-edge-server-protocol-omron-fins</url>
   </scm>
   <dependencies>
     <dependency>
