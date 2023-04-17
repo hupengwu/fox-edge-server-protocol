@@ -4,14 +4,14 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <artifactId>fox-edge-server-protocol</artifactId>
         <groupId>cn.fox-tech</groupId>
-        <version>1.0.0</version>
+        <artifactId>fox-edge-server-protocol</artifactId>
+        <version>${revision}</version>
     </parent>
 
     <artifactId>fox-edge-server-protocol-omron-fins-core</artifactId>
-    <name>fox-edge-server-protocol-omron-fins-core</name>
-    <description>fox-edge-server-protocol-omron-fins-core</description>
+    <name>${project.artifactId}</name>
+    <description>${project.artifactId}</description>
 
     <dependencies>
         <dependency>
