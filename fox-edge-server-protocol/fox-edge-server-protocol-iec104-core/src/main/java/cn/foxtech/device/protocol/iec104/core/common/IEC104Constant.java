@@ -1,10 +1,7 @@
 package cn.foxtech.device.protocol.iec104.core.common;
 
 /**
- *
-* @ClassName: Iec104Constant
-* @Description: TODO
-* @author YDL
+ * IEC104Constant
  */
 public class IEC104Constant {
 

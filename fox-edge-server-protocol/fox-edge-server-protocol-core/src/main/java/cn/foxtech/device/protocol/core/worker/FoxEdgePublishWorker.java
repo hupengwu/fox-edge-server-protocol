@@ -19,7 +19,6 @@ public class FoxEdgePublishWorker {
      * @param params         参数表
      * @param timeout        通信超时
      * @param channelService 通道服务
-     * @return 结果集合
      * @throws ProtocolException      业务异常，比如找不到解码器
      * @throws CommunicationException 通信异常
      */

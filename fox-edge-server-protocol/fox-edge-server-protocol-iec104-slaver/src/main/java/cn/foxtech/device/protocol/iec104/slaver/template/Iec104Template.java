@@ -22,8 +22,8 @@ public class Iec104Template {
     /**
      * 装载从CSV文件中模板格式
      *
-     * @param defaultTable
-     * @return
+     * @param defaultTable 缺省的表名称
+     * @return 生成的模板
      */
     private Object loadTemplate(String defaultTable) {
         JReadDataTemplate jReadHoldingRegistersTemplate = new JReadDataTemplate();
@@ -40,7 +40,7 @@ public class Iec104Template {
      * @param defaultTable 模板文件，比如102.IEC104_Read Single Point Signal Table.csv
      * @param clazz java模板类，比如JReadDataTemplate
      * @return 比如JReadDataTemplate
-     * @param <T>
+     * @param <T> 参数类型
      */
     public <T> T getTemplate(String operateName, String templateName, Integer typeId, String defaultTable, Class<T> clazz) {
         Map<String, Object> templateByOperateName =  this.template;

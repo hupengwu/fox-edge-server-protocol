@@ -27,8 +27,8 @@ public class IEC104SlaverGeneralCall {
     /**
      * 总召唤的编码器
      *
-     * @param param
-     * @return
+     * @param param 参数
+     * @return 待发送的对象
      */
     @FoxEdgeOperate(name = "总召唤", polling = true, type = FoxEdgeOperate.encoder, timeout = 10000)
     @FoxEdgeOperateParam(names = {"设备地址"}, values = {"1"})
@@ -83,9 +83,9 @@ public class IEC104SlaverGeneralCall {
     /**
      * 总召唤的解码器
      *
-     * @param respond
-     * @param param
-     * @return
+     * @param respond channel返回的响应对象
+     * @param param 设备的参数信息
+     * @return 解码后的设备数据
      */
     @FoxEdgeOperate(name = "总召唤", polling = true, type = FoxEdgeOperate.decoder, timeout = 10000)
     @FoxEdgeOperateParam(names = {"设备地址"}, values = {"1"})

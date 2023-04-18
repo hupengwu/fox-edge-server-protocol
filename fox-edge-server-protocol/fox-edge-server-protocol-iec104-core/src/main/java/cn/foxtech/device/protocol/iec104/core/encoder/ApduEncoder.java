@@ -3,7 +3,6 @@ package cn.foxtech.device.protocol.iec104.core.encoder;
 import cn.foxtech.device.protocol.iec104.core.entity.*;
 import cn.foxtech.device.protocol.iec104.core.enums.FrameTypeEnum;
 import cn.foxtech.device.protocol.iec104.core.enums.UControlTypeEnum;
-import cn.foxtech.device.protocol.iec104.core.entity.*;
 
 import java.util.Set;
 
@@ -74,7 +73,7 @@ public class ApduEncoder {
      *
      * @param pdu pdu报文
      * @return APDU实体
-     * @throws Exception
+     * @throws Exception 异常信息
      */
     public static ApduEntity decodeApdu(byte[] pdu) throws Exception {
         if (pdu.length < 6) {
@@ -171,8 +170,8 @@ public class ApduEncoder {
     /**
      * 识别格式
      *
-     * @param pdu
-     * @return
+     * @param pdu pdu
+     * @return 枚举类型
      */
     public static FrameTypeEnum identifyFormatType(byte[] pdu) {
         // 非法格式：报文长度小于最小长度

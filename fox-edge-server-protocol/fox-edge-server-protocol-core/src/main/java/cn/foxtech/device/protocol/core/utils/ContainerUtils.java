@@ -101,11 +101,11 @@ public class ContainerUtils {
      * @param objList  AClass对象列表
      * @param clazz    TClass AClass::getXxxx()中，TClass这样的成员
      * @param function AClass::getXxxx 这样的函数
-     * @param <E>
-     * @param <R>
-     * @param <K>
-     * @param <T>
-     * @return
+     * @param <E> 源数据的类型名称
+     * @param <R> 源数据的方法名称
+     * @param <K> key数据的类型
+     * @param <T> 源数据的类型
+     * @return 特定字段数值的对象列表
      */
     public static <E, R, K, T> List<K> buildListByGetField(List<T> objList, SerializableFunction<E, R> function, Class<K> clazz) {
         if (objList.isEmpty()) {
@@ -134,10 +134,12 @@ public class ContainerUtils {
     /**
      * 根据Key生成Map，该方法是是具体类的函数，（不具备多态能力，不是反射，速度很快）
      *
-     * @param objList
-     * @param clazz
+     * @param objList 源数据列表
+     * @param clazz 源数据类型
      * @param method  使用obj.getClass().getMethod("getTnlKey", new Class[0])获取Method
-     * @return
+     * @return 哈希表
+     * @param <K> key类型
+     * @param <T> value类型
      */
     public static <K, T> Map<K, T> buildMapByKeyAndFinalMethod(List<T> objList, Class<K> clazz, Method method) {
         try {
@@ -160,6 +162,16 @@ public class ContainerUtils {
     }
 
 
+    /**
+     * 根据对象的属性名称，生成一个哈希表
+     * @param objList 对象列表
+     * @param function 指定的key字段
+     * @return 哈希表
+     * @param <E> 识别key对象的类型名
+     * @param <R> 识别key对象的函数名
+     * @param <K> 哈希表的key类型
+     * @param <T> 哈希表的value类型
+     */
     public static <E, R, K, T> Map<K, T> buildMapByKey(List<T> objList, SerializableFunction<E, R> function) {
         if (objList.isEmpty()) {
             return new HashMap<>();
@@ -184,6 +196,14 @@ public class ContainerUtils {
         }
     }
 
+    /**
+     * 根据对象的函数作为key，生成哈希表
+     * @param objList 对象列表
+     * @param method key的方法
+     * @return 哈希表
+     * @param <K> key的类型
+     * @param <T> value的类型
+     */
     public static <K, T> Map<K, T> buildMapByKey(List<T> objList, Method method) {
         try {
             Map<K, T> uid2deviceMap = new HashMap<K, T>();
@@ -202,14 +222,14 @@ public class ContainerUtils {
     }
 
     /**
-     * 分类
+     * 根据对象的函数作为key，生成哈希表
      *
-     * @param objList
-     * @param clazz
-     * @param method
-     * @param <K>
-     * @param <T>
-     * @return
+     * @param objList 对象列表
+     * @param clazz key对象的类型
+     * @param method key对象的方法
+     * @param <K> key的对象
+     * @param <T> value的类型
+     * @return 哈希表
      */
     public static <K, T> Map<K, List<T>> buildMapByTypeAndFinalMethod(List<T> objList, Class<K> clazz, Method method) {
         try {
@@ -244,11 +264,11 @@ public class ContainerUtils {
      * @param objList  类型AClass的列表容器
      * @param function 类型AClass中的某个成员getxxxx()
      * @param clazz    类型AClass中的某个成员BClass getxxxx()中的BClass
-     * @param <E>
-     * @param <R>
-     * @param <K>
-     * @param <T>
-     * @return
+     * @param <E> key对象的类型
+     * @param <R> key对象中的key方法
+     * @param <K> key的类型
+     * @param <T> 源数据的类型
+     * @return 哈希表
      */
     public static <E, R, K, T> Map<K, T> buildMapByKeyAndFinalMethod(List<T> objList, SerializableFunction<E, R> function, Class<K> clazz) {
         if (objList.isEmpty()) {
@@ -274,6 +294,18 @@ public class ContainerUtils {
         }
     }
 
+    /**
+     * 根据Key生成Map，该方法是是具体类的函数，（不具备多态能力，不是反射，速度很快）
+     *
+     * @param objList  类型AClass的列表容器
+     * @param function 类型AClass中的某个成员getxxxx()
+     * @param clazz    类型AClass中的某个成员BClass getxxxx()中的BClass
+     * @param <E> key对象的类型
+     * @param <R> key对象中的key方法
+     * @param <K> key的类型
+     * @param <T> 源数据的类型
+     * @return 哈希表
+     */
     public static <E, R, K, T> Map<K, List<T>> buildMapByTypeAndFinalMethod(List<T> objList, SerializableFunction<E, R> function, Class<K> clazz) {
         if (objList.isEmpty()) {
             return new HashMap<>();
@@ -301,12 +333,12 @@ public class ContainerUtils {
     /**
      * 根据map中的某个元素，将列表转换成以这个元素为key的map
      *
-     * @param objList
-     * @param mapKey
-     * @param clazz
-     * @param <K>
-     * @param <T>
-     * @return
+     * @param objList 哈希表结构的列表
+     * @param mapKey key的字段
+     * @param clazz key的类型
+     * @param <K> key的类型
+     * @param <T> value的类型
+     * @return 哈希表
      */
     public static <K, T> Map<K, Map<String, Object>> buildMapByMapAt(List<Map<String, Object>> objList, String mapKey, Class<K> clazz) {
         if (objList.isEmpty()) {
@@ -329,14 +361,14 @@ public class ContainerUtils {
     /**
      * 从列表中获取：某个字段等于某个值的对象
      *
-     * @param objList
-     * @param function
-     * @param key
-     * @param <E>
-     * @param <R>
-     * @param <K>
-     * @param <T>
-     * @return
+     * @param objList 对象列表
+     * @param function 识别key的函数
+     * @param key 莫格key的数值
+     * @param <E> key的类型
+     * @param <R> key的函数
+     * @param <K> 某个key对象的数值
+     * @param <T> value的类型
+     * @return 具体的value对象
      */
     public static <E, R, K, T> T getObjectByKey(List<T> objList, SerializableFunction<E, R> function, K key) {
         try {
@@ -369,11 +401,14 @@ public class ContainerUtils {
         }
     }
 
+
     /**
      * 交换Key-Value
      *
      * @param key2value key2value
      * @return value2key
+     * @param <K> key类型
+     * @param <V> value类型
      */
     public static <K, V> Map<V, K> exchange(Map<K, V> key2value) {
         Map<V, K> result = new HashMap<>();
@@ -385,6 +420,14 @@ public class ContainerUtils {
         return result;
     }
 
+    /**
+     * 交换Key-Value
+     *
+     * @param key2value key2value
+     * @return value2key
+     * @param <K> key类型
+     * @param <V> value类型
+     */
     public static <K, V> Map<V, List<K>> exchanges(Map<K, V> key2value) {
         Map<V, List<K>> result = new HashMap<>();
 
@@ -407,6 +450,8 @@ public class ContainerUtils {
      * @param key2value key2value
      * @param keyList   key列表
      * @return 跟key相关的values
+     * @param <K> keu类型
+     * @param <V> value类型
      */
     public static <K, V> List<V> buildValueListByKey(Map<K, V> key2value, Collection<K> keyList) {
         List<V> resultList = new ArrayList<V>();
@@ -423,9 +468,11 @@ public class ContainerUtils {
     /**
      * 从A类型列表转换成B类型列表:A/B是派生类关系
      *
-     * @param aClazzList
-     * @param bClazz
-     * @return
+     * @param aClazzList A类型的数据
+     * @param bClazz B类型
+     * @return B类型的列表
+     * @param <A> A类型
+     * @param <B> B类型
      */
     public static <A, B> List<B> buildClassList(List<A> aClazzList, Class<B> bClazz) {
         List<B> bInstanceList = new ArrayList<B>();
@@ -442,8 +489,8 @@ public class ContainerUtils {
     /**
      * 定义一个函数接口
      *
-     * @param <E>
-     * @param <R>
+     * @param <E> 类型名称
+     * @param <R> 哈桑名称
      */
     @FunctionalInterface
     public interface SerializableFunction<E, R> extends Function<E, R>, Serializable {

@@ -58,9 +58,10 @@ public class JDefaultTemplate implements ITemplate {
 
     /**
      * 对保持寄存器的数据进行处理
-     *
+     * @param address 地址
+     * @param count 数量
      * @param entity HoldingRegister状态
-     * @return 数据表
+     * @return 解码得到的数据
      * @throws ProtocolException 异常信息
      */
     public Map<String, Object> decode(int address, int count, MitsubishiPlcFxDeviceReadEntity entity) throws ProtocolException {
@@ -68,6 +69,12 @@ public class JDefaultTemplate implements ITemplate {
     }
 
 
+    /**
+     * 编码
+     * @param objectName 对象名称
+     * @param objectValue 对象数值
+     * @return ModBusWriteRegistersRequest请求对象
+     */
     public ModBusWriteRegistersRequest encode(String objectName, Object objectValue) {
         ModBusWriteRegistersRequest request = new ModBusWriteRegistersRequest();
 
@@ -219,7 +226,7 @@ public class JDefaultTemplate implements ITemplate {
          */
         private Float magnification;
         /**
-         * bool判定true的条件：比如>0
+         * bool判定true的条件：比如大于0
          */
         private String determine;
     }

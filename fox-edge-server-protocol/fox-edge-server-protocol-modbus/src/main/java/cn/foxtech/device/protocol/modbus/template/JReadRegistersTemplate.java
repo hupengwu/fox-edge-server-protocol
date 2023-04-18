@@ -30,7 +30,7 @@ public class JReadRegistersTemplate implements ITemplate {
     /**
      * 缺省的寄存器格式
      *
-     * @return
+     * @return 系统级别的模板名称
      */
     public String getSysTemplateName() {
         return "register default";
@@ -58,9 +58,11 @@ public class JReadRegistersTemplate implements ITemplate {
         this.operate.decoder_param.table = table;
     }
 
+
     /**
      * 对保持寄存器的数据进行处理
-     *
+     * @param address 地址
+     * @param count 数量
      * @param statusList HoldingRegister状态
      * @return 数据表
      * @throws ProtocolException 异常信息
@@ -210,7 +212,7 @@ public class JReadRegistersTemplate implements ITemplate {
          */
         private Float magnification;
         /**
-         * bool判定true的条件：比如>0
+         * bool判定true的条件
          */
         private String determine;
     }

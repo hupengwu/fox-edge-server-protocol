@@ -26,4 +26,14 @@
     <developerConnection>scm:git:git@gitee.com/fierce_wolf/fox-edge-server-protocol.git/fox-edge-server-protocol</developerConnection>
     <url>git@gitee.com/fierce_wolf/fox-edge-server-protocol.git/fox-edge-server-protocol</url>
   </scm>
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.sonatype.plugins</groupId>
+        <artifactId>nexus-staging-maven-plugin</artifactId>
+        <version>1.6.7</version>
+        <extensions>true</extensions>
+      </plugin>
+    </plugins>
+  </build>
 </project>

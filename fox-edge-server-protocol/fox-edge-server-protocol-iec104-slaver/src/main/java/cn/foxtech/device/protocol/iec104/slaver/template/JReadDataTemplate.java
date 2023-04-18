@@ -46,6 +46,7 @@ public class JReadDataTemplate {
     /**
      * 对保持寄存器的数据进行处理
      *
+     * @param address 地址
      * @param statusList HoldingRegister状态
      * @return 数据表
      * @throws ProtocolException 异常信息
@@ -149,7 +150,7 @@ public class JReadDataTemplate {
          */
         private Float magnification;
         /**
-         * bool判定true的条件：比如>0
+         * bool判定true的条件：比如大于0
          */
         private String determine;
     }

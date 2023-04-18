@@ -3,12 +3,10 @@ package cn.foxtech.device.protocol.core.utils;
 public class BcdUtils {
 
     /**
-     * <编码>
-     * <数字字符串编成BCD格式字节数组>
+     * 数字字符串编成BCD格式字节数组
      *
      * @param bcd 数字字符串
-     * @return
-     * @see [类、类#方法、类#成员]
+     * @return 数据编码
      */
     public static byte[] str2bcd(String bcd) {
         // 获取字节数组长度
@@ -37,12 +35,10 @@ public class BcdUtils {
     }
 
     /**
-     * <解码>
-     * <BCD格式的字节数组解成数字字符串>
+     * BCD格式的字节数组解成数字字符串
      *
      * @param bcd 字节数组
-     * @return
-     * @see [类、类#方法、类#成员]
+     * @return 解码得到的字符串
      */
     public static String bcd2str(byte[] bcd) {
         if (null == bcd || bcd.length == 0) {

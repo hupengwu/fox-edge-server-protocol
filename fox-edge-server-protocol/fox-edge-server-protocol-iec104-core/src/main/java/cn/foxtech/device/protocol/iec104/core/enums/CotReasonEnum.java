@@ -3,7 +3,7 @@ package cn.foxtech.device.protocol.iec104.core.enums;
 import lombok.Getter;
 
 /**
- * 传送原因
+ * 传送原因的枚举值
  */
 public enum CotReasonEnum {
     /**
@@ -210,10 +210,12 @@ public enum CotReasonEnum {
         return this.msg;
     }
 
+
     /**
      * 对话级的终止：也就是一问多答中，某个答的终止，它可能不是全流程的终止
      *
-     * @return
+     * @param value 数值
+     * @return 是否为结束符
      */
     public static boolean isEnd(int value) {
         // 激活确认
