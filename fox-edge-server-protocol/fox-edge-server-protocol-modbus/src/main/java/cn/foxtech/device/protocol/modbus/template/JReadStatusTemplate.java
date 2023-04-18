@@ -30,7 +30,7 @@ public class JReadStatusTemplate implements ITemplate {
     /**
      * 缺省的状态格式
      *
-     * @return
+     * @return 系统模板名称
      */
     public String getSysTemplateName() {
         return "status default";
@@ -61,6 +61,8 @@ public class JReadStatusTemplate implements ITemplate {
     /**
      * 对保持寄存器的数据进行处理
      *
+     * @param address 地址
+     * @param coilCount 数量
      * @param statusList HoldingRegister状态
      * @return 数据表
      * @throws ProtocolException 异常信息

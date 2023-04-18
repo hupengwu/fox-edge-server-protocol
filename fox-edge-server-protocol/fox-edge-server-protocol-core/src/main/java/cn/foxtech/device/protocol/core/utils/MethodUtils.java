@@ -7,9 +7,9 @@ import java.util.Map;
 public class MethodUtils {
     /**
      * 是否包含null或者empty的参数
-     *
-     * @param paramList
-     * @return
+     * @param map map结构的数据
+     * @param paramList 参数列表
+     * @return 是否包含empty
      */
     public static boolean hasEmpty(Map<String, Object> map, Object... paramList) {
         for (Object key : paramList) {
@@ -21,6 +21,11 @@ public class MethodUtils {
         return false;
     }
 
+    /**
+     * 是否为empty
+     * @param param 对象
+     * @return 是否为empty
+     */
     private static boolean isEmpty(Object param) {
         if (param == null) {
             return true;
@@ -39,8 +44,8 @@ public class MethodUtils {
     /**
      * 是否包含null或者empty的参数
      *
-     * @param paramList
-     * @return
+     * @param paramList 对象列表
+     * @return 是否包含empty
      */
     public static boolean hasEmpty(Object... paramList) {
         for (Object param : paramList) {
@@ -55,8 +60,8 @@ public class MethodUtils {
     /**
      * 是否包含null的参数
      *
-     * @param paramList
-     * @return
+     * @param paramList 参数列表
+     * @return 是否包含null
      */
     public static boolean hasNull(Object... paramList) {
         for (Object param : paramList) {

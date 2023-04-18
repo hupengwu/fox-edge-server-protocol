@@ -26,8 +26,8 @@ public class IEC104SlaverSynchTime {
     /**
      * 总召唤的编码器
      *
-     * @param param
-     * @return
+     * @param param 设备参数
+     * @return 报文对象
      */
     @FoxEdgeOperate(name = "时间同步", polling = true, type = FoxEdgeOperate.encoder, timeout = 2000)
     @FoxEdgeOperateParam(names = {"设备地址"}, values = {"1"})
@@ -85,9 +85,9 @@ public class IEC104SlaverSynchTime {
     /**
      * 总召唤的解码器
      *
-     * @param respond
-     * @param param
-     * @return
+     * @param respond channel返回的设备响应对象
+     * @param param 设备参数信息
+     * @return 解码出来的设备数据
      */
     @FoxEdgeOperate(name = "时间同步", polling = true, type = FoxEdgeOperate.decoder, timeout = 10000)
     @FoxEdgeOperateParam(names = {"设备地址"}, values = {"1"})

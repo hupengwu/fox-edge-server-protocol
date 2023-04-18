@@ -8,8 +8,9 @@ import java.util.Map;
 public class FoxEdgeUtils {
     /**
      * 为每条记录打上记录类型标记
-     * @param recordType
-     * @param recordList
+     * @param recordType 记录的类型
+     * @param recordList 记录的数据
+     * @return 记录的列表
      */
     public static List<Map<String, Object>> makeRecordTypeTag(String recordType, List<Map<String, Object>> recordList) {
         for (Map<String, Object> record : recordList) {

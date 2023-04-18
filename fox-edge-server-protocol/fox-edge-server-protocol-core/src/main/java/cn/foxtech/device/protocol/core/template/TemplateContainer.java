@@ -17,6 +17,10 @@ public class TemplateContainer {
     private final Map<String, Object> userTemplate = new ConcurrentHashMap<>();
 
 
+    /**
+     * 实例化一个模板容器对象
+     * @return 模板容器对象
+     */
     public static TemplateContainer newInstance() {
         return new TemplateContainer();
     }
@@ -25,8 +29,8 @@ public class TemplateContainer {
      * 获得CLASS模板信息
      *
      * @param clazz CLASS信息
-     * @param <T>
-     * @return
+     * @param <T> 数据类型
+     * @return 模板
      */
     public <T> ITemplate getSysTemplateInfo(Class<T> clazz) {
         ITemplate templateInstance = this.sysTemplate.get(clazz.getSimpleName());

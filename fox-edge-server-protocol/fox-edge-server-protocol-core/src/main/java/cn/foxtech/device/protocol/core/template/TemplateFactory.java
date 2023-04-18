@@ -9,8 +9,8 @@ public class TemplateFactory {
     /**
      * 协议模块名称
      *
-     * @param protocolModelName
-     * @return
+     * @param protocolModelName 协议模型明名称
+     * @return 模板容器
      */
     public static TemplateContainer getTemplate(String protocolModelName) {
         TemplateContainer template = map.get(protocolModelName);

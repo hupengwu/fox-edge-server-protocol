@@ -3,20 +3,18 @@ package cn.foxtech.device.protocol.iec104.core.encoder;
 import java.io.ByteArrayOutputStream;
 import java.util.*;
 
+
 /**
- * @author YDL
- * @ClassName: ByteUtil
- * @Description: byte 工具类
- * @date 2020年5月13日
+ * 数值的编码
  */
 public class ValueEncoder {
     /**
      * 连续性的信息体
      * 格式特点：【地址(3字节)】+【数据1】+【数据2】+【数据3】......
      *
-     * @param address
+     * @param address 地址
      * @param bodys   已经经过编码的数据
-     * @return
+     * @return 报文编码
      */
     public static byte[] encodeInfoBody(int address, List<byte[]> bodys) {
         // 计算需要的数组长度
@@ -47,7 +45,7 @@ public class ValueEncoder {
      * 格式特点：【地址1(3字节)+数据1】+【地址2(3字节)+数据2】+【地址3(3字节)+数据3】......
      *
      * @param bodys 已经经过编码的数据
-     * @return
+     * @return 报文编码
      */
     public static byte[] encodeInfoBody(Map<Integer, byte[]> bodys) {
         // 计算需要的数组长度
@@ -82,9 +80,9 @@ public class ValueEncoder {
     /**
      * 分拆连续性的信息体
      *
-     * @param data
+     * @param data 报文数据
      * @param infoSize 每个信息体的尺寸大小
-     * @return
+     * @return 报文编码
      */
     public static Map<Integer, byte[]> decodeInfoBody(byte[] data, int infoSize) {
         Map<Integer, byte[]> bodys = new HashMap<>();
@@ -116,8 +114,8 @@ public class ValueEncoder {
     /**
      * CP56Time2a的编码
      *
-     * @param date
-     * @return
+     * @param date 报文数据
+     * @return 报文编码
      */
     public static byte[] encodeCP56Time2a(Date date) {
         ByteArrayOutputStream bOutput = new ByteArrayOutputStream();
@@ -154,8 +152,8 @@ public class ValueEncoder {
     /**
      * CP56Time2a的解码
      *
-     * @param dataByte
-     * @return
+     * @param dataByte 报文编码
+     * @return 日期数据
      */
     public static Date decodeCP56Time2a(byte[] dataByte) {
         int year = (dataByte[6] & 0x7F) + 2000;
@@ -180,12 +178,9 @@ public class ValueEncoder {
     }
 
     /**
-     * @param @param  i
-     * @param @return
-     * @return byte[]
-     * @throws
-     * @Title: intToByteArray
-     * @Description: int 转换成 byte数组
+     * 将整数转换为报文
+     * @param i 整数
+     * @return 报文
      */
     public static byte[] intToByteArray(int i) {
         byte[] result = new byte[4];
@@ -197,12 +192,9 @@ public class ValueEncoder {
     }
 
     /**
-     * @param @param  val
-     * @param @return
-     * @return byte[]
-     * @throws
-     * @Title: shortToByteArray
-     * @Description: short 转换成 byte[]
+     * 将short转换为报文
+     * @param val 参数
+     * @return 报文
      */
     public static byte[] shortToByteArray(short val) {
         byte[] b = new byte[2];
@@ -212,12 +204,9 @@ public class ValueEncoder {
     }
 
     /**
-     * @param @param  bytes
-     * @param @return
-     * @return int
-     * @throws
-     * @Title: byteArrayToInt
-     * @Description: byte[] 转换成 int
+     * 将报文转换为整数
+     * @param bytes 报文
+     * @return 整数
      */
     public static int byteArrayToInt(byte[] bytes) {
         int value = 0;
@@ -229,12 +218,9 @@ public class ValueEncoder {
     }
 
     /**
-     * @param @param  bytes
-     * @param @return
-     * @return short
-     * @throws
-     * @Title: byteArrayToShort
-     * @Description: byte[] 转换成short
+     * 将报文转换为short
+     * @param bytes 报文
+     * @return short数据
      */
     public static short byteArrayToShort(byte[] bytes) {
         short value = 0;
@@ -245,10 +231,22 @@ public class ValueEncoder {
         return value;
     }
 
+    /**
+     * 将数值转换为十六进制文本格式
+     * @param array 数组
+     * @return 16进制的文本
+     */
     public static String byteArrayToHexString(byte[] array) {
         return byteArray2HexString(array, Integer.MAX_VALUE, false);
     }
 
+    /**
+     * 将数组转换为16进制文本
+     * @param arrBytes 二进制报文
+     * @param count 部分数据的长度
+     * @param blank 大小写
+     * @return 16进制文本
+     */
     public static String byteArray2HexString(byte[] arrBytes, int count, boolean blank) {
         String ret = "";
         if (arrBytes == null || arrBytes.length < 1) {
@@ -278,10 +276,10 @@ public class ValueEncoder {
     /**
      * 返回指定位置的数组
      *
-     * @param bytes
+     * @param bytes 数据
      * @param start  开始位置
      * @param length 截取长度
-     * @return
+     * @return 报文
      */
     public static byte[] getByte(byte[] bytes, int start, int length) {
         byte[] ruleByte = new byte[length];
@@ -296,8 +294,8 @@ public class ValueEncoder {
     /**
      * 十六进制字符串转换成byte数组
      *
-     * @param hexStr
-     * @return
+     * @param hexStr 16进制文本
+     * @return 二进制数据
      */
     public static byte[] hexStringToBytes(String hexStr) {
         hexStr = hexStr.replaceAll(" ", "");

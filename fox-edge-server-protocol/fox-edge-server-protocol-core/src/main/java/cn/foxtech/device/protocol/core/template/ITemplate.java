@@ -7,14 +7,14 @@ public interface ITemplate {
     /**
      * 系统级模板：代表的是文件格式
      *
-     * @return
+     * @return 模板名称
      */
     String getSysTemplateName();
 
     /**
      * 转载CSV模板文件
      *
-     * @param table
+     * @param table 表名称
      */
     void loadCsvFile(String table);
 }

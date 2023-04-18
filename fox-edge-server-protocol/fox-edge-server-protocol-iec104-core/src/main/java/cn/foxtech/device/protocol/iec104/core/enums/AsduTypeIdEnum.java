@@ -3,10 +3,9 @@ package cn.foxtech.device.protocol.iec104.core.enums;
 
 import lombok.Getter;
 
+
 /**
- * @author YDL
- * @ClassName: TypeIdentifierEnum   类型标识
- * @date 2020年5月13日
+ * Asdu的枚举值
  */
 public enum AsduTypeIdEnum {
 

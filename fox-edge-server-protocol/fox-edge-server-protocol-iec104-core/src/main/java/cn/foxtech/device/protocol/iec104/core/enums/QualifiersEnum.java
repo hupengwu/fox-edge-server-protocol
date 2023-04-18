@@ -2,9 +2,9 @@ package cn.foxtech.device.protocol.iec104.core.enums;
 
 import lombok.Getter;
 
+
 /**
- * @author YDL
- * @ClassName: 限定词
+ * QualifiersEnum 枚举值定义
  */
 public enum QualifiersEnum {
 
@@ -60,9 +60,9 @@ public enum QualifiersEnum {
     /**
      * 根据传输类型和 限定词的关系返回 限定词的类型
      *
-     * @param typeIdentifier
-     * @param value
-     * @return
+     * @param typeIdentifier Asdu枚举值
+     * @param value 数值
+     * @return QualifiersEnum
      */
     public static QualifiersEnum getQualifiersEnum(AsduTypeIdEnum typeIdentifier, byte value) {
         for (QualifiersEnum type : QualifiersEnum.values()) {

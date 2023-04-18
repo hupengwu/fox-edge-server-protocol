@@ -1,14 +1,18 @@
 package cn.foxtech.device.protocol.iec104.core.builder;
 
+import cn.foxtech.device.protocol.iec104.core.encoder.MessageUtils;
+import cn.foxtech.device.protocol.iec104.core.encoder.ValueEncoder;
 import cn.foxtech.device.protocol.iec104.core.entity.*;
 import cn.foxtech.device.protocol.iec104.core.enums.FrameTypeEnum;
 import cn.foxtech.device.protocol.iec104.core.enums.UControlTypeEnum;
 import cn.foxtech.device.protocol.iec104.core.vo.ApduVO;
-import cn.foxtech.device.protocol.iec104.core.encoder.MessageUtils;
-import cn.foxtech.device.protocol.iec104.core.encoder.ValueEncoder;
-import cn.foxtech.device.protocol.iec104.core.entity.*;
 
 public class ApduVOBuilder {
+    /**
+     * 转换实体对象
+     * @param apduVO apduVO
+     * @return ApduEntity
+     */
     public static ApduEntity buildEntity(ApduVO apduVO) {
         ApduEntity apduEntity = new ApduEntity();
 
@@ -21,6 +25,11 @@ public class ApduVOBuilder {
         return apduEntity;
     }
 
+    /**
+     * 生成VO
+     * @param apduEntity 实体
+     * @return VO
+     */
     public static ApduVO buildVO(ApduEntity apduEntity) {
         ApduVO apduVO = new ApduVO();
 
@@ -33,6 +42,11 @@ public class ApduVOBuilder {
         return apduVO;
     }
 
+    /**
+     * 生成控制实体
+     * @param controlVO VO
+     * @return 实体
+     */
     private static ControlEntity buildControlEntity(ApduVO.ControlVO controlVO) {
         if (FrameTypeEnum.I_FORMAT.name().equals(controlVO.getType())) {
             IControlEntity controlEntity = new IControlEntity();
@@ -63,6 +77,11 @@ public class ApduVOBuilder {
         return null;
     }
 
+    /**
+     * 生成VO
+     * @param controlEntity 实体
+     * @return VO
+     */
     private static ApduVO.ControlVO buildControlVO(ControlEntity controlEntity) {
         ApduVO.ControlVO controlVO = new ApduVO.ControlVO();
         if (controlEntity instanceof IControlEntity) {
@@ -82,6 +101,11 @@ public class ApduVOBuilder {
         return controlVO;
     }
 
+    /**
+     * 生成实体
+     * @param asduVO VO
+     * @return 实体
+     */
     private static AsduEntity buildAsduEntity(ApduVO.AsduVO asduVO) {
         if (asduVO == null) {
             return null;
@@ -97,6 +121,11 @@ public class ApduVOBuilder {
         return asduEntity;
     }
 
+    /**
+     * 生成VO
+     * @param asduEntity 实体
+     * @return VO
+     */
     private static ApduVO.AsduVO buildAsduVO(AsduEntity asduEntity) {
         if (asduEntity == null) {
             return null;
@@ -112,6 +141,11 @@ public class ApduVOBuilder {
         return asduVO;
     }
 
+    /**
+     * 生成实体
+     * @param vsqVO VO
+     * @return 实体
+     */
     private static VsqEntity buildVsqEntity(ApduVO.VsqVO vsqVO) {
         VsqEntity vsqEntity = new VsqEntity();
         vsqEntity.setNum(vsqVO.getNum());
@@ -120,6 +154,11 @@ public class ApduVOBuilder {
         return vsqEntity;
     }
 
+    /**
+     * 生成VO
+     * @param vsqEntity 实体
+     * @return VO
+     */
     private static ApduVO.VsqVO buildVsqVO(VsqEntity vsqEntity) {
         ApduVO.VsqVO vsqVO = new ApduVO.VsqVO();
         vsqVO.setNum(vsqEntity.getNum());

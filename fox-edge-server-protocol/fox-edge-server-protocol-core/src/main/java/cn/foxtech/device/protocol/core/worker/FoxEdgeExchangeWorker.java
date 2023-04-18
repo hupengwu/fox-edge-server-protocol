@@ -24,6 +24,7 @@ public class FoxEdgeExchangeWorker {
      * @param channelService 通道服务
      * @return 结果集合
      * @throws ProtocolException 业务异常，比如找不到解码器
+     * @throws CommunicationException 通信失败产生的异常
      */
     public static Map<String, Object> exchange(String deviceName, String deviceType, String operateName, Map<String, Object> params, int timeout, FoxEdgeChannelService channelService) throws ProtocolException, CommunicationException {
         try {

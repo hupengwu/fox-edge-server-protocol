@@ -10,9 +10,9 @@ public class BasicSessionEncoder {
     /**
      * S帧的确认报文：对来自从站的I帧进行确认，用于告诉从站，已经收到报文了
      *
-     * @param accept
-     * @return
-     * @throws Exception
+     * @param accept accept
+     * @return 数据编码
+     * @throws Exception 异常信息
      */
     public static byte[] encodeSFrameRespond(short accept) throws Exception {
         SControlEntity controlEntity = new SControlEntity();
@@ -28,8 +28,8 @@ public class BasicSessionEncoder {
     /**
      * 发送启动链路指令
      *
-     * @return
-     * @throws Exception
+     * @return 数据编码
+     * @throws Exception 异常信息
      */
     public static byte[] encodeSTARTDTByRequest() throws Exception {
         UControlEntity controlEntity = new UControlEntity();
@@ -45,8 +45,9 @@ public class BasicSessionEncoder {
     /**
      * 响应启动链路指令
      *
-     * @return
-     * @throws Exception
+     * @param pdu pud报文
+     * @return 实体
+     * @throws Exception 异常信息
      */
     public static ApduEntity decodeSTARTDTByRespond(byte[] pdu) throws Exception {
         return ApduEncoder.decodeApdu(pdu);
@@ -55,8 +56,8 @@ public class BasicSessionEncoder {
     /**
      * 发送启动链路指令
      *
-     * @return
-     * @throws Exception
+     * @return 数据编码
+     * @throws Exception 异常信息
      */
     public static byte[] encodeTESTFRByRequest() throws Exception {
         UControlEntity controlEntity = new UControlEntity();
@@ -72,14 +73,21 @@ public class BasicSessionEncoder {
     /**
      * 响应启动链路指令
      *
-     * @return
-     * @throws Exception
+     * @param pdu pdu报文
+     * @return 实体
+     * @throws Exception 异常信息
      */
     public static ApduEntity decodeTESTFRByRespond(byte[] pdu) throws Exception {
         return ApduEncoder.decodeApdu(pdu);
     }
 
 
+    /**
+     * 编码总召唤命令
+     * @param send 发送序号
+     * @return 实体
+     * @throws Exception 异常信息
+     */
     public static ApduEntity encodeGeneralCallAsduByRequest(short send) throws Exception {
         IControlEntity controlEntity = new IControlEntity();
         controlEntity.setSend(send);
@@ -116,18 +124,19 @@ public class BasicSessionEncoder {
     /**
      * 发送总召唤指令
      *
-     * @return
-     * @throws Exception
+     * @param send 发送序号
+     * @return 数据编码
+     * @throws Exception 异常信息
      */
     public static byte[] encodeGeneralCallByRequest(short send) throws Exception {
         return ApduEncoder.encodeApdu(encodeGeneralCallAsduByRequest(send));
     }
 
     /**
-     * 响应总召唤指令
-     *
-     * @return
-     * @throws Exception
+     * 解码响应总召唤指令
+     * @param pdu pdu报文
+     * @return 实体
+     * @throws Exception 异常信息
      */
     public static ApduEntity decodeGeneralCallByRespond(byte[] pdu) throws Exception {
         ApduEntity apduEntity = ApduEncoder.decodeApdu(pdu);
@@ -135,6 +144,12 @@ public class BasicSessionEncoder {
         return apduEntity;
     }
 
+    /**
+     * 编码PowerPulseCall
+     * @param send 发送序号
+     * @return 实体
+     * @throws Exception 异常信息
+     */
     public static ApduEntity encodePowerPulseCallAsduByRequest(short send) throws Exception {
         IControlEntity controlEntity = new IControlEntity();
         controlEntity.setSend(send);
