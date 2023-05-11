@@ -21,9 +21,9 @@
     </developer>
   </developers>
   <scm>
-    <connection>scm:git:git@gitee.com/fierce_wolf/fox-edge-server-protocol/fox-edge-server-protocol/fox-edge-server-protocol-modbus</connection>
-    <developerConnection>scm:git:git@gitee.com/fierce_wolf/fox-edge-server-protocol.git/fox-edge-server-protocol/fox-edge-server-protocol-modbus</developerConnection>
-    <url>git@gitee.com/fierce_wolf/fox-edge-server-protocol.git/fox-edge-server-protocol/fox-edge-server-protocol-modbus</url>
+    <connection>scm:git:git@gitee.com/fierce_wolf/fox-edge-server/fox-edge-server-protocol/fox-edge-server-protocol-modbus</connection>
+    <developerConnection>scm:git:git@gitee.com/fierce_wolf/fox-edge-server.git/fox-edge-server-protocol/fox-edge-server-protocol-modbus</developerConnection>
+    <url>git@gitee.com/fierce_wolf/fox-edge-server.git/fox-edge-server-protocol/fox-edge-server-protocol-modbus</url>
   </scm>
   <dependencies>
     <dependency>
@@ -39,14 +39,4 @@
       <scope>compile</scope>
     </dependency>
   </dependencies>
-  <build>
-    <plugins>
-      <plugin>
-        <groupId>org.sonatype.plugins</groupId>
-        <artifactId>nexus-staging-maven-plugin</artifactId>
-        <version>1.6.7</version>
-        <extensions>true</extensions>
-      </plugin>
-    </plugins>
-  </build>
 </project>

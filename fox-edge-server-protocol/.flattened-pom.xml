@@ -22,18 +22,8 @@
     </developer>
   </developers>
   <scm>
-    <connection>scm:git:git@gitee.com/fierce_wolf/fox-edge-server-protocol/fox-edge-server-protocol</connection>
-    <developerConnection>scm:git:git@gitee.com/fierce_wolf/fox-edge-server-protocol.git/fox-edge-server-protocol</developerConnection>
-    <url>git@gitee.com/fierce_wolf/fox-edge-server-protocol.git/fox-edge-server-protocol</url>
+    <connection>scm:git:git@gitee.com/fierce_wolf/fox-edge-server/fox-edge-server-protocol</connection>
+    <developerConnection>scm:git:git@gitee.com/fierce_wolf/fox-edge-server.git/fox-edge-server-protocol</developerConnection>
+    <url>git@gitee.com/fierce_wolf/fox-edge-server.git/fox-edge-server-protocol</url>
   </scm>
-  <build>
-    <plugins>
-      <plugin>
-        <groupId>org.sonatype.plugins</groupId>
-        <artifactId>nexus-staging-maven-plugin</artifactId>
-        <version>1.6.7</version>
-        <extensions>true</extensions>
-      </plugin>
-    </plugins>
-  </build>
 </project>
