@@ -39,11 +39,65 @@ fox-edge 边缘计算 采用积木式的全开放式的架构，方便用户自�
 - 可以自行调整或者替换系统自带控制器、触发器部件，实现项目需要的业务功能
 - 可以自行开发或者替换系统调整上行接口，实现上行对接用户数据中心的接口。
 
+## 服务清单
+```txt 
+fox-edge
+├─fox-edge-server-channel
+│  ├─fox-edge-server-channel-bacnet-client
+│  ├─fox-edge-server-channel-coap-client
+│  ├─fox-edge-server-channel-gdana-digester
+│  ├─fox-edge-server-channel-http-client
+│  ├─fox-edge-server-channel-iec104
+│  ├─fox-edge-server-channel-mqtt-client
+│  ├─fox-edge-server-channel-opc-ua-service
+│  ├─fox-edge-server-channel-proxy-service
+│  ├─fox-edge-server-channel-serialport-service
+│  ├─fox-edge-server-channel-simulator-service
+│  ├─fox-edge-server-channel-snmp-service
+│  ├─fox-edge-server-channel-tcpsocket-service
+│  └─fox-edge-server-channel-udpsocket-service
+├─fox-edge-server-controller
+├─fox-edge-server-device
+├─fox-edge-server-persist
+├─fox-edge-server-protocol
+│  ├─fox-edge-server-protocol-bass260zj
+│  ├─fox-edge-server-protocol-cetups
+│  ├─fox-edge-server-protocol-cjt188
+│  ├─fox-edge-server-protocol-cjt188-core
+│  ├─fox-edge-server-protocol-core
+│  ├─fox-edge-server-protocol-dlt645-1997
+│  ├─fox-edge-server-protocol-dlt645-core
+│  ├─fox-edge-server-protocol-gdana-digester
+│  ├─fox-edge-server-protocol-iec104-core
+│  ├─fox-edge-server-protocol-iec104-slaver
+│  ├─fox-edge-server-protocol-lrw
+│  ├─fox-edge-server-protocol-mitsubishi-plc-fx
+│  ├─fox-edge-server-protocol-mitsubishi-plc-fx-core
+│  ├─fox-edge-server-protocol-modbus
+│  ├─fox-edge-server-protocol-modbus-core
+│  ├─fox-edge-server-protocol-omron-fins
+│  ├─fox-edge-server-protocol-omron-fins-core
+│  ├─fox-edge-server-protocol-shmeter
+│  ├─fox-edge-server-protocol-snmp
+│  ├─fox-edge-server-protocol-telecom-core
+│  ├─fox-edge-server-protocol-zs-sht30-1t-1h
+│  └─fox-edge-server-protocol-zxdu58
+├─fox-edge-server-proxy
+│  ├─fox-edge-server-proxy-cloud
+│  └─fox-edge-server-proxy-redis-topic-service
+├─fox-edge-server-service
+├─fox-edge-server-trigger
+
+``` 
+
 ## 在线体验
-在安装之前，在线上有个[预览版本](http://120.79.69.201)，你现在就可以直接体验
+在安装之前，在线上有个[预览版本](http://fox-edge-demo.fox-tech.cn)，你现在就可以直接体验
 
 ## 联系方式
-![image](http://docs.fox-tech.cn/_images/weixin.png)
+EMAIL： 5389408@QQ.COM
+
+## 微信技术交流群
+![image](http://docs.fox-tech.cn/_images/weixinqun-01.jpg)
 
 ## 通信协议解码器列表
 1. fox-edge-server-protocol-bass260zj 广东高新兴的浙江移动版基站门禁的通信协议
