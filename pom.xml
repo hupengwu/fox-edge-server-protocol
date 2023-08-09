@@ -43,6 +43,7 @@
 
     <modules>
         <module>fox-edge-server-common</module>
+        <module>fox-edge-server-channel</module>
         <module>fox-edge-server-protocol</module>
     </modules>
 
