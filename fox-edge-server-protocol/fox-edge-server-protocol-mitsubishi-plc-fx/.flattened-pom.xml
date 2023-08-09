@@ -4,7 +4,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>cn.fox-tech</groupId>
   <artifactId>fox-edge-server-protocol-mitsubishi-plc-fx</artifactId>
-  <version>1.0.0</version>
+  <version>1.0.1</version>
   <name>fox-edge-server-protocol-mitsubishi-plc-fx</name>
   <description>fox-edge-server-protocol-mitsubishi-plc-fx</description>
   <url>https://www.fox-tech.cn/fox-edge-server-protocol/fox-edge-server-protocol-mitsubishi-plc-fx</url>
@@ -21,22 +21,32 @@
     </developer>
   </developers>
   <scm>
-    <connection>scm:git:git@gitee.com/fierce_wolf/fox-edge-server/fox-edge-server-protocol/fox-edge-server-protocol-mitsubishi-plc-fx</connection>
-    <developerConnection>scm:git:git@gitee.com/fierce_wolf/fox-edge-server.git/fox-edge-server-protocol/fox-edge-server-protocol-mitsubishi-plc-fx</developerConnection>
-    <url>git@gitee.com/fierce_wolf/fox-edge-server.git/fox-edge-server-protocol/fox-edge-server-protocol-mitsubishi-plc-fx</url>
+    <connection>scm:git:git@gitee.com/fierce_wolf/fox-edge-server-protocol/fox-edge-server-protocol/fox-edge-server-protocol-mitsubishi-plc-fx</connection>
+    <developerConnection>scm:git:git@gitee.com/fierce_wolf/fox-edge-server-protocol.git/fox-edge-server-protocol/fox-edge-server-protocol-mitsubishi-plc-fx</developerConnection>
+    <url>git@gitee.com/fierce_wolf/fox-edge-server-protocol.git/fox-edge-server-protocol/fox-edge-server-protocol-mitsubishi-plc-fx</url>
   </scm>
   <dependencies>
     <dependency>
       <groupId>cn.fox-tech</groupId>
       <artifactId>fox-edge-server-protocol-mitsubishi-plc-fx-core</artifactId>
-      <version>1.0.0</version>
+      <version>1.0.1</version>
       <scope>compile</scope>
     </dependency>
     <dependency>
       <groupId>cn.fox-tech</groupId>
       <artifactId>fox-edge-server-protocol-modbus-core</artifactId>
-      <version>1.0.0</version>
+      <version>1.0.1</version>
       <scope>compile</scope>
     </dependency>
   </dependencies>
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.sonatype.plugins</groupId>
+        <artifactId>nexus-staging-maven-plugin</artifactId>
+        <version>1.6.7</version>
+        <extensions>true</extensions>
+      </plugin>
+    </plugins>
+  </build>
 </project>

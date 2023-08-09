@@ -4,7 +4,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>cn.fox-tech</groupId>
   <artifactId>fox-edge-server-protocol</artifactId>
-  <version>1.0.0</version>
+  <version>1.0.1</version>
   <packaging>pom</packaging>
   <name>fox-edge-server-protocol</name>
   <description>fox-edge-server-protocol</description>
@@ -22,8 +22,18 @@
     </developer>
   </developers>
   <scm>
-    <connection>scm:git:git@gitee.com/fierce_wolf/fox-edge-server/fox-edge-server-protocol</connection>
-    <developerConnection>scm:git:git@gitee.com/fierce_wolf/fox-edge-server.git/fox-edge-server-protocol</developerConnection>
-    <url>git@gitee.com/fierce_wolf/fox-edge-server.git/fox-edge-server-protocol</url>
+    <connection>scm:git:git@gitee.com/fierce_wolf/fox-edge-server-protocol/fox-edge-server-protocol</connection>
+    <developerConnection>scm:git:git@gitee.com/fierce_wolf/fox-edge-server-protocol.git/fox-edge-server-protocol</developerConnection>
+    <url>git@gitee.com/fierce_wolf/fox-edge-server-protocol.git/fox-edge-server-protocol</url>
   </scm>
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.sonatype.plugins</groupId>
+        <artifactId>nexus-staging-maven-plugin</artifactId>
+        <version>1.6.7</version>
+        <extensions>true</extensions>
+      </plugin>
+    </plugins>
+  </build>
 </project>
