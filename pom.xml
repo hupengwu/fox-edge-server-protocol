@@ -45,6 +45,7 @@
         <module>fox-edge-server-common</module>
         <module>fox-edge-server-channel</module>
         <module>fox-edge-server-controller</module>
+        <module>fox-edge-server-service</module>
         <module>fox-edge-server-protocol</module>
     </modules>
 
