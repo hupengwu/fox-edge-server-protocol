@@ -4,7 +4,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>cn.fox-tech</groupId>
   <artifactId>fox-edge-server-protocol-omron-fins</artifactId>
-  <version>1.0.2</version>
+  <version>1.0.3</version>
   <name>fox-edge-server-protocol-omron-fins</name>
   <description>fox-edge-server-protocol-omron-fins</description>
   <url>https://www.fox-tech.cn/fox-edge-server-protocol/fox-edge-server-protocol-omron-fins</url>
@@ -29,13 +29,13 @@
     <dependency>
       <groupId>cn.fox-tech</groupId>
       <artifactId>fox-edge-server-protocol-core</artifactId>
-      <version>1.0.2</version>
+      <version>1.0.3</version>
       <scope>compile</scope>
     </dependency>
     <dependency>
       <groupId>cn.fox-tech</groupId>
       <artifactId>fox-edge-server-protocol-omron-fins-core</artifactId>
-      <version>1.0.2</version>
+      <version>1.0.3</version>
       <scope>compile</scope>
     </dependency>
   </dependencies>
