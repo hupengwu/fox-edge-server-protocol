@@ -4,7 +4,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>cn.fox-tech</groupId>
   <artifactId>fox-edge-server-protocol-gdana-digester</artifactId>
-  <version>1.0.5</version>
+  <version>1.0.4</version>
   <name>fox-edge-server-protocol-gdana-digester</name>
   <description>fox-edge-server-protocol-gdana-digester</description>
   <url>https://www.fox-tech.cn/fox-edge-server-protocol/fox-edge-server-protocol-gdana-digester</url>
@@ -29,7 +29,7 @@
     <dependency>
       <groupId>cn.fox-tech</groupId>
       <artifactId>fox-edge-server-protocol-core</artifactId>
-      <version>1.0.5</version>
+      <version>1.0.4</version>
       <scope>compile</scope>
     </dependency>
   </dependencies>
