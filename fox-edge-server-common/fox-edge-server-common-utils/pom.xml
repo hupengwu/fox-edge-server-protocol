@@ -24,6 +24,7 @@
         <module>fox-edge-server-common-utils-hutool-http</module>
         <module>fox-edge-server-common-utils-influxdb</module>
         <module>fox-edge-server-common-utils-json</module>
+        <module>fox-edge-server-common-utils-xml</module>
         <module>fox-edge-server-common-utils-jar-info</module>
         <module>fox-edge-server-common-utils-pair</module>
         <module>fox-edge-server-common-utils-log4j</module>
@@ -44,6 +45,7 @@
         <module>fox-edge-server-common-utils-serial</module>
         <module>fox-edge-server-common-utils-scheduler</module>
         <module>fox-edge-server-common-utils-sync-obejct</module>
+        <module>fox-edge-server-common-utils-uuid</module>
     </modules>
 
 

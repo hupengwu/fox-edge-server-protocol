@@ -1,8 +1,7 @@
 package cn.foxtech.common.utils.serialport;
 
-import cn.foxtech.common.utils.serialport.win32.SerialPortWin32;
 import cn.foxtech.common.utils.serialport.linux.SerialPortLinux;
-import cn.foxtech.common.utils.serialport.linux.entity.OutValue;
+import cn.foxtech.common.utils.serialport.win32.SerialPortWin32;
 import com.sun.jna.Platform;
 
 /**
@@ -19,12 +18,14 @@ public interface ISerialPort {
         }
     }
 
+    public String getName();
+
     /**
      * 串口是否打开
      *
      * @return 是否打开
      */
-    public boolean isOpen();
+    boolean isOpen();
 
     /**
      * 打开串口
@@ -32,7 +33,7 @@ public interface ISerialPort {
      * @param name LINUX下串口名为ttyS0这样格式的数据，WINDOWS下串口名为COM1这样的格式
      * @return 操作是否成功
      */
-    public boolean open(String name);
+    boolean open(String name);
 
 
     /**
@@ -42,45 +43,54 @@ public interface ISerialPort {
      * @param databits 数据位
      * @param stopbits 停止位
      * @param parity   校验位
+     * @param commTimeOuts   commTimeOuts的字节时间间隔
      * @return 是否成功
      */
-    public boolean setParam(Integer baudRate, String parity, Integer databits, Integer stopbits);
+    boolean setParam(Integer baudRate, String parity, Integer databits, Integer stopbits, Integer commTimeOuts);
 
     /**
      * 发送数据
      *
      * @param data    缓冲区
-     * @param sendLen
-     * @return 操作是否成功
+     * @return 实际发送的数据长度
      */
-    public boolean sendData(byte[] data, OutValue sendLen);
+    int sendData(byte[] data);
 
     /**
      * 接收数据
      *
      * @param data     准备发送的数据库
      * @param mTimeout 最大超时等待时间，单位毫秒
-     * @param recvLen  接收到数据
-     * @return 操作是否成功
+     * @return 接收到数据
      */
-    public boolean recvData(byte[] data, long mTimeout, OutValue recvLen);
+    int recvData(byte[] data, long mTimeout);
+
+    /**
+     * 读取串口数据
+     *
+     * @param recvBuffer      缓存
+     * @param minPackInterval 两组数据报文之间，最小的时间间隔
+     * @param maxPackInterval 两组数据报文之间，最大的时间间隔
+     * @return 报文长度
+     */
+    public int recvData(byte[] recvBuffer, long minPackInterval, long maxPackInterval);
 
     /**
      * 清空缓冲区
      *
      * @return 操作是否成功
      */
-    public boolean clearRecvFlush();
+    boolean clearRecvFlush();
 
     /**
      * 清空缓冲区
      *
      * @return 操作是否成功
      */
-    public boolean clearSendFlush();
+    boolean clearSendFlush();
 
     /**
      * 关闭串口
      */
-    public boolean close();
+    boolean close();
 }

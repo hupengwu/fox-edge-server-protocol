@@ -3,6 +3,8 @@ package cn.foxtech.common.entity.service.config;
 import cn.foxtech.common.entity.constant.ConfigParamVOFieldConstant;
 import cn.foxtech.common.entity.entity.BaseEntity;
 import cn.foxtech.common.entity.entity.ConfigEntity;
+import cn.foxtech.common.utils.Maps;
+import cn.foxtech.common.utils.json.JsonUtils;
 import cn.foxtech.common.utils.method.MethodUtils;
 import lombok.AccessLevel;
 import lombok.Setter;
@@ -12,9 +14,6 @@ import java.util.List;
 import java.util.Map;
 
 public class ConfigVOMaker {
-    public static final String mode_prev = "prev";
-    public static final String mode_post = "post";
-
     @Setter(value = AccessLevel.PUBLIC)
     private ISaveMode saveMode;
 
@@ -22,7 +21,15 @@ public class ConfigVOMaker {
         return new ConfigVOMaker();
     }
 
-    public void process(ConfigEntity entity, String processMode) {
+    public void postProcess(ConfigEntity entity) {
+        this.process(entity, null);
+    }
+
+    public void preProcess(ConfigEntity entity, ConfigEntity exist) {
+        this.process(entity, exist);
+    }
+
+    private void process(ConfigEntity entity, ConfigEntity exist) {
         Map<String, Object> configParam = entity.getConfigParam();
         Map<String, Object> configValue = entity.getConfigValue();
         if (MethodUtils.hasEmpty(configParam, configValue)) {
@@ -36,20 +43,23 @@ public class ConfigVOMaker {
         }
 
         for (Map<String, Object> param : paramList) {
-            process(param, configValue, processMode);
-        }
+            Map<String, Object> value = null;
+            if (exist != null) {
+                value = exist.getConfigValue();
+            }
 
-        return;
+            process(param, configValue, value);
+        }
     }
 
     /**
      * 后期加工
      *
-     * @param entityList 实体列表
+     * @param entityList  实体列表
      * @param processMode 加工模式
      * @return 实体列表
      */
-    public List<BaseEntity> process(List<BaseEntity> entityList, String processMode) {
+    public List<BaseEntity> postProcess(List<BaseEntity> entityList, String processMode) {
         List<BaseEntity> result = new ArrayList<>();
 
         for (BaseEntity base : entityList) {
@@ -57,7 +67,27 @@ public class ConfigVOMaker {
             ConfigEntity clone = ((ConfigEntity) base).clone();
             result.add(clone);
 
-            process(clone, processMode);
+            postProcess(clone);
+        }
+
+        return result;
+    }
+
+    /**
+     * 后期处理
+     *
+     * @param entityList
+     * @return
+     */
+    public List<BaseEntity> postProcess(List<BaseEntity> entityList) {
+        List<BaseEntity> result = new ArrayList<>();
+
+        for (BaseEntity base : entityList) {
+            // 利用JSON转换的过程，深度clone一个副本，避免接下来的修改操作影响到源数据
+            ConfigEntity clone = (ConfigEntity) JsonUtils.clone(base);
+            result.add(clone);
+
+            postProcess(clone);
         }
 
         return result;
@@ -67,10 +97,18 @@ public class ConfigVOMaker {
     /**
      * 前期处理
      *
-     * @param param 参数
+     * @param param       参数
      * @param configValue 配置值
      */
-    private void process(Map<String, Object> param, Map<String, Object> configValue, String processMode) {
+    /**
+     * 数据处理
+     * 如果填写了existValue，那么为预处理，否则为后期处理
+     *
+     * @param param       参数
+     * @param configValue 输入的配置数值
+     * @param existValue  当前的配置数据
+     */
+    private void process(Map<String, Object> param, Map<String, Object> configValue, Map<String, Object> existValue) {
         try {
             String fieldName = (String) param.get("fieldName");
             String valueType = (String) param.get("valueType");
@@ -78,33 +116,57 @@ public class ConfigVOMaker {
             String showMode = (String) param.get("showMode");
             String saveMode = (String) param.get("saveMode");
 
+            Object[] fields = fieldName.split("\\.");
+
+            // 取出输入的新数值
+            Object newValue = Maps.getValue(configValue, fields);
+            if (newValue == null) {
+                newValue = defaultValue;
+            }
+
+            // 取出已经存在的旧数值
+            Object oldValue = null;
+            if (existValue != null) {
+                oldValue = Maps.getValue(existValue, fields);
+                if (oldValue == null) {
+                    oldValue = defaultValue;
+                }
+            }
+
             // 至少包含fieldName和valueType字段
-            if (MethodUtils.hasEmpty(fieldName, valueType)) {
+            if (MethodUtils.hasEmpty(newValue)) {
                 return;
             }
 
             // 验证数值的类型是否正确
-            Object value = configValue.getOrDefault(fieldName, defaultValue);
-            if (!verifyValueType(valueType, value)) {
+            if (!verifyValueType(valueType, newValue)) {
                 return;
             }
 
             // 下面是各种具体行为
 
 
-            // 后期处理
-            if (ConfigVOMaker.mode_post.equals(processMode)) {
+            // 隐藏信息用的覆盖字符串
+            String hideString = "****";
+
+            if (existValue == null) {
+                // 后期处理
+
                 // 场景1：密码的安全显示
                 if ("Security".equals(showMode)) {
-                    configValue.put(fieldName, "****");
+                    Maps.setValue(configValue, fields, hideString);
                 }
-            }
-            // 前期处理
-            if (ConfigVOMaker.mode_prev.equals(processMode)) {
-                // 场景1：密码的加密存储
-                if ("Security".equals(saveMode)) {
-                    String newValue = this.saveMode.process(value);
-                    configValue.put(fieldName, newValue);
+            } else {
+                // 前期处理
+
+                // 场景1：密码的原文存储：如果新的数据是"****"，说明用户并没有修改
+                if ("Security".equals(showMode) && hideString.equals(newValue)) {
+                    String realValue = "";
+                    if (oldValue != null) {
+                        realValue = oldValue.toString();
+                    }
+                    // 将真实的数据，更新到用户的输入数据之中
+                    Maps.setValue(configValue, fields, realValue);
                 }
             }
 

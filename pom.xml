@@ -14,8 +14,8 @@
 
     <properties>
         <!-- fox-edge-server version -->
-        <revision>1.0.3</revision>
-        <fox-edge-server.version>1.0.3</fox-edge-server.version>
+        <revision>1.0.4</revision>
+        <fox-edge-server.version>1.0.4</fox-edge-server.version>
         <!-- java version -->
         <java.version>1.8</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -44,6 +44,7 @@
     <modules>
         <module>fox-edge-server-common</module>
         <module>fox-edge-server-channel</module>
+        <module>fox-edge-server-link</module>
         <module>fox-edge-server-device</module>
         <module>fox-edge-server-controller</module>
         <module>fox-edge-server-service</module>

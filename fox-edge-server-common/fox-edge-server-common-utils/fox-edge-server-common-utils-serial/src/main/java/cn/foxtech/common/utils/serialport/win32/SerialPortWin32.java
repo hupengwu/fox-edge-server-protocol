@@ -1,7 +1,6 @@
 package cn.foxtech.common.utils.serialport.win32;
 
 import cn.foxtech.common.utils.serialport.ISerialPort;
-import cn.foxtech.common.utils.serialport.linux.entity.OutValue;
 import com.sun.jna.Pointer;
 import com.sun.jna.platform.win32.Kernel32;
 import com.sun.jna.platform.win32.WinBase;
@@ -32,6 +31,12 @@ public class SerialPortWin32 implements ISerialPort {
      */
     private String name = "COM1";
 
+    @Override
+    public String getName(){
+        return this.name;
+    }
+
+
     /**
      * 句柄是否打开
      *
@@ -43,11 +48,7 @@ public class SerialPortWin32 implements ISerialPort {
             return false;
         }
 
-        if (this.handle.getPointer().equals(INVALID_HANDLE_VALUE)) {
-            return false;
-        }
-
-        return true;
+        return !this.handle.getPointer().equals(INVALID_HANDLE_VALUE);
     }
 
     /**
@@ -66,18 +67,22 @@ public class SerialPortWin32 implements ISerialPort {
         this.handle = null;
     }
 
+    public boolean setParam(Integer baudRate, String parity, Integer databits, Integer stopbits) {
+        return setParam(baudRate, parity, databits, stopbits, 0);
+    }
 
     /**
      * 设置串口参数
      *
-     * @param baudRate 速率
-     * @param databits 数据位
-     * @param stopbits 停止位
-     * @param parity   校验位
+     * @param baudRate     速率
+     * @param databits     数据位
+     * @param stopbits     停止位
+     * @param parity       校验位
+     * @param commTimeOuts commTimeOuts的字节时间间隔，默认值0
      * @return 是否成功
      */
     @Override
-    public boolean setParam(Integer baudRate, String parity, Integer databits, Integer stopbits) {
+    public boolean setParam(Integer baudRate, String parity, Integer databits, Integer stopbits, Integer commTimeOuts) {
         // 检查：串口是否打开
         if (!this.isOpen()) {
             return false;
@@ -96,13 +101,19 @@ public class SerialPortWin32 implements ISerialPort {
             return false;
         }
 
+        // 检查：字节时间的配置是否超过合理范围，填写了这个参数，是要付出卡顿的代价的，非遇到断句不正确的时候，不要配置它。
+        if (commTimeOuts < 0 || commTimeOuts > 5) {
+            commTimeOuts = 0;
+        }
+
         //读写超时设置：ReadIntervalTimeout必须为-1，ReadTotalTimeoutMultiplier/ReadTotalTimeoutConstant为0
         WinBase.COMMTIMEOUTS CommTimeOuts = new WinBase.COMMTIMEOUTS();
         CommTimeOuts.ReadIntervalTimeout = new WinBase.DWORD(-1); //字符允许间隔ms 该参数如果为最大值，会使readfile命令立即返回
-        CommTimeOuts.ReadTotalTimeoutMultiplier = new WinBase.DWORD(0); //总的超时时间(对单个字节)
-        CommTimeOuts.ReadTotalTimeoutConstant = new WinBase.DWORD(0); //多余的超时时间ms
-        CommTimeOuts.WriteTotalTimeoutMultiplier = new WinBase.DWORD(0); //总的超时时间(对单个字节)
+        CommTimeOuts.ReadTotalTimeoutMultiplier = new WinBase.DWORD(commTimeOuts); //总的超时时间(对单个字节)
+        CommTimeOuts.ReadTotalTimeoutConstant = new WinBase.DWORD(commTimeOuts); //多余的超时时间ms
+        CommTimeOuts.WriteTotalTimeoutMultiplier = new WinBase.DWORD(commTimeOuts); //总的超时时间(对单个字节)
         CommTimeOuts.WriteTotalTimeoutConstant = new WinBase.DWORD(2500); //多余的超时时间
+
         if (!KERNEL.SetCommTimeouts(handle, CommTimeOuts)) {
             return false;
         }
@@ -115,11 +126,7 @@ public class SerialPortWin32 implements ISerialPort {
         /**
          * 设置串口上的发送/接收缓冲区
          */
-        if (!KERNELPLUS.SetupComm(this.handle, new WinDef.DWORD(4096), new WinDef.DWORD(4096))) {
-            return false;
-        }
-
-        return true;
+        return KERNELPLUS.SetupComm(this.handle, new WinDef.DWORD(4096), new WinDef.DWORD(4096));
     }
 
     /**
@@ -153,7 +160,6 @@ public class SerialPortWin32 implements ISerialPort {
         return true;
     }
 
-
     /**
      * 关闭串口
      *
@@ -183,27 +189,28 @@ public class SerialPortWin32 implements ISerialPort {
      * @return
      */
     @Override
-    public boolean sendData(byte[] data, OutValue sendLen) {
+    public int sendData(byte[] data) {
         if (!this.isOpen()) {
-            return false;
-        }
-        if (sendLen == null) {
-            return false;
-        }
-
-        // 清空串口的出错标识
-        Win32Macro.COMSTAT ComStat = new Win32Macro.COMSTAT();
-        WinDef.DWORDByReference dwErrorFlags = new WinDef.DWORDByReference();
-        if (!KERNELPLUS.ClearCommError(this.handle, dwErrorFlags, ComStat)) {
-            return false;
+            throw new RuntimeException("串口尚未打开：" + this.name);
         }
 
         // 发送数据
         IntByReference dwBytesWritten = new IntByReference();
         boolean bWriteStat = KERNEL.WriteFile(this.handle, data, data.length, dwBytesWritten, null);
+        return dwBytesWritten.getValue();
+    }
 
-        sendLen.setObject(dwBytesWritten.getValue());
-        return true;
+    public void ClearCommError() {
+        if (!this.isOpen()) {
+            throw new RuntimeException("串口尚未打开：" + this.name);
+        }
+
+        //   清空串口的出错标识
+        Win32Macro.COMSTAT ComStat = new Win32Macro.COMSTAT();
+        WinDef.DWORDByReference dwErrorFlags = new WinDef.DWORDByReference();
+        if (!KERNELPLUS.ClearCommError(this.handle, dwErrorFlags, ComStat)) {
+            throw new RuntimeException("ClearCommError异常：" + this.name);
+        }
     }
 
     /**
@@ -219,20 +226,17 @@ public class SerialPortWin32 implements ISerialPort {
     }
 
     /**
-     * @param recvBuffer 接收缓冲区
-     * @param uTimeout   最大超时等待时间，单位微秒
-     * @param recvLen    接收到数据
-     * @return 操作是否成功
+     * 读取串口数据
+     *
+     * @param recvBuffer      缓存
+     * @param minPackInterval 两组数据报文之间，最小的时间间隔
+     * @param maxPackInterval 两组数据报文之间，最大的时间间隔
+     * @return 报文长度
      */
     @Override
-    public boolean recvData(byte[] recvBuffer, long uTimeout, OutValue recvLen) {
-        if (recvLen == null) {
-            return false;
-        }
-        recvLen.setObject(0);
-
+    public int recvData(byte[] recvBuffer, long minPackInterval, long maxPackInterval) {
         if (!this.isOpen()) {
-            return false;
+            throw new RuntimeException("串口尚未打开：" + this.name);
         }
 
 
@@ -246,9 +250,13 @@ public class SerialPortWin32 implements ISerialPort {
             IntByReference lngBytesRead = new IntByReference();
             KERNEL.ReadFile(handle, tempBuff, tempBuff.length, lngBytesRead, null);
             if (lngBytesRead.getValue() > 0) {
+                // 检测：如果数据粘合的长度已经超过了可容纳的缓存，那么宁愿丢弃后续报文，也要确保安全而退出
+                if (lngBytesRead.getValue() + recvCount > recvBuffer.length) {
+                    return recvCount;
+                }
+
                 // 将数据复制到外部数组
-                System.arraycopy(tempBuff, 0, recvBuffer, recvCount,
-                        Math.min(recvBuffer.length - recvCount, lngBytesRead.getValue()));
+                System.arraycopy(tempBuff, 0, recvBuffer, recvCount, Math.min(recvBuffer.length - recvCount, lngBytesRead.getValue()));
 
                 // 记录：这次读取到了部分数据
                 recvCount += lngBytesRead.getValue();
@@ -260,7 +268,7 @@ public class SerialPortWin32 implements ISerialPort {
 
                 if (lngBytesRead.getValue() > 0) {
                     // <1> 上次最近一次有数据，说明后续可能还有，那就继续读取
-                    sleep(10);
+                    sleep(minPackInterval);
                     continue;
                 } else {
                     // <2> 上次最近一次没数据，说明后续已经没有数据了，那就退出流程了
@@ -270,16 +278,25 @@ public class SerialPortWin32 implements ISerialPort {
 
                 // // <3> 在整个超时期间，都没有数据
                 long spand = System.currentTimeMillis() - start;
-                if (spand > uTimeout) {
+                if (spand > maxPackInterval) {
                     break;
                 }
 
-                sleep(10);
+                sleep(minPackInterval);
             }
         }
 
-        recvLen.setObject(recvCount);
-        return true;
+        return recvCount;
+    }
+
+    /**
+     * @param recvBuffer 接收缓冲区
+     * @param uTimeout   最大超时等待时间，单位微秒
+     * @return 接收到数据
+     */
+    @Override
+    public int recvData(byte[] recvBuffer, long uTimeout) {
+        return recvData(recvBuffer, 10, uTimeout);
     }
 
     @Override
@@ -297,27 +314,5 @@ public class SerialPortWin32 implements ISerialPort {
         }
 
         return KERNELPLUS.PurgeComm(handle, new WinDef.DWORD(Win32Macro.PURGE_TXABORT | Win32Macro.PURGE_TXCLEAR)); //
-    }
-
-    public static void main(String[] args) throws Exception {
-        SerialPortWin32 serialPort = new SerialPortWin32();
-        byte[] sendBuff = new byte[256];
-        sendBuff[0] = 1;
-        sendBuff[1] = 2;
-        sendBuff[2] = 3;
-
-
-        serialPort.open("COM1");
-        serialPort.setParam(9600, "n", 8, 1);
-
-        OutValue sendLen = new OutValue();
-        serialPort.sendData(sendBuff, sendLen);
-
-        byte[] recvBuff = new byte[4096];
-        while (true) {
-            serialPort.recvData(recvBuff, 50 * 1000, sendLen);
-            int i = (Integer) sendLen.getObj();
-            i = 0;
-        }
     }
 }

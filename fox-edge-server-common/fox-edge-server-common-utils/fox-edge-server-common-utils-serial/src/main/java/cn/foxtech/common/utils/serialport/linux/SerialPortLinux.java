@@ -1,7 +1,6 @@
 package cn.foxtech.common.utils.serialport.linux;
 
 import cn.foxtech.common.utils.serialport.ISerialPort;
-import cn.foxtech.common.utils.serialport.linux.entity.OutValue;
 import cn.foxtech.common.utils.serialport.linux.entity.FD_SET;
 import cn.foxtech.common.utils.serialport.linux.entity.TERMIOS;
 import cn.foxtech.common.utils.serialport.linux.entity.TIMEVAL;
@@ -11,7 +10,14 @@ import cn.foxtech.common.utils.serialport.linux.entity.TIMEVAL;
  */
 public class SerialPortLinux implements ISerialPort {
     private static final LinuxAPI API = LinuxAPI.INSTANCE;
-
+    /**
+     * 新的串口设备选项
+     */
+    private final TERMIOS ntm = new TERMIOS();
+    /**
+     * 旧的串口设备选项
+     */
+    private final TERMIOS otm = new TERMIOS();
     /**
      * 串口设备名称，例："/dev/ttyS0"
      */
@@ -21,23 +27,10 @@ public class SerialPortLinux implements ISerialPort {
      */
     private int fd = -1;
 
-    /**
-     * 新的串口设备选项
-     */
-    private TERMIOS ntm = new TERMIOS();
-    /**
-     * 旧的串口设备选项
-     */
-    private TERMIOS otm = new TERMIOS();
-    /**
-     * 接收的数据
-     */
-    private byte[] data = new byte[1024];
-    /**
-     * SELECT超时
-     */
-    private long uTimeOut = 100 * 1000;
-
+    @Override
+    public String getName(){
+        return this.name;
+    }
     /**
      * 串口是否已经打开
      *
@@ -89,14 +82,15 @@ public class SerialPortLinux implements ISerialPort {
     /**
      * 设置串口参数
      *
-     * @param baudRate 速率
-     * @param databits 数据位
-     * @param stopbits 停止位
-     * @param parity   校验位
+     * @param baudRate     速率
+     * @param databits     数据位
+     * @param stopbits     停止位
+     * @param parity       校验位
+     * @param commTimeOuts commTimeOuts的字节时间间隔
      * @return 是否成功
      */
     @Override
-    public boolean setParam(Integer baudRate, String parity, Integer databits, Integer stopbits) {
+    public boolean setParam(Integer baudRate, String parity, Integer databits, Integer stopbits, Integer commTimeOuts) {
         // 参数转换为大写
         if (parity == null) {
             return false;
@@ -216,24 +210,19 @@ public class SerialPortLinux implements ISerialPort {
 
         // 将属性设置入串口
         rtn = API.tcsetattr(this.fd, LinuxMacro.TCSANOW, this.ntm);
-        if (rtn != 0) {
-            return false;
-        }
-
-        return true;
+        return rtn == 0;
     }
 
     /**
      * 发送数据
      *
-     * @param data    缓冲区
-     * @param sendLen
+     * @param data 缓冲区
      * @return
      */
     @Override
-    public boolean sendData(byte[] data, OutValue sendLen) {
+    public int sendData(byte[] data) {
         if (this.fd < 0) {
-            return false;
+            throw new RuntimeException("串口尚未打开：" + this.name);
         }
 
         // 不停的发送数据，直到发送完为止
@@ -248,8 +237,7 @@ public class SerialPortLinux implements ISerialPort {
                 // 复制尚未发完的后半截数据，到新的数组，准备重新发送
                 int newLength = dataLen - postion;
                 byte[] copy = new byte[newLength];
-                System.arraycopy(sendData, postion, copy, 0,
-                        Math.min(sendData.length, newLength));
+                System.arraycopy(sendData, postion, copy, 0, Math.min(sendData.length, newLength));
                 sendData = copy;
 
                 dataLen = newLength;
@@ -259,24 +247,33 @@ public class SerialPortLinux implements ISerialPort {
         }
 
         // 输出发送的数据量
-        sendLen.setObject(postion);
-        return true;
+        return postion;
     }
 
     /**
-     * 接收数据
+     * 线程的sleep
      *
-     * @param data     准备发送的数据库
-     * @param mTimeout 最大超时等待时间，单位毫秒
-     * @param recvLen  接收到数据
-     * @return
+     * @param ms
+     */
+    private void sleep(long ms) {
+        try {
+            Thread.sleep(5);
+        } catch (Exception e) {
+        }
+    }
+
+    /**
+     * 读取串口数据
+     *
+     * @param recvBuffer      缓存
+     * @param minPackInterval 两组数据报文之间，最小的时间间隔
+     * @param maxPackInterval 两组数据报文之间，最大的时间间隔
+     * @return 报文长度
      */
     @Override
-    public boolean recvData(byte[] data, long mTimeout, OutValue recvLen) {
-        recvLen.setObject(0);
-
+    public int recvData(byte[] recvBuffer, long minPackInterval, long maxPackInterval) {
         if (this.fd < 0) {
-            return false;
+            throw new RuntimeException("串口尚未打开：" + this.name);
         }
 
 
@@ -288,22 +285,37 @@ public class SerialPortLinux implements ISerialPort {
 
         // 指明select的最大等待时间1000微秒
         TIMEVAL tv = new TIMEVAL();
-        tv.tv_sec = mTimeout / 1000;
-        tv.tv_usec = mTimeout % 1000;
+        tv.tv_sec = maxPackInterval / 1000;
+        tv.tv_usec = maxPackInterval % 1000;
 
         // select：readset中是否有描述符被改变
         int maxfd = this.fd + 1;
         if (API.select(maxfd, readset, null, null, tv) < 0) {
-            return false;
+            throw new RuntimeException("串口select异常：" + this.name);
         }
+
+        // 等待一些时间，确保数据完全抵达
+        this.sleep(minPackInterval);
 
         // 检查返回结果
         if (LinuxMacro.FD_ISSET(this.fd, readset)) {
-            int recv = API.read(this.fd, data, data.length);
-            recvLen.setObject(recv);
+            int recv = API.read(this.fd, recvBuffer, recvBuffer.length);
+            return recv;
         }
 
-        return true;
+        return 0;
+    }
+
+    /**
+     * 接收数据
+     *
+     * @param data     准备发送的数据库
+     * @param mTimeout 最大超时等待时间，单位毫秒
+     * @return 接收到数据
+     */
+    @Override
+    public int recvData(byte[] data, long mTimeout) {
+        return recvData(data, 10, mTimeout);
     }
 
     /**
@@ -319,11 +331,7 @@ public class SerialPortLinux implements ISerialPort {
 
         // 清除输入缓存
         int rtn = API.tcflush(this.fd, LinuxMacro.TCIFLUSH);
-        if (rtn != 0) {
-            return false;
-        }
-
-        return true;
+        return rtn == 0;
     }
 
 
@@ -340,11 +348,7 @@ public class SerialPortLinux implements ISerialPort {
 
         // 清除输出缓存
         int rtn = API.tcflush(this.fd, LinuxMacro.TCOFLUSH);
-        if (rtn != 0) {
-            return false;
-        }
-
-        return true;
+        return rtn == 0;
     }
 
     /**
