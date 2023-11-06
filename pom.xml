@@ -14,8 +14,8 @@
 
     <properties>
         <!-- fox-edge-server version -->
-        <revision>1.0.4</revision>
-        <fox-edge-server.version>1.0.4</fox-edge-server.version>
+        <revision>1.0.6</revision>
+        <fox-edge-server.version>1.0.6</fox-edge-server.version>
         <!-- java version -->
         <java.version>1.8</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -35,6 +35,7 @@
         <jna.version>5.10.0</jna.version>
         <jackson.version>2.9.0</jackson.version>
         <lombok.version>1.18.28</lombok.version>
+        <mica-mqtt.version>2.1.2</mica-mqtt.version>
         <mysql-connector.version>8.0.29</mysql-connector.version>
         <mybatis-plus.version>3.5.0</mybatis-plus.version>
         <cn.hutool.version>5.8.3</cn.hutool.version>
@@ -43,6 +44,7 @@
 
     <modules>
         <module>fox-edge-server-common</module>
+        <module>fox-edge-server-iot-cloud</module>
         <module>fox-edge-server-channel</module>
         <module>fox-edge-server-link</module>
         <module>fox-edge-server-device</module>

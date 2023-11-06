@@ -1,8 +1,9 @@
 package cn.foxtech.common.entity.entity;
 
 
-import com.baomidou.mybatisplus.annotation.TableName;
-import lombok.*;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.HashMap;
 import java.util.List;
@@ -10,7 +11,6 @@ import java.util.Map;
 
 @Getter(value = AccessLevel.PUBLIC)
 @Setter(value = AccessLevel.PUBLIC)
-@TableName("tb_device")
 public class DeviceEntity extends DeviceBase {
     /**
      * 设备的配置参数
