@@ -4,7 +4,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>cn.fox-tech</groupId>
   <artifactId>fox-edge-server-protocol-cjt188-core</artifactId>
-  <version>1.0.6</version>
+  <version>1.0.7</version>
   <name>fox-edge-server-protocol-cjt188-core</name>
   <description>fox-edge-server-protocol-cjt188-core</description>
   <url>https://www.fox-tech.cn/fox-edge-server-protocol/fox-edge-server-protocol-cjt188-core</url>
@@ -29,7 +29,7 @@
     <dependency>
       <groupId>cn.fox-tech</groupId>
       <artifactId>fox-edge-server-protocol-core</artifactId>
-      <version>1.0.6</version>
+      <version>1.0.7</version>
       <scope>compile</scope>
     </dependency>
   </dependencies>

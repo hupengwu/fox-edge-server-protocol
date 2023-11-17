@@ -35,8 +35,23 @@ public class NettyTcpClientFactory {
                 .handler(this.channelInitializer);
     }
 
+    /**
+     * 复用一个公共实例
+     * 注意，绑定到该工厂的SocketChannelHandler，也只能是一个。
+     *
+     * @return
+     */
     public static NettyTcpClientFactory getInstance() {
         return instance;
+    }
+
+    /**
+     * 建立多个工厂，使用者自己来管理实例
+     * 此时每个客户端连接，各自绑定独立的handler
+     * @return
+     */
+    public static NettyTcpClientFactory newInstance() {
+        return new NettyTcpClientFactory();
     }
 
     public static void main(String[] args) {
@@ -51,7 +66,7 @@ public class NettyTcpClientFactory {
         this.bootstrap.remoteAddress(remoteAddress);
         ChannelFuture channelFuture = this.bootstrap.connect().addListener(future -> {
             if (future.cause() != null) {
-              //  System.out.println(future.cause().getMessage());
+                //  System.out.println(future.cause().getMessage());
             }
         });
 

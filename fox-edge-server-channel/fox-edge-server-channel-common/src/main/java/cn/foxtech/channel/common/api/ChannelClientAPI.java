@@ -166,7 +166,7 @@ public class ChannelClientAPI {
      * @throws ServiceException 异常信息
      */
     public List<ChannelRespondVO> receive() throws ServiceException {
-        return this.channelServerAPI.report();
+         return this.channelServerAPI.report();
     }
 
     /**
