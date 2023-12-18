@@ -30,15 +30,20 @@ public class FoxEdgeExchangeWorker {
     public static Map<String, Object> exchange(String deviceName, String manufacturer, String deviceType, String operateName, Map<String, Object> params, int timeout, FoxEdgeChannelService channelService) throws ProtocolException, CommunicationException {
         try {
             // 根据设备类型查找解码器集合
-            Map<String, FoxEdgeExchangeMethod> methodPairs = FoxEdgeMethodTemplate.inst().getExchangeMethod(manufacturer, deviceType);
+            Map<String, Object> methodPairs = FoxEdgeMethodTemplate.inst().getExchangeMethod(manufacturer, deviceType);
             if (methodPairs == null) {
                 throw new ProtocolException("找不到对应设备类型的解码器：" + manufacturer + ":" + deviceType);
             }
 
-            // 根据操作名称，获得对应的编码/解码函数
-            FoxEdgeExchangeMethod methodPair = methodPairs.get(operateName);
-            if (methodPair == null) {
+            Map<String, FoxEdgeExchangeMethod> methodMap = (Map<String, FoxEdgeExchangeMethod>) methodPairs.get(operateName);
+            if (methodMap == null) {
                 throw new ProtocolException("找不到对应操作名称的编码/解码函数：" + operateName);
+            }
+
+            // 根据操作名称，获得对应的编码/解码函数
+            FoxEdgeExchangeMethod methodPair = methodMap.get("method");
+            if (methodPair == null) {
+                throw new ProtocolException("数据结构异常!");
             }
 
             // 主从半双工，必须同时有编码和解码函数

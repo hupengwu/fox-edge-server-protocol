@@ -23,13 +23,18 @@ public class FoxEdgeReportWorker {
     public static Map<String, Object> decode(String manufacturer, String deviceType, Object recv, Map<String, Object> params) throws ProtocolException {
         // 根据设备类型查找解码器集合
         FoxEdgeMethodTemplate template = FoxEdgeMethodTemplate.inst();
-        Map<String, FoxEdgeReportMethod> methodPairs = template.getReportMethod(manufacturer, deviceType);
+        Map<String, Object> methodPairs = template.getReportMethod(manufacturer, deviceType);
         if (methodPairs == null) {
             throw new ProtocolException("找不到对应设备类型的解码器：" + manufacturer + ":" + deviceType);
         }
 
-        for (Map.Entry<String, FoxEdgeReportMethod> entry : methodPairs.entrySet()) {
-            FoxEdgeReportMethod methodPair = entry.getValue();
+
+        for (Map.Entry<String, Object> entry : methodPairs.entrySet()) {
+            Map<String, Object> methodMap = (Map<String, Object>) entry.getValue();
+
+            // 根据操作名称，获得对应的编码/解码函数
+            FoxEdgeReportMethod methodPair = (FoxEdgeReportMethod) methodMap.get("method");
+
 
             try {
                 // 将解码结果，根据模式，用各自的字段带回
