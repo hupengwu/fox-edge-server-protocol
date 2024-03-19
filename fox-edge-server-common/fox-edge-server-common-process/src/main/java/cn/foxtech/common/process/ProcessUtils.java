@@ -67,8 +67,9 @@ public class ProcessUtils {
             // ps -aux返回的格式: 0~10是linux的固定信息项目
             Map<String, Object> map = makeShellParam(items);
 
-            // 检查：该命令是否为java命令
-            if (!"java".equals(items[10])) {
+            // 检查：该命令是否为java/python/python3命令
+            String appEngine = items[10];
+            if (!"java".equals(appEngine) && !"python".equals(appEngine) && !"python3".equals(appEngine)) {
                 continue;
             }
 
@@ -80,6 +81,7 @@ public class ProcessUtils {
             map.putAll(foxParam);
 
             map.put(ServiceVOFieldConstant.field_app_type, appType);
+            map.put(ServiceVOFieldConstant.field_app_engine, appEngine);
 
             resultList.add(map);
         }
@@ -126,7 +128,7 @@ public class ProcessUtils {
             }
 
 
-            ports.add(Long.parseLong(items[items.length-1]));
+            ports.add(Long.parseLong(items[items.length - 1]));
         }
 
         return ports;
@@ -296,6 +298,10 @@ public class ProcessUtils {
         String springRedisHost = findParam(params, "--spring.redis.host=");
         String springRedisPort = findParam(params, "--spring.redis.port=");
         String serverPort = findParam(params, "--server.port=");
+        if (serverPort == null || serverPort.equals("")) {
+            // python/python3的命令行参数是server.port=，java版的命令行参数--server.port=
+            serverPort = findParam(params, "server.port=");
+        }
 
 
         if (appName != null && !appName.isEmpty()) {
