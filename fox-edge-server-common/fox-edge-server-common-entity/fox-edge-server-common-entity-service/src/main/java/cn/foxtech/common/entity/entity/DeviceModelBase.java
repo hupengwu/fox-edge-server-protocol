@@ -7,24 +7,25 @@ import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @Getter(value = AccessLevel.PUBLIC)
 @Setter(value = AccessLevel.PUBLIC)
 public class DeviceModelBase extends BaseEntity {
     /**
-     * 模型名称
+     * 模板名称
      */
     private String modelName;
 
     /**
-     * 模型类型：设备的属性、设备、操作、事件等模型分类，比如设备属性
+     * 设备类型
      */
-    private String modelType;
+    private String deviceType;
 
     /**
-     * 提供商：定义这个模型的企业，比如华为、腾讯
+     * 设备厂商
      */
-    private String provider;
+    private String manufacturer;
 
     /**
      * 业务Key
@@ -57,8 +58,8 @@ public class DeviceModelBase extends BaseEntity {
      */
     public List<Object> makeServiceValueList() {
         List<Object> list = new ArrayList<>();
-        list.add(this.modelType);
-        list.add(this.provider);
+        list.add(this.deviceType);
+        list.add(this.manufacturer);
         return list;
     }
 
@@ -68,7 +69,17 @@ public class DeviceModelBase extends BaseEntity {
         this.setUpdateTime(other.getUpdateTime());
 
         this.modelName = other.modelName;
-        this.modelType = other.modelType;
-        this.provider = other.provider;
+        this.deviceType = other.deviceType;
+        this.manufacturer = other.manufacturer;
+    }
+
+    public void bind(Map<String, Object> map){
+        this.setId(Long.parseLong(map.getOrDefault("id","0").toString()));
+        this.setCreateTime(Long.parseLong(map.getOrDefault("createTime","0").toString()));
+        this.setUpdateTime(Long.parseLong(map.getOrDefault("updateTime","0").toString()));
+
+        this.manufacturer = (String)map.get("manufacturer");
+        this.deviceType = (String)map.get("deviceType");
+        this.modelName = (String)map.get("modelName");
     }
 }

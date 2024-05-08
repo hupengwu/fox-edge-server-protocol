@@ -18,7 +18,7 @@ import java.util.List;
 @Getter(value = AccessLevel.PUBLIC)
 public class DeviceModelEntityService extends BaseEntityService {
     @Autowired(required = false)
-    private DeviceModelEntityMapper mapper;
+    private DeviceModelMapper mapper;
 
     /**
      * 子类将自己的mapper绑定到父类上
@@ -78,27 +78,27 @@ public class DeviceModelEntityService extends BaseEntityService {
      */
     @Override
     public void insertEntity(BaseEntity entity) {
-        DeviceModelPo DeviceModelPo = DeviceModelEntityMaker.makeEntity2Po((DeviceModelEntity) entity);
-        super.insertEntity(DeviceModelPo);
+        DeviceModelPo DeviceTemplatePo = DeviceModelEntityMaker.makeEntity2Po((DeviceModelEntity) entity);
+        super.insertEntity(DeviceTemplatePo);
 
-        entity.setId(DeviceModelPo.getId());
-        entity.setCreateTime(DeviceModelPo.getCreateTime());
-        entity.setUpdateTime(DeviceModelPo.getUpdateTime());
+        entity.setId(DeviceTemplatePo.getId());
+        entity.setCreateTime(DeviceTemplatePo.getCreateTime());
+        entity.setUpdateTime(DeviceTemplatePo.getUpdateTime());
     }
 
     @Override
     public void updateEntity(BaseEntity entity) {
-        DeviceModelPo DeviceModelPo = DeviceModelEntityMaker.makeEntity2Po((DeviceModelEntity) entity);
-        super.updateEntity(DeviceModelPo);
+        DeviceModelPo DeviceTemplatePo = DeviceModelEntityMaker.makeEntity2Po((DeviceModelEntity) entity);
+        super.updateEntity(DeviceTemplatePo);
 
-        entity.setId(DeviceModelPo.getId());
-        entity.setCreateTime(DeviceModelPo.getCreateTime());
-        entity.setUpdateTime(DeviceModelPo.getUpdateTime());
+        entity.setId(DeviceTemplatePo.getId());
+        entity.setCreateTime(DeviceTemplatePo.getCreateTime());
+        entity.setUpdateTime(DeviceTemplatePo.getUpdateTime());
     }
 
     @Override
     public int deleteEntity(BaseEntity entity) {
-        DeviceModelPo DeviceModelPo = DeviceModelEntityMaker.makeEntity2Po((DeviceModelEntity) entity);
-        return super.deleteEntity(DeviceModelPo);
+        DeviceModelPo DeviceTemplatePo = DeviceModelEntityMaker.makeEntity2Po((DeviceModelEntity) entity);
+        return super.deleteEntity(DeviceTemplatePo);
     }
 }

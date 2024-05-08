@@ -1,18 +1,14 @@
 package cn.foxtech.device.protocol.v1.modbus.template;
 
+import cn.foxtech.device.protocol.v1.core.context.ApplicationContext;
 import cn.foxtech.device.protocol.v1.core.exception.ProtocolException;
 import cn.foxtech.device.protocol.v1.core.template.ITemplate;
 import cn.foxtech.device.protocol.v1.modbus.core.ModBusWriteRegistersRequest;
 import cn.foxtech.device.protocol.v1.utils.BitsUtils;
-import cn.foxtech.device.protocol.v1.utils.ByteUtils;
-import cn.hutool.core.io.resource.ResourceUtil;
-import cn.hutool.core.text.csv.CsvReader;
-import cn.hutool.core.text.csv.CsvUtil;
-import cn.hutool.core.util.CharsetUtil;
 import lombok.Data;
 
-import java.io.File;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -26,8 +22,8 @@ public class JReadRegistersTemplate implements ITemplate {
     public static final String READ_INPUT_REGISTER = "Read Input Register";
     public static final String WRITE_SINGLE_REGISTER = "Write Single Register";
 
-    private String template_name = "";
-    private JOperate operate = new JOperate();
+
+    private JDecoderParam decoderParam = new JDecoderParam();
 
     /**
      * 缺省的寄存器格式
@@ -38,26 +34,80 @@ public class JReadRegistersTemplate implements ITemplate {
         return "register default";
     }
 
-    /**
-     * 从CSV文件中装载映射表
-     *
-     * @param table csv表名称
-     */
-    public void loadCsvFile(String table) {
-        File dir = new File("");
 
-        File file = new File(dir.getAbsolutePath() + "/template/" + table);
-        CsvReader csvReader = CsvUtil.getReader();
-        List<JDecoderValueParam> rows = csvReader.read(ResourceUtil.getReader(file.getPath(), CharsetUtil.CHARSET_GBK), JDecoderValueParam.class);
+    public void loadJsnModel(String modelName) {
+        // 从进程的上下文中，获得设备模型信息
+        Map<String, Object> deviceTemplateEntity = ApplicationContext.getDeviceModels(modelName);
 
-        // 将文件记录组织到map中
+        // 检测：上下文侧的时间戳和当前模型的时间戳是否一致
+        Object updateTime = deviceTemplateEntity.getOrDefault("updateTime", 0L);
+        if (this.decoderParam.updateTime.equals(updateTime)) {
+            return;
+        }
+
+        // 取出JSON模型的数据列表
+        Map<String, Object> modelParam = (Map<String, Object>) deviceTemplateEntity.getOrDefault("modelParam", new HashMap<>());
+        List<Map<String, Object>> rows = (List<Map<String, Object>>) modelParam.getOrDefault("list", new ArrayList<>());
+
+        // 转换成当前的JDecoderValueParam对象
         Map<String, JDecoderValueParam> map = new HashMap<>();
-        for (JDecoderValueParam jDecoderValueParam : rows) {
+        for (Map<String, Object> row : rows) {
+            if (row.size() < 7) {
+                continue;
+            }
+
+            JDecoderValueParam jDecoderValueParam = new JDecoderValueParam();
+
+            jDecoderValueParam.value_name = (String) row.get("value_name");
+            jDecoderValueParam.value_index = getInteger(row.get("value_index"));
+            jDecoderValueParam.bit_index = getInteger(row.get("bit_index"));
+            jDecoderValueParam.bit_length = getInteger(row.get("bit_length"));
+            jDecoderValueParam.value_type = (String) row.get("value_type");
+            jDecoderValueParam.magnification = getDouble(row.get("magnification"));
+            jDecoderValueParam.determine = (String) row.get("determine");
+
+
             map.put(jDecoderValueParam.getValue_name(), jDecoderValueParam);
         }
 
-        this.operate.decoder_param.valueMap = map;
-        this.operate.decoder_param.table = table;
+        // 保存信息
+        this.decoderParam.valueMap = map;
+        this.decoderParam.table = modelName;
+        this.decoderParam.updateTime = updateTime;
+        this.decoderParam.sourceType = "jsn";
+    }
+
+    private Integer getInteger(Object value) {
+        if (value == null) {
+            return null;
+        }
+
+        if (value instanceof String) {
+            return Integer.parseInt((String) value);
+        }
+        if (value instanceof Integer) {
+            return (Integer) value;
+        }
+
+        return null;
+    }
+
+    private Double getDouble(Object value) {
+        if (value == null) {
+            return null;
+        }
+
+        if (value instanceof String) {
+            return Double.parseDouble((String) value);
+        }
+        if (value instanceof Double) {
+            return (Double) value;
+        }
+        if (value instanceof Float) {
+            return ((Float) value).doubleValue();
+        }
+
+        return null;
     }
 
 
@@ -78,7 +128,7 @@ public class JReadRegistersTemplate implements ITemplate {
     public ModBusWriteRegistersRequest encode(String objectName, Object objectValue) {
         ModBusWriteRegistersRequest request = new ModBusWriteRegistersRequest();
 
-        JDecoderValueParam jDecoderValueParam = this.operate.decoder_param.valueMap.get(objectName);
+        JDecoderValueParam jDecoderValueParam = this.decoderParam.valueMap.get(objectName);
         if (jDecoderValueParam == null) {
             throw new ProtocolException("csv中未定义该对象的信息");
         }
@@ -100,125 +150,12 @@ public class JReadRegistersTemplate implements ITemplate {
         return request;
     }
 
-    private Map<String, Object> decodeValueTest(int address, int count, int[] statusList) {
-
-
-        Map<String, Object> result = new HashMap<>();
-        for (int i = 0; i < count; i++) {
-            for (Map.Entry<String, JDecoderValueParam> entry : this.operate.decoder_param.valueMap.entrySet()) {
-                String name = entry.getKey();
-                JDecoderValueParam jDecoderValueParam = entry.getValue();
-
-                // 寄存器地址的位置
-                int offsetStart = address + i;
-
-                // 检测：该寄存器地址
-                if (jDecoderValueParam.value_index != offsetStart) {
-                    continue;
-                }
-
-                int bitLength = jDecoderValueParam.bit_index + jDecoderValueParam.bit_length;
-                // 该变量占用1个寄存器
-                if ((bitLength > 1 && bitLength <= 16) && (i + 0 < statusList.length)) {
-                    byte[] data = new byte[2];
-                    data[0] = (byte) ((statusList[i] >> 8) & 0xff);
-                    data[1] = (byte) (statusList[i] & 0xff);
-
-                    // 解码
-                    this.decodeValue(jDecoderValueParam, data, result);
-                    continue;
-                }
-                // 该变量占用2个寄存器
-                if ((bitLength > 16 && bitLength <= 32) && (i + 1 < statusList.length)) {
-                    byte[] data = new byte[4];
-                    data[0] = (byte) ((statusList[i] >> 8) & 0xff);
-                    data[1] = (byte) (statusList[i] & 0xff);
-                    data[2] = (byte) ((statusList[i + 1] >> 8) & 0xff);
-                    data[3] = (byte) (statusList[i + 1] & 0xff);
-
-                    // 解码
-                    this.decodeValue(jDecoderValueParam, data, result);
-                    continue;
-                }
-                // 该变量占用3个寄存器
-                if ((bitLength > 32 && bitLength <= 48) && (i + 2 < statusList.length)) {
-                    byte[] data = new byte[6];
-                    data[0] = (byte) ((statusList[i] >> 8) & 0xff);
-                    data[1] = (byte) (statusList[i] & 0xff);
-                    data[2] = (byte) ((statusList[i + 1] >> 8) & 0xff);
-                    data[3] = (byte) (statusList[i + 1] & 0xff);
-                    data[4] = (byte) ((statusList[i + 2] >> 8) & 0xff);
-                    data[5] = (byte) (statusList[i + 2] & 0xff);
-
-                    // 解码
-                    this.decodeValue(jDecoderValueParam, data, result);
-                    continue;
-                }
-                // 该变量占用4个寄存器
-                if ((bitLength > 32 && bitLength <= 48) && (i + 3 < statusList.length)) {
-                    byte[] data = new byte[8];
-                    data[0] = (byte) ((statusList[i] >> 8) & 0xff);
-                    data[1] = (byte) (statusList[i] & 0xff);
-                    data[2] = (byte) ((statusList[i + 1] >> 8) & 0xff);
-                    data[3] = (byte) (statusList[i + 1] & 0xff);
-                    data[4] = (byte) ((statusList[i + 2] >> 8) & 0xff);
-                    data[5] = (byte) (statusList[i + 2] & 0xff);
-                    data[6] = (byte) ((statusList[i + 3] >> 8) & 0xff);
-                    data[7] = (byte) (statusList[i + 3] & 0xff);
-
-                    // 解码
-                    this.decodeValue(jDecoderValueParam, data, result);
-                    continue;
-                }
-
-            }
-        }
-
-        return result;
-    }
-
-    private void decodeValue(JDecoderValueParam jDecoderValueParam, byte[] data, Map<String, Object> result) {
-        // 整数：比如284，编码格式为int16，但实际上是放大10倍，变为2840
-        if (jDecoderValueParam.value_type.equals("int")) {
-            if (data.length == 2) {
-                int value = ByteUtils.decodeInt16(data);
-                result.put(jDecoderValueParam.value_name, (int) (value * jDecoderValueParam.magnification));
-            }
-            if (data.length == 4) {
-                long value = ByteUtils.decodeInt32(data);
-                result.put(jDecoderValueParam.value_name, (int) (value * jDecoderValueParam.magnification));
-            }
-
-            return;
-        }
-        // 定点小数：比如284，编码格式为int16，但实际上是缩小10倍，变为实28.4
-        if (jDecoderValueParam.value_type.equals("fix-float")) {
-            if (data.length == 2) {
-                int value = ByteUtils.decodeInt16(data);
-                result.put(jDecoderValueParam.value_name, value * jDecoderValueParam.magnification);
-            }
-            if (data.length == 4) {
-                long value = ByteUtils.decodeInt32(data);
-                result.put(jDecoderValueParam.value_name, value * jDecoderValueParam.magnification);
-            }
-            return;
-        }
-        // 浮点数：比如28.4，编码格式为float32，实际上是28.4
-        if (jDecoderValueParam.value_type.equals("float")) {
-            if (data.length == 4) {
-                float value = BitsUtils.bitsToFloat(data);
-                result.put(jDecoderValueParam.value_name, value * jDecoderValueParam.magnification);
-            }
-
-            return;
-        }
-    }
 
     private Map<String, Object> decodeValue(int address, int count, int[] statusList) {
         int offsetStart = address;
         int offsetEnd = address + count - 1;
         Map<String, Object> result = new HashMap<>();
-        for (Map.Entry<String, JDecoderValueParam> entry : this.operate.decoder_param.valueMap.entrySet()) {
+        for (Map.Entry<String, JDecoderValueParam> entry : this.decoderParam.valueMap.entrySet()) {
             String name = entry.getKey();
             JDecoderValueParam jDecoderValueParam = entry.getValue();
 
@@ -246,9 +183,18 @@ public class JReadRegistersTemplate implements ITemplate {
             if (jDecoderValueParam.value_type.equals("fix-float")) {
                 result.put(name, status * jDecoderValueParam.magnification);
             }
-            // 浮点数：比如28.4，编码格式为float32，实际上是28.4
+            // 浮点数
             if (jDecoderValueParam.value_type.equals("float")) {
-                result.put(name, status * jDecoderValueParam.magnification);
+                if (jDecoderValueParam.bit_length.equals(32)) {
+                    // 32位浮点（数默认格式：低位在前，高位在后）：例如，45 0f 60 00 数值位2294.0
+                    byte bit0 = (byte) (statusList[index + 1] >> 0 & 0xff);
+                    byte bit1 = (byte) (statusList[index + 1] >> 8 & 0xff);
+                    byte bit2 = (byte) (statusList[index + 0] >> 0 & 0xff);
+                    byte bit3 = (byte) (statusList[index + 0] >> 8 & 0xff);
+                    float fValue = BitsUtils.bitsToFloat(bit0, bit1, bit2, bit3);
+                    result.put(name, fValue * jDecoderValueParam.magnification);
+                }
+
             }
             if (jDecoderValueParam.value_type.equals("bool")) {
                 int value = 0;
@@ -285,22 +231,9 @@ public class JReadRegistersTemplate implements ITemplate {
     }
 
     @Data
-    static public class JOperate implements Serializable {
-        private String name = "";
-        private String operate_name = "";
-        private String modbus_mode = "";
-        private JEncoderParam encoder_param = new JEncoderParam();
-        private JDecoderParam decoder_param = new JDecoderParam();
-    }
-
-    @Data
-    static public class JEncoderParam implements Serializable {
-        private String reg_addr;
-        private Integer reg_cnt;
-    }
-
-    @Data
     static public class JDecoderParam implements Serializable {
+        private Object updateTime = 0;
+        private String sourceType = "csv";
         private String table;
         private Map<String, JDecoderValueParam> valueMap = new HashMap<>();
     }
@@ -334,7 +267,7 @@ public class JReadRegistersTemplate implements ITemplate {
         /**
          * 倍率：int和float的放大/缩小倍数
          */
-        private Float magnification;
+        private Double magnification;
         /**
          * bool判定true的条件
          */

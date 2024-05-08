@@ -4,9 +4,9 @@ import cn.foxtech.device.protocol.v1.core.annotation.FoxEdgeDeviceType;
 import cn.foxtech.device.protocol.v1.core.annotation.FoxEdgeOperate;
 import cn.foxtech.device.protocol.v1.core.exception.ProtocolException;
 import cn.foxtech.device.protocol.v1.core.template.TemplateFactory;
-import cn.foxtech.device.protocol.v1.utils.MethodUtils;
 import cn.foxtech.device.protocol.v1.opcua.entity.OpcUaNodeId;
 import cn.foxtech.device.protocol.v1.opcua.template.JDefaultTemplate;
+import cn.foxtech.device.protocol.v1.utils.MethodUtils;
 
 import java.util.HashMap;
 import java.util.List;
@@ -27,16 +27,16 @@ public class OpcUaBrowseChildValue {
     public static Map<String, Object> packBrowseChildValue(Map<String, Object> param) {
         // 提取业务参数：设备地址/对象名称/CSV模板文件
         String objectName = (String) param.get("objectName");
-        String tableName = (String) param.get("tableName");
         String templateName = (String) param.get("templateName");
 
         // 简单校验参数
-        if (MethodUtils.hasNull(objectName, templateName, tableName)) {
-            throw new ProtocolException("参数不能为空:objectName, templateName, tableName");
+        if (MethodUtils.hasNull(objectName, templateName)) {
+            throw new ProtocolException("参数不能为空: objectName, templateName");
         }
 
+        JDefaultTemplate template = TemplateFactory.getTemplate("fox-edge-server-protocol-opc-ua").getTemplate("jsn", templateName, JDefaultTemplate.class);
 
-        JDefaultTemplate template = TemplateFactory.getTemplate("fox-edge-server-protocol-snmp").getTemplate(templateName, tableName, JDefaultTemplate.class);
+
         OpcUaNodeId nodeId = template.encodeNodeId(objectName);
 
         Map<String, Object> result = new HashMap<>();
@@ -55,16 +55,14 @@ public class OpcUaBrowseChildValue {
      */
     @FoxEdgeOperate(name = "读子节点数值", polling = true, type = FoxEdgeOperate.decoder, timeout = 2000)
     public static Map<String, Object> unpackReadData(Map<String, Object> respond, Map<String, Object> param) {
-        String tableName = (String) param.get("tableName");
         String templateName = (String) param.get("templateName");
 
-
         // 简单校验参数
-        if (MethodUtils.hasNull(templateName, tableName)) {
-            throw new ProtocolException("参数不能为空:templateName, tableName");
+        if (MethodUtils.hasNull(templateName)) {
+            throw new ProtocolException("参数不能为空: templateName");
         }
 
-        JDefaultTemplate template = TemplateFactory.getTemplate("fox-edge-server-protocol-snmp").getTemplate(templateName, tableName, JDefaultTemplate.class);
+        JDefaultTemplate template = TemplateFactory.getTemplate("fox-edge-server-protocol-opc-ua").getTemplate("jsn", templateName, JDefaultTemplate.class);
 
 
         Map<String, Object> result = new HashMap<>();
@@ -81,7 +79,7 @@ public class OpcUaBrowseChildValue {
                 continue;
             }
 
-            result.put(objectName,child.get("value"));
+            result.put(objectName, child.get("value"));
         }
 
         return result;

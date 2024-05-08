@@ -21,15 +21,16 @@ public class S7PLCWriteData {
     public static Map<String, Object> packGetData(Map<String, Object> param) {
         // 提取业务参数：设备地址/对象名称/CSV模板文件
         Map<String, Object> objectValues = (Map<String, Object>) param.get("objectValues");
-        String tableName = (String) param.get("tableName");
         String templateName = (String) param.get("templateName");
 
         // 简单校验参数
-        if (MethodUtils.hasNull(objectValues, templateName, tableName)) {
-            throw new ProtocolException("参数不能为空:objectNames, templateName, tableName");
+        if (MethodUtils.hasNull(objectValues, templateName)) {
+            throw new ProtocolException("参数不能为空: objectNames, templateName");
         }
 
-        JDefaultTemplate template = TemplateFactory.getTemplate("fox-edge-server-protocol-s7plc").getTemplate(templateName, tableName, JDefaultTemplate.class);
+        JDefaultTemplate template = TemplateFactory.getTemplate("fox-edge-server-protocol-s7plc").getTemplate("jsn", templateName, JDefaultTemplate.class);
+
+
         List<Map<String, Object>> params = template.encodeWriteObjects(objectValues);
 
         Map<String, Object> result = new HashMap<>();
@@ -41,13 +42,11 @@ public class S7PLCWriteData {
 
     @FoxEdgeOperate(name = "writeData", polling = true, type = FoxEdgeOperate.decoder, timeout = 2000)
     public static Map<String, Object> unpackReadData(Map<String, Object> respond, Map<String, Object> param) {
-        String tableName = (String) param.get("tableName");
         String templateName = (String) param.get("templateName");
 
-
         // 简单校验参数
-        if (MethodUtils.hasNull(templateName, tableName)) {
-            throw new ProtocolException("参数不能为空:templateName, tableName");
+        if (MethodUtils.hasNull(templateName)) {
+            throw new ProtocolException("参数不能为空:templateName");
         }
 
         return new HashMap<>();

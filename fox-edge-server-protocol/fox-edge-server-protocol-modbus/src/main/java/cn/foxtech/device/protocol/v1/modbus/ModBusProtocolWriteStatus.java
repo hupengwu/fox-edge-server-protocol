@@ -9,7 +9,6 @@ import cn.foxtech.device.protocol.v1.modbus.template.JReadStatusTemplate;
 import cn.foxtech.device.protocol.v1.utils.HexUtils;
 import cn.foxtech.device.protocol.v1.utils.MethodUtils;
 
-import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -51,20 +50,16 @@ public class ModBusProtocolWriteStatus {
         // 取出设备地址
         Integer devAddr = (Integer) param.get("devAddr");
         String modbusMode = (String) param.get("modbusMode");
-        String templateName = (String) param.get("templateName");
-        String tableName = (String) param.get("tableName");
+        String modelName = (String) param.get("modelName");
         String objectName = (String) param.get("objectName");
         Object objectValue = param.get("objectValue");
 
         // 检查输入参数
-        if (MethodUtils.hasEmpty(devAddr, modbusMode, templateName, tableName, objectName, objectValue)) {
-            throw new ProtocolException("输入参数不能为空:devAddr, modbusMode, templateName, tableName, objectName, objectValue");
+        if (MethodUtils.hasEmpty(devAddr, modbusMode, objectName, objectValue, modelName)) {
+            throw new ProtocolException("输入参数不能为空:devAddr, modbusMode, objectName, objectValue");
         }
 
-        JReadStatusTemplate template = TemplateFactory.getTemplate("fox-edge-server-protocol-modbus").getTemplate(templateName, tableName, JReadStatusTemplate.class);
-        if (template == null) {
-            throw new ProtocolException("找不到对应的模板");
-        }
+        JReadStatusTemplate template = TemplateFactory.getTemplate("fox-edge-server-protocol-modbus").getTemplate("jsn", modelName, JReadStatusTemplate.class);
 
         ModBusWriteStatusRequest writeStatusRequest = template.encode(objectName, objectValue);
         if (writeStatusRequest == null) {

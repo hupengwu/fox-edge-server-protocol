@@ -4,8 +4,8 @@ import cn.foxtech.device.protocol.v1.core.annotation.FoxEdgeDeviceType;
 import cn.foxtech.device.protocol.v1.core.annotation.FoxEdgeOperate;
 import cn.foxtech.device.protocol.v1.core.exception.ProtocolException;
 import cn.foxtech.device.protocol.v1.core.template.TemplateFactory;
-import cn.foxtech.device.protocol.v1.utils.MethodUtils;
 import cn.foxtech.device.protocol.v1.snmp.template.JDefaultTemplate;
+import cn.foxtech.device.protocol.v1.utils.MethodUtils;
 
 import java.util.HashMap;
 import java.util.List;
@@ -26,16 +26,15 @@ public class SnmpGetData {
     public static Map<String, Object> packGetData(Map<String, Object> param) {
         // 提取业务参数：设备地址/对象名称/CSV模板文件
         List<String> objectNameList = (List<String>) param.get("objectNameList");
-        String tableName = (String) param.get("tableName");
         String templateName = (String) param.get("templateName");
 
         // 简单校验参数
-        if (MethodUtils.hasNull(objectNameList, templateName, tableName)) {
-            throw new ProtocolException("参数不能为空:objectNameList, templateName, tableName");
+        if (MethodUtils.hasNull(objectNameList, templateName)) {
+            throw new ProtocolException("参数不能为空:objectNameList, templateName");
         }
 
+        JDefaultTemplate template = TemplateFactory.getTemplate("fox-edge-server-protocol-snmp").getTemplate("jsn", templateName, JDefaultTemplate.class);
 
-        JDefaultTemplate template = TemplateFactory.getTemplate("fox-edge-server-protocol-snmp").getTemplate(templateName, tableName, JDefaultTemplate.class);
         List<String> oidList = template.encodeOIDList(objectNameList);
 
         Map<String, Object> result = new HashMap<>();
@@ -54,16 +53,16 @@ public class SnmpGetData {
      */
     @FoxEdgeOperate(name = "读数据", polling = true, type = FoxEdgeOperate.decoder, timeout = 2000)
     public static Map<String, Object> unpackReadData(Map<String, Object> respond, Map<String, Object> param) {
-        String tableName = (String) param.get("tableName");
         String templateName = (String) param.get("templateName");
 
-
         // 简单校验参数
-        if (MethodUtils.hasNull(templateName, tableName)) {
-            throw new ProtocolException("参数不能为空:templateName, tableName");
+        if (templateName == null) {
+            throw new ProtocolException("输入参数不能为空: templateName");
         }
 
-        JDefaultTemplate template = TemplateFactory.getTemplate("fox-edge-server-protocol-snmp").getTemplate(templateName, tableName, JDefaultTemplate.class);
+        JDefaultTemplate template = TemplateFactory.getTemplate("fox-edge-server-protocol-snmp").getTemplate("jsn", templateName, JDefaultTemplate.class);
+
+
         return template.decodeValue(respond);
     }
 }

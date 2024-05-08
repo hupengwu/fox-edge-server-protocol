@@ -12,14 +12,14 @@ import java.util.List;
 @TableName("tb_device_model")
 public class DeviceModelPo extends DeviceModelBase {
     /**
-     * 业务参数（描述类的信息）：各厂家的各自定义，差异很大，所以用可变的json
+     * 模板参数
      */
-    private String serviceParam;
+    private String modelParam;
 
     /**
-     * 模型结构（模型信息）:模型结构的描述信息
+     * 扩展参数
      */
-    private String modelSchema;
+    private String extendParam;
 
     /**
      * 获取业务值
@@ -28,8 +28,8 @@ public class DeviceModelPo extends DeviceModelBase {
      */
     public List<Object> makeServiceValueList() {
         List<Object> list = super.makeServiceValueList();
-        list.add(this.serviceParam);
-        list.add(this.modelSchema);
+        list.add(this.modelParam);
+        list.add(this.extendParam);
 
 
         return list;

@@ -22,16 +22,18 @@ public class S7PLCReadData {
     public static Map<String, Object> packGetData(Map<String, Object> param) {
         // 提取业务参数：设备地址/对象名称/CSV模板文件
         List<String> objectNames = (List<String>) param.get("objectNames");
-        String tableName = (String) param.get("tableName");
         String templateName = (String) param.get("templateName");
 
         // 简单校验参数
-        if (MethodUtils.hasNull(objectNames, templateName, tableName)) {
-            throw new ProtocolException("参数不能为空:objectNames, templateName, tableName");
+        if (MethodUtils.hasNull(objectNames, templateName)) {
+            throw new ProtocolException("参数不能为空: objectNames, templateName");
         }
 
-        JDefaultTemplate template = TemplateFactory.getTemplate("fox-edge-server-protocol-s7plc").getTemplate(templateName, tableName, JDefaultTemplate.class);
-        List<Map<String,Object>> params = template.encodeReadObjects(objectNames);
+
+        JDefaultTemplate template = TemplateFactory.getTemplate("fox-edge-server-protocol-s7plc").getTemplate("jsn", templateName, JDefaultTemplate.class);
+
+
+        List<Map<String, Object>> params = template.encodeReadObjects(objectNames);
 
         Map<String, Object> result = new HashMap<>();
         result.put("method", "readData");
@@ -42,19 +44,19 @@ public class S7PLCReadData {
 
     @FoxEdgeOperate(name = "readData", polling = true, type = FoxEdgeOperate.decoder, timeout = 2000)
     public static Map<String, Object> unpackReadData(Map<String, Object> respond, Map<String, Object> param) {
-        String tableName = (String) param.get("tableName");
         String templateName = (String) param.get("templateName");
 
-
         // 简单校验参数
-        if (MethodUtils.hasNull(templateName, tableName)) {
-            throw new ProtocolException("参数不能为空:templateName, tableName");
+        if (MethodUtils.hasNull(templateName)) {
+            throw new ProtocolException("参数不能为空: templateName");
         }
 
-        List<Map<String,Object>> list = (List<Map<String,Object>>)respond.getOrDefault("list",new ArrayList<>());
+        JDefaultTemplate template = TemplateFactory.getTemplate("fox-edge-server-protocol-s7plc").getTemplate("jsn", templateName, JDefaultTemplate.class);
 
 
-        JDefaultTemplate template = TemplateFactory.getTemplate("fox-edge-server-protocol-snmp").getTemplate(templateName, tableName, JDefaultTemplate.class);
+        List<Map<String, Object>> list = (List<Map<String, Object>>) respond.getOrDefault("list", new ArrayList<>());
+
+
         return template.decodeReadValue(list);
     }
 }

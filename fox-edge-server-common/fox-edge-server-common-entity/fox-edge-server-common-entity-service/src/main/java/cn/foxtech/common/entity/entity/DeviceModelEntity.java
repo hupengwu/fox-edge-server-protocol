@@ -4,6 +4,7 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -12,13 +13,13 @@ import java.util.Map;
 @Setter(value = AccessLevel.PUBLIC)
 public class DeviceModelEntity extends DeviceModelBase {
     /**
-     * 业务参数（描述类的信息）：各厂家的各自定义，差异很大，所以用可变的json
+     * 模板参数
      */
-    private Map<String, Object> serviceParam = new HashMap<>();
+    private Map<String, Object> modelParam = new HashMap<>();
     /**
-     * 模型结构（模型信息）:模型结构的描述信息
+     * 扩展参数
      */
-    private Map<String, Object> modelSchema = new HashMap<>();
+    private Map<String, Object> extendParam = new HashMap<>();
 
     /**
      * 业务Key
@@ -39,8 +40,8 @@ public class DeviceModelEntity extends DeviceModelBase {
      */
     public List<Object> makeServiceValueList() {
         List<Object> list = super.makeServiceValueList();
-        list.add(this.serviceParam);
-        list.add(this.modelSchema);
+        list.add(this.modelParam);
+        list.add(this.extendParam);
 
         return list;
     }
@@ -48,7 +49,14 @@ public class DeviceModelEntity extends DeviceModelBase {
     public void bind(DeviceModelEntity other) {
         super.bind(other);
 
-        this.serviceParam = other.serviceParam;
-        this.modelSchema = other.modelSchema;
+        this.modelParam = other.modelParam;
+        this.extendParam = other.extendParam;
+    }
+
+    public void bind(Map<String, Object> map) {
+        super.bind(map);
+
+        this.modelParam = (Map<String, Object>) map.get("modelParam");
+        this.extendParam = (Map<String, Object>) map.get("extendParam");
     }
 }

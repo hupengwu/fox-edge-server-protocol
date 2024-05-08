@@ -80,15 +80,15 @@ public class ModBusProtocolReadStatus {
         Integer regAddr = (Integer) param.get("regAddr");
         Integer regCnt = (Integer) (param.get("regCnt"));
         String modbusMode = (String) param.get("modbusMode");
-        String templateName = (String) param.get("templateName");
-        String tableName = (String) param.get("tableName");
+        String modelName = (String) param.get("modelName");
 
         // 检查输入参数
-        if (MethodUtils.hasEmpty(devAddr, regAddr, regCnt, modbusMode, templateName, tableName)) {
-            throw new ProtocolException("输入参数不能为空:devAddr, regAddr, regCnd, modbusMode, templateName, tableName");
+        if (MethodUtils.hasEmpty(devAddr, regAddr, regCnt, modbusMode, modelName)) {
+            throw new ProtocolException("输入参数不能为空: devAddr, regAddr, regCnt, modbusMode, modelName");
         }
 
-        JReadStatusTemplate template = TemplateFactory.getTemplate("fox-edge-server-protocol-modbus").getTemplate(templateName, tableName, JReadStatusTemplate.class);
+        JReadStatusTemplate template = TemplateFactory.getTemplate("fox-edge-server-protocol-modbus").getTemplate("jsn", modelName, JReadStatusTemplate.class);
+
 
         // 确定命令字
         Byte func = 0;

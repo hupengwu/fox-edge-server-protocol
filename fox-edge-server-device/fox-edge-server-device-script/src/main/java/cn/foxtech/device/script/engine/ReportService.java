@@ -28,7 +28,7 @@ public class ReportService {
 
     public Map<String, Object> decode(String manufacturer, String deviceType, List<BaseEntity> jspReportList, Object recv, Map<String, Object> params) throws ProtocolException {
         // 打印日志
-        this.printLogger("接收到通道上报数据：" + recv);
+        this.printLogger("接收到通道上报数据：\n" + recv);
 
         // 取出ScriptEngine
         ScriptEngine engine = this.engineService.getScriptEngine(manufacturer, deviceType);
@@ -62,8 +62,7 @@ public class ReportService {
                     return this.engineOperator.decodeStatus(engine, operateEntity.getOperateName(), decodeMain, decodeScript);
                 }
             } catch (Exception e) {
-                this.printLogger("解码失败:" + operateEntity.toString() + "\r\n" + e.getMessage());
-                continue;
+               continue;
             }
         }
 
