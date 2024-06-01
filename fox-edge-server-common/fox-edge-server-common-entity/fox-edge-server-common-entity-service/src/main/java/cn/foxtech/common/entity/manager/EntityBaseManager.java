@@ -86,6 +86,18 @@ public abstract class EntityBaseManager {
         this.entityRedisComponent.getConsumer().addAll(entityTypes);
     }
 
+    public void addProducer(String entityType) {
+        this.entityRedisComponent.getProducer().add(entityType);
+    }
+
+    public void addAgileConsumer(Set<String> entityTypes) {
+        this.entityAgileMapComponent.getConsumer().addAll(entityTypes);
+    }
+
+    public void addAgileConsumer(String entityType) {
+        this.entityAgileMapComponent.getConsumer().add(entityType);
+    }
+
 
     private boolean initLoadProducerEntity(String simpleName) {
         // 如果不需要这个生产者，按成功处理，直接返回成功
