@@ -16,3 +16,7 @@ buildNumber.properties
 /logs
 /template/tar/*.tar
 .flattened-pom.xml
+/fox-edge-server-protocol/.flattened-pom.xml
+/fox-edge-server-protocol/fox-edge-server-protocol-core/.flattened-pom.xml
+/fox-edge-server-protocol/fox-edge-server-protocol-mitsubishi-plc-fx/.flattened-pom.xml
+/fox-edge-server-protocol/fox-edge-server-protocol-iec104-slaver/.flattened-pom.xml
