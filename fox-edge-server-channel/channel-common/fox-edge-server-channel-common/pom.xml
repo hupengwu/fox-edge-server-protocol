@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <artifactId>fox-edge-server-channel</artifactId>
+        <artifactId>channel-common</artifactId>
         <groupId>cn.fox-tech</groupId>
         <version>${revision}</version>
     </parent>

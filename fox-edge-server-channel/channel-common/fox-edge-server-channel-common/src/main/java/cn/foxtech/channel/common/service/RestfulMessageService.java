@@ -37,7 +37,7 @@ public class RestfulMessageService {
             entity.setChannelParam(channelParam);
         }
 
-        this.managerClient.pushRequest("/kernel/manager/channel/entity", "post", entity);
+        this.managerClient.pushRequest("/channel/entity", "post", entity);
     }
 
     public void createDevice(String manufacturer, String deviceType, String deviceName, String channelName, Map<String, Object> deviceParam) {
@@ -51,6 +51,6 @@ public class RestfulMessageService {
             entity.setDeviceParam(deviceParam);
         }
 
-        this.managerClient.pushRequest("/kernel/manager/device/entity", "post", entity);
+        this.managerClient.pushRequest("/device/entity", "post", entity);
     }
 }
