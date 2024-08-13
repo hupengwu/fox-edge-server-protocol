@@ -1,3 +1,20 @@
+/* ----------------------------------------------------------------------------
+ * Copyright (c) Guangzhou Fox-Tech Co., Ltd. 2020-2024. All rights reserved.
+ *
+ *     This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ *     This program is distributed in the hope that it will be useful,
+ *     but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ *     You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ * --------------------------------------------------------------------------- */
+
 package cn.foxtech.common.utils.http;
 
 
@@ -36,6 +53,11 @@ public class UploadUtil {
     public static String multipartPost(String url, Map<String, String> headers, Map<String, Object> formData) {
         // 创建 HttpPost 对象
         HttpPost httpPost = new HttpPost(url);
+        try {
+
+        } catch (Exception e) {
+
+        }
 
         // 设置请求头
         for (String key : headers.keySet()) {
@@ -59,6 +81,8 @@ public class UploadUtil {
         HttpEntity entity = builder.build();
         // 将构造好的 entity 设置到 HttpPost 对象中
         httpPost.setEntity(entity);
+
+
         return execute(httpPost, null);
     }
 
@@ -76,11 +100,15 @@ public class UploadUtil {
         }
     }
 
-    private static String execute(HttpRequestBase httpRequestBase, HttpContext context) {
-        CloseableHttpClient httpClient = HttpClients.createDefault();
+    private static String execute(HttpRequestBase httpRequest, HttpContext context) {
+        CloseableHttpClient httpClient = null;
+        CloseableHttpResponse httpResponse = null;
 
-        // 使用 try-with-resources 发起请求，保证请求完成后资源关闭
-        try (CloseableHttpResponse httpResponse = httpClient.execute(httpRequestBase, context)) {
+        try {
+            // 使用 try-with-resources 发起请求，保证请求完成后资源关闭
+            httpClient = HttpClients.createDefault();
+            httpResponse = httpClient.execute(httpRequest, context);
+
             // 处理响应体
             HttpEntity httpEntity = httpResponse.getEntity();
             if (httpEntity != null) {
@@ -89,6 +117,20 @@ public class UploadUtil {
             }
         } catch (Exception ex) {
             throw new RuntimeException("http execute failed:" + ex.getMessage());
+        } finally {
+            try {
+                if (httpResponse != null) {
+                    httpResponse.close();
+                }
+                if (httpClient != null) {
+                    httpClient.close();
+                }
+                if (httpRequest != null) {
+                    httpRequest.reset();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
 
         throw new RuntimeException("http execute failed:" + HttpStatus.SC_INTERNAL_SERVER_ERROR);
