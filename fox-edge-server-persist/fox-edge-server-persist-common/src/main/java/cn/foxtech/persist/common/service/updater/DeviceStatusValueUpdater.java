@@ -1,18 +1,5 @@
 /* ----------------------------------------------------------------------------
  * Copyright (c) Guangzhou Fox-Tech Co., Ltd. 2020-2024. All rights reserved.
- *
- *     This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- *     This program is distributed in the hope that it will be useful,
- *     but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- *     You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  * --------------------------------------------------------------------------- */
 
 package cn.foxtech.persist.common.service.updater;
@@ -23,7 +10,7 @@ import cn.foxtech.common.entity.manager.EntityPublishManager;
 import cn.foxtech.common.utils.pair.Pair;
 import cn.foxtech.persist.common.history.IDeviceHistoryUpdater;
 import cn.foxtech.persist.common.service.DeviceObjectMapper;
-import cn.foxtech.persist.common.service.EntityManageService;
+import cn.foxtech.persist.common.service.PersistManageService;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,7 +30,7 @@ public class DeviceStatusValueUpdater {
      * 实体管理
      */
     @Autowired
-    private EntityManageService entityManageService;
+    private PersistManageService entityManageService;
     @Autowired
     private IDeviceHistoryUpdater deviceHistoryEntityUpdater;
     @Autowired

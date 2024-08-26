@@ -1,18 +1,5 @@
 /* ----------------------------------------------------------------------------
  * Copyright (c) Guangzhou Fox-Tech Co., Ltd. 2020-2024. All rights reserved.
- *
- *     This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- *     This program is distributed in the hope that it will be useful,
- *     but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- *     You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  * --------------------------------------------------------------------------- */
 
 package cn.foxtech.device.protocol.v1.modbus.template;
@@ -154,17 +141,20 @@ public class JReadRegistersTemplate implements ITemplate {
         if (jDecoderValueParam.value_type.equals("int")) {
             request.setMemAddr(jDecoderValueParam.value_index);
             request.setValue((int) (Integer.valueOf(objectValue.toString()) / jDecoderValueParam.magnification));
+            return request;
+        }
+        if (jDecoderValueParam.value_type.equals("long")) {
+            request.setMemAddr(jDecoderValueParam.value_index);
+            request.setValue((int) (Integer.valueOf(objectValue.toString()) / jDecoderValueParam.magnification));
+            return request;
         }
         if (jDecoderValueParam.value_type.equals("float")) {
             request.setMemAddr(jDecoderValueParam.value_index);
             request.setValue((int) (Float.valueOf(objectValue.toString()) / jDecoderValueParam.magnification));
+            return request;
         }
 
-        if (jDecoderValueParam.value_type.equals("bool")) {
-            throw new ProtocolException("不支持对bool进行编码，因为一个16位寄存器可能是多个bool在彼此共享");
-        }
-
-        return request;
+        throw new ProtocolException("不支持对该数据进行编码：" + objectName);
     }
 
 
@@ -195,6 +185,16 @@ public class JReadRegistersTemplate implements ITemplate {
             // 整数：比如284，编码格式为int16，但实际上是放大10倍，变为2840
             if (jDecoderValueParam.value_type.equals("int")) {
                 result.put(name, (int) (status * jDecoderValueParam.magnification));
+            }
+            // 整数：比如284，编码格式为long32，但实际上是放大10倍，变为2840
+            if (jDecoderValueParam.value_type.equals("long")) {
+                if (statusList.length <= index + 1) {
+                    continue;
+                }
+
+                status = statusList[index] * 0x10000 + statusList[index + 1];
+
+                result.put(name, (long) (status * jDecoderValueParam.magnification));
             }
             // 定点小数：比如284，编码格式为int16，但实际上是缩小10倍，变为实28.4
             if (jDecoderValueParam.value_type.equals("fix-float")) {

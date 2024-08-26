@@ -1,18 +1,5 @@
 /* ----------------------------------------------------------------------------
  * Copyright (c) Guangzhou Fox-Tech Co., Ltd. 2020-2024. All rights reserved.
- *
- *     This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- *     This program is distributed in the hope that it will be useful,
- *     but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- *     You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  * --------------------------------------------------------------------------- */
 
 package cn.foxtech.common.entity.manager;
@@ -28,7 +15,6 @@ import com.fasterxml.jackson.core.JsonParseException;
 import lombok.AccessLevel;
 import lombok.Getter;
 import org.apache.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.serializer.SerializationException;
 
 import java.util.HashSet;
@@ -53,39 +39,47 @@ public abstract class EntityBaseManager {
     /**
      * redis缓存组件
      */
-    @Autowired
-    protected EntityRedisComponent entityRedisComponent;
+    protected EntityRedisComponent entityRedisComponent = new EntityRedisComponent();
     /**
      * 数据库组件
      */
-    @Autowired
-    protected EntityMySqlComponent entityMySQLComponent;
+    protected EntityMySqlComponent entityMySQLComponent = new EntityMySqlComponent();
     /**
      * 数据变化感知组件
      */
-    @Autowired
-    protected EntityChangeComponent entityChangeComponent;
+    protected EntityChangeComponent entityChangeComponent = new EntityChangeComponent();
     /**
      * HashMap版本的redis缓存组件：只读
      */
-    @Autowired
-    protected EntityHashMapComponent entityHashMapComponent;
+    protected EntityHashMapComponent entityHashMapComponent = new EntityHashMapComponent();
     /**
      * 敏捷状态组件
      */
-    @Autowired
-    protected EntityAgileMapComponent entityAgileMapComponent;
+    protected EntityAgileMapComponent entityAgileMapComponent = new EntityAgileMapComponent();
 
     /**
      * redis部件
      */
-    @Autowired
     private RedisService redisService;
+
     /**
      * 初始化状态
      */
     @Getter(value = AccessLevel.PUBLIC)
     private boolean isInitialized = false;
+
+    /**
+     * 绑定
+     *
+     * @param redisService
+     */
+    protected void instance(RedisService redisService) {
+        this.redisService = redisService;
+
+        this.entityRedisComponent.setRedisService(redisService);
+        this.entityHashMapComponent.setRedisService(redisService);
+        this.entityAgileMapComponent.setRedisService(redisService);
+    }
 
     public void addReader(String entityType) {
         this.entityRedisComponent.getReader().add(entityType);

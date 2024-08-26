@@ -1,18 +1,5 @@
 /* ----------------------------------------------------------------------------
  * Copyright (c) Guangzhou Fox-Tech Co., Ltd. 2020-2024. All rights reserved.
- *
- *     This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- *     This program is distributed in the hope that it will be useful,
- *     but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- *     You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  * --------------------------------------------------------------------------- */
 
 package cn.foxtech.common.entity.service.redis;
@@ -57,7 +44,7 @@ public class RedisReader {
      *
      * @return
      */
-    public synchronized Map<String, Object> readAgileMap() {
+    public Map<String, Object> readAgileMap() {
         return this.redisTemplate.opsForHash().entries(this.getHead() + "agile");
     }
 
@@ -66,12 +53,12 @@ public class RedisReader {
      *
      * @return
      */
-    public synchronized Object readSync() {
+    public Object readSync() {
         return this.redisTemplate.opsForValue().get(this.getHead() + "sync");
     }
 
 
-    public synchronized Map<String, Object> readHashMap() {
+    public Map<String, Object> readHashMap() {
         Map<String, Object> map = this.redisTemplate.opsForHash().entries(this.getHead() + "data");
         return map;
     }
@@ -114,7 +101,7 @@ public class RedisReader {
         return result;
     }
 
-    public synchronized Map<String, BaseEntity> readEntityMap(final Collection hKeys) throws InstantiationException, IllegalAccessException {
+    public Map<String, BaseEntity> readEntityMap(final Collection hKeys) throws InstantiationException, IllegalAccessException {
         List<Object> mapList = this.redisTemplate.opsForHash().multiGet(this.getHead() + "data", hKeys);
         return this.makeHashMap2EntityList(mapList);
     }
@@ -124,14 +111,14 @@ public class RedisReader {
      *
      * @return
      */
-    public synchronized BaseEntity readEntity(String serviceKey) throws IOException {
+    public BaseEntity readEntity(String serviceKey) throws IOException {
         Class clazz = BaseEntityClassFactory.getInstance(this.getEntityType());
 
         Map<String, Object> dataJsn = (Map<String, Object>) this.redisTemplate.opsForHash().get(this.getHead() + "data", serviceKey);
         return this.makeJson2Entity(clazz, dataJsn);
     }
 
-    public synchronized Map<String, Object> readHashMap(String serviceKey) {
+    public Map<String, Object> readHashMap(String serviceKey) {
         return (Map<String, Object>) this.redisTemplate.opsForHash().get(this.getHead() + "data", serviceKey);
     }
 

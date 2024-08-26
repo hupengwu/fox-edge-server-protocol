@@ -1,18 +1,5 @@
 /* ----------------------------------------------------------------------------
  * Copyright (c) Guangzhou Fox-Tech Co., Ltd. 2020-2024. All rights reserved.
- *
- *     This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- *     This program is distributed in the hope that it will be useful,
- *     but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- *
- *     You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  * --------------------------------------------------------------------------- */
 
 package cn.foxtech.common.entity.manager;
@@ -24,7 +11,7 @@ import org.springframework.stereotype.Component;
 
 /**
  * 初始化配置的管理
- *
+ * <p>
  * 简化初始化配置的注册流程
  */
 @Getter
@@ -47,4 +34,16 @@ public class InitialConfigService extends EntityConfigInitializer {
 
     @Value("${spring.fox-service.service.name}")
     private String foxServiceName = "undefinedServiceName";
+
+    /**
+     * 重新绑定
+     * 说明：
+     * 默认（服务模式），全局只有一个entityManageService实例，可以有spring框架的Autowired自动组装。
+     * 组合模式，此时多个模块都会有entityManageService实例，需要手动指定一个entityManageService
+     *
+     * @param entityManageService
+     */
+    public void bindEntityManageService(EntityServiceManager entityManageService) {
+        this.entityManageService = entityManageService;
+    }
 }
